@@ -1,23 +1,42 @@
-## Laravel PHP Framework
+## Laravel 5 example ##
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/downloads.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
+**Laravel 5 example** is a tutorial application. It's a work in progress because Laravel 5 is still alpha.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, queueing, and caching.
+### Installation ###
 
-Laravel is accessible, yet powerful, providing powerful tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+* `git clone https://github.com/bestmomo/laravel5-example.git projectname`
+* `cd projectname`
+* `composer instal`
+* `php artisan key:generate`
+* Create a database and inform *app/config/database.php*
+* `php artisan migrate` to create tables
+* `php artisan db:seed` to populate tables
+* Inform *app/config/mail.php* for email sends
 
-## Official Documentation
+### Include ###
 
-Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
+* [HTML5 Boilerplate](http://html5boilerplate.com) for front architecture
+* [Bootstrap](http://getbootstrap.com) for CSS and jQuery plugins
+* [Font Awesome](http://fortawesome.github.io/Font-Awesome) for the nice icons
+* [Highlight.js](https://highlightjs.org) for highlighting code
+* [Startbootstrap](http://startbootstrap.com) for the free templates
+* [CKEditor](http://ckeditor.com) the great editor
+* [Filemanager](https://github.com/simogeo/Filemanager) the easy file manager
 
-## Contributing
+### Features ###
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+* Home page
+* Custom Error Page 404
+* Authentication (registration, login, logout, password reset)
+* Users roles : administrator (all access), redactor (create and edit post, upload and use medias in personnal directory), and user (create comment in blog)
+* Blog with comments
+* Contact us page
+* Admin dashboard with new messages, users, posts and comments
+* Users admin (roles filter, show, edit, delete, create)
+* Messages admin
+* Posts admin (list with dynamic order, show, edit, delete, create)
+* Medias gestion
 
-### License
+### Packages included ###
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+* illuminate/html
