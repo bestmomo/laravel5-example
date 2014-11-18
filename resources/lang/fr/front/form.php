@@ -1,0 +1,5 @@
+<?php
+
+return [
+	'send' => 'Envoyer'
+];

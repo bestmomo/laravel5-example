@@ -1,0 +1,13 @@
+<?php
+
+return [
+	'connection' => 'Connexion',
+	'text' => 'Pour vous connecter au site il vous suffit de remplir le formulaire suivant :',
+	'email' => 'Votre Email',
+	'password' => 'Votre Mot de passe',
+	'remind' => 'Se rappeler de moi',
+	'forget' => 'J\'ai oublié mon mot de passe !',
+	'register' => 'Vous n\'êtes pas encore inscrit ?',
+	'register-info' => 'Vous pouvez vous inscrire rapidement et gratuitement et pouvoir ainsi laisser des commentaires en cliquant sur le bouton ci-dessous.',
+	'registering' => 'Je m\'inscris'
+];
