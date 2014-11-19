@@ -27,6 +27,13 @@
 		{!! HTML::style('http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800') !!}
 		{!! HTML::style('http://fonts.googleapis.com/css?family=Josefin+Slab:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic') !!}
 
+<style type="text/css">
+	li.imgflag a { padding-left: 15px; }
+	@media screen and (min-width:768px) {
+		li.imgflag a { padding: 30px }
+	}
+</style>
+	
 	</head>
 
   <body>
@@ -36,8 +43,10 @@
 		<![endif]-->
 
     <header role="banner">
+
      	<div class="brand">{{ trans('front/site.title') }}</div>
 			<div class="address-bar">{{ trans('front/site.sub-title') }}</div>
+			<div id="flags" class="text-center"></div>
 			<nav class="navbar navbar-default" role="navigation">
 				<div class="container">
 					<div class="navbar-header">
@@ -91,6 +100,9 @@
 									</li>
 								@endif
 							@endif
+							<li class="imgflag">
+								<a href="{!! url('language') !!}"><img width="32" height="32" alt="en" src="{!! asset('img/' . (Session::get('locale') == 'fr' ? 'english' : 'french') . '-flag.png') !!}"></a>
+							</li>
 						</ul>
 					</div>
 				</div>
