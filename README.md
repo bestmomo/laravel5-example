@@ -12,6 +12,7 @@
 * `php artisan migrate` to create tables
 * `php artisan db:seed` to populate tables
 * Inform *app/config/mail.php* for email sends
+* Change localisation in config/app.php if you want french texts (default is english)
 
 ### Include ###
 
