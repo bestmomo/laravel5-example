@@ -5,7 +5,7 @@ use Illuminate\Contracts\Auth\Guard;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Gestion\UserGestion;
-use Illuminate\Session\Store;
+use Illuminate\Session\SessionManager;
 
 /**
  * @Middleware("guest", except={"logout"})
@@ -88,12 +88,12 @@ class AuthController extends Controller {
 	 * @Post("auth/login")
 	 *
 	 * @param  App\Http\Requests\LoginRequest  $request
-	 * @param  Illuminate\Session\Store  $session
+	 * @param  Illuminate\Session\SessionManager  $session
 	 * @return Response
 	 */
 	public function postLogin(
 		LoginRequest $request, 
-		Store $session)
+		SessionManager $session)
 	{
 		// Vérification pot de miel
 		if($request->get('user') != '') return redirect('/');
