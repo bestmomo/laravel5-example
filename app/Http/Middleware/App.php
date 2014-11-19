@@ -16,7 +16,7 @@ class App implements Middleware {
 	public function handle($request, Closure $next)
 	{
 
-		Config::set('app.locale', Session::get('locale', function() 
+		Config::set('app.locale', Session::get('locale', function() use($request)
 			{ 
 				return $request->getPreferredLanguage(['en', 'fr']); 
 			})
