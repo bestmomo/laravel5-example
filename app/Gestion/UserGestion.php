@@ -2,7 +2,7 @@
 
 use App\Models\User, App\Models\Role;
 use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Session\Store;
+use Illuminate\Session\SessionManager;
 use File;
 
 class UserGestion extends BaseGestion{
@@ -34,14 +34,14 @@ class UserGestion extends BaseGestion{
 	 * @param  App\Models\User $model
 	 * @param  App\Models\Role $role
 	 * @param  Illuminate\Contracts\Auth\Guard $auth
-	 * @param  Illuminate\Session\Store $session
+	 * @param  Illuminate\Session\SessionManager $session
 	 * @return void
 	 */
 	public function __construct(
 		User $user, 
 		Role $role, 
 		Guard $auth, 
-		Store $session)
+		SessionManager $session)
 	{
 		$this->model = $user;
 		$this->role = $role;
