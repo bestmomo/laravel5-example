@@ -30,6 +30,8 @@
 * Authentication (registration, login, logout, password reset)
 * Users roles : administrator (all access), redactor (create and edit post, upload and use medias in personnal directory), and user (create comment in blog)
 * Blog with comments
+* Search in posts
+* Tags on posts
 * Contact us page
 * Admin dashboard with new messages, users, posts and comments
 * Users admin (roles filter, show, edit, delete, create)
@@ -40,3 +42,12 @@
 ### Packages included ###
 
 * illuminate/html
+
+### Tricks ###
+
+To test application the database is seeding with users :
+
+* Administrator : email = admin@la.fr, password = admin
+* Redactor : email = redac@la.fr, password = redac
+* User : email = walker@la.fr, password = walker
+* User : email = slacker@la.fr, password = slacker
