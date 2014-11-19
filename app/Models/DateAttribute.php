@@ -11,7 +11,7 @@ trait DateAttribute {
 	 */
 	public function getCreatedAtAttribute($date)
 	{
-		return Carbon::parse($date)->format('d-m-Y');
+		return Carbon::parse($date)->format($this->getFormat());
 	}
 
 	/**
@@ -21,7 +21,17 @@ trait DateAttribute {
 	 */
 	public function getUpdatedAtAttribute($date)
 	{
-	  return Carbon::parse($date)->format('d-m-Y');
+	  return Carbon::parse($date)->format($this->getFormat());
+	}
+
+	/**
+	 * Format updated_at attribute
+	 *
+	 * @return string
+	 */
+	private function getFormat()
+	{
+	  return config('app.locale') == 'fr' ? 'd-m-Y' : 'm-d-Y';
 	}
 
 }
