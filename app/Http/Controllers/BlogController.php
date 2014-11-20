@@ -203,6 +203,23 @@ class BlogController extends Controller {
 	}
 
 	/**
+	 * Update "actif" for the specified resource in storage.
+	 *
+	 * @Put("postactif/{id}")
+	 *
+	 * @param  Illuminate\Http\Request $request
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function updateActif(
+		Request $request, 
+		$id)
+	{
+		$this->blog_gestion->updateActif($request->all(), $id);
+		return response()->json(['statut' => 'ok']);
+	}
+
+	/**
 	 * Remove the specified resource from storage.
 	 *
 	 * @param  Illuminate\Http\Request $request

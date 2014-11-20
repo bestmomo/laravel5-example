@@ -244,6 +244,20 @@ class BlogGestion extends BaseGestion{
 	}
 
 	/**
+	 * Update "actif" in post.
+	 *
+	 * @param  array  $inputs
+	 * @param  int    $id
+	 * @return void
+	 */
+	public function updateActif($inputs, $id)
+	{
+		$post = $this->model->findOrFail($id);
+		$post->actif = $inputs['actif'] == 'true';	
+		$post->save();			
+	}
+
+	/**
 	 * Create a post.
 	 *
 	 * @param  array  $inputs

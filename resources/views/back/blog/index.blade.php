@@ -51,7 +51,7 @@
     $(function() {
 
       // Traitement du vu
-      $(document).on('change', ':checkbox', function() {
+      $(document).on('change', ':checkbox[name="vu"]', function() {
         $(this).parents('tr').toggleClass('warning');
         $(this).hide().parent().append('<i class="fa fa-refresh fa-spin"></i>');
         var token = $('input[name="_token"]').val();
@@ -62,11 +62,33 @@
         })
         .done(function() {
           $('.fa-spin').remove();
-          $('input[type="checkbox"]:hidden').show();
+          $('input:checkbox[name="vu"]:hidden').show();
         })
         .fail(function() {
           $('.fa-spin').remove();
-          chk = $('input[type="checkbox"]:hidden');
+          chk = $('input:checkbox[name="vu"]:hidden');
+          chk.show().prop('checked', chk.is(':checked') ? null:'checked').parents('tr').toggleClass('warning');
+          alert('{{ trans('back/blog.fail') }}');
+        });
+      });
+
+      // Traitement du actif
+      $(document).on('change', ':checkbox[name="actif"]', function() {
+        $(this).parents('tr').toggleClass('warning');
+        $(this).hide().parent().append('<i class="fa fa-refresh fa-spin"></i>');
+        var token = $('input[name="_token"]').val();
+        $.ajax({
+          url: 'postactif/' + this.value,
+          type: 'PUT',
+          data: "actif=" + this.checked + "&_token=" + token,
+        })
+        .done(function() {
+          $('.fa-spin').remove();
+          $('input:checkbox[name="actif"]:hidden').show();
+        })
+        .fail(function() {
+          $('.fa-spin').remove();
+          chk = $('input:checkbox[name="actif"]:hidden');
           chk.show().prop('checked', chk.is(':checked') ? null:'checked').parents('tr').toggleClass('warning');
           alert('{{ trans('back/blog.fail') }}');
         });
