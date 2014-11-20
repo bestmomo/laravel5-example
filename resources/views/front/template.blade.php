@@ -57,7 +57,7 @@
 								{!! link_to('/', trans('front/site.home')) !!}
 							</li>
 							@if($statut == 'visitor' || $statut == 'user')
-								<li {!! Request::is('contact') ? 'class="active"' : '' !!}>
+								<li {!! Request::is('contact/create') ? 'class="active"' : '' !!}>
 									{!! link_to('contact/create', trans('front/site.contact')) !!}
 								</li>
 							@endif
