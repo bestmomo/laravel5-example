@@ -8,7 +8,7 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
 class User extends Model implements AuthenticatableContract, CanResetPasswordContract {
 
-	use Authenticatable, CanResetPassword, NumberVu;
+	use Authenticatable, CanResetPassword;
 
 	/**
 	 * The database table used by the model.

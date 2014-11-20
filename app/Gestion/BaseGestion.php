@@ -16,7 +16,7 @@ class BaseGestion {
 	 */
 	public function getNumberVu()
 	{
-		return $this->model->numberVu();
+		return $this->model->whereVu(0)->count();
 	}
 
 	/**

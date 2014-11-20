@@ -4,7 +4,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Contact extends Model  {
 
-	use NumberVu, DateAttribute;
+	use DateAttribute;
 
 	/**
 	 * The database table used by the model.
