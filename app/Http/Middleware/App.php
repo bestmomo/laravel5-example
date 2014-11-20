@@ -15,12 +15,12 @@ class App implements Middleware {
 	 */
 	public function handle($request, Closure $next)
 	{
+		if(!Session::has('locale'))
+		{
+			Session::put('locale', $request->getPreferredLanguage(['en', 'fr']));
+		}
 
-		Config::set('app.locale', Session::get('locale', function() use($request)
-			{ 
-				return $request->getPreferredLanguage(['en', 'fr']); 
-			})
-		);
+		Config::set('app.locale', Session::get('locale'));
 
 		return $next($request);
 	}
