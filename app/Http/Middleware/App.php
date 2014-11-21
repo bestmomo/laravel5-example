@@ -1,8 +1,7 @@
 <?php namespace App\Http\Middleware;
 
-use Closure, Session, Config;
+use Closure, Session;
 use Illuminate\Contracts\Routing\Middleware;
-use Illuminate\Http\RedirectResponse;
 
 class App implements Middleware {
 
