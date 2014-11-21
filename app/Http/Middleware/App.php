@@ -9,7 +9,7 @@ class App implements Middleware {
 	/**
 	 * The availables languages.
 	 *
-	 * @array $availableLanguages
+	 * @array $languages
 	 */
 	protected $languages = ['en','fr'];
 
