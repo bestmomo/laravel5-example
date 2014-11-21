@@ -7,6 +7,13 @@ use Illuminate\Http\RedirectResponse;
 class App implements Middleware {
 
 	/**
+	 * The availables languages.
+	 *
+	 * @array $availableLanguages
+	 */
+	protected $languages = ['en','fr'];
+
+	/**
 	 * Handle an incoming request.
 	 *
 	 * @param  \Illuminate\Http\Request  $request
@@ -17,10 +24,10 @@ class App implements Middleware {
 	{
 		if(!Session::has('locale'))
 		{
-			Session::put('locale', $request->getPreferredLanguage(['en', 'fr']));
+			Session::put('locale', $request->getPreferredLanguage($this->languages));
 		}
 
-		Config::set('app.locale', Session::get('locale'));
+		app()->setLocale(Session::get('locale'));
 
 		return $next($request);
 	}
