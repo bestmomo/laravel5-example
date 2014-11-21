@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\Kernel as HttpKernel;
 class Kernel extends HttpKernel {
 
 	/**
-	 * The application's HTTP middleware stack.
+	 * The application's global HTTP middleware stack.
 	 *
 	 * @var array
 	 */
@@ -21,29 +21,16 @@ class Kernel extends HttpKernel {
 	];
 
 	/**
-	 * Handle an incoming HTTP request.
+	 * The application's route middleware.
 	 *
-	 * @param  \Illuminate\Http\Request  $request
-	 * @return \Illuminate\Http\Response
+	 * @var array
 	 */
-	public function handle($request)
-	{
-		try
-		{
-			return parent::handle($request);
-		}
-		catch(\Symfony\Component\HttpKernel\Exception\NotFoundHttpException $e)
-		{
-			//$this->reportException($e);
-			
-			return response()->view('front.missing', [], 404);
-		}
-		catch (Exception $e)
-		{
-			$this->reportException($e);
-
-			return $this->renderException($request, $e);
-		}
-	}
+	protected $routeMiddleware = [
+		'auth' => 'App\Http\Middleware\Authenticate',
+		'auth.basic' => 'Illuminate\Auth\Middleware\AuthenticateWithBasicAuth',
+		'guest' => 'App\Http\Middleware\RedirectIfAuthenticated',
+		'admin' => 'App\Http\Middleware\IsAdmin',
+		'redac' => 'App\Http\Middleware\IsRedactor',
+	];
 
 }
