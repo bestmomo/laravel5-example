@@ -72,6 +72,7 @@ return [
 	],
 	"unique"               => "The :attribute has already been taken.",
 	"url"                  => "The :attribute format is invalid.",
+    "tags"                 => "tags, separated by commas (no spaces), should have a maximum of 50 characters.",
 	"timezone"             => "The :attribute must be a valid zone.",
 
 	/*

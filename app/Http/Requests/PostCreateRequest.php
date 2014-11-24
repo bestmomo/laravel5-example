@@ -16,7 +16,7 @@ class PostCreateRequest extends FormRequest {
 			'sommaire' => 'required|max:65000',
 			'contenu' => 'required|max:65000',
 			'slug' => 'required|unique:posts',
-			'tags' => ['regex:/^[A-Za-z0-9-éèàù]{1,50}?(,[A-Za-z0-9-éèàù]{1,50})*$/']  // voir si ? vraiment utile
+			'tags' => 'tags'
 		];
 	}
 
@@ -30,9 +30,4 @@ class PostCreateRequest extends FormRequest {
 		return true;
 	}
 
-	public function messages()
-	{
-		return ['tags.regex' => 'Les mots-clefs, séparés par des virgules (sans espaces), doivent avoir au maximum 50 caractères alphanumériques'];
-	}
- 
 }

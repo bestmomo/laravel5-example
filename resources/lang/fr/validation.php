@@ -69,6 +69,7 @@ return array(
         "string"  => "Le texte de :attribute doit contenir :size caractères.",
         "array"   => "Le champ :attribute doit contenir :size éléments."
     ),
+    "tags"                 => "Les mots-clefs, séparés par des virgules (sans espaces), doivent avoir au maximum 50 caractères alphanumériques.",
     "timezone"             => "Le champ :attribute doit être une zone valide.",
     "unique"               => "La valeur du champ :attribute est déjà utilisée.",
     "url"                  => "Le format de l'URL de :attribute n'est pas valide.",
