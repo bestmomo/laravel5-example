@@ -1,15 +1,26 @@
-<?php namespace App\Http\Controllers;
+<?php namespace App\Http\Controllers\Auth;
 
-use Illuminate\Http\Request;
+use App\Models\User;
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
+use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\PasswordBroker;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
 use App\Gestion\UserGestion;
 use Illuminate\View\Factory;
-	
+
 /**
  * @Middleware("guest")
  */
 class PasswordController extends Controller {
+
+	/**
+	 * The Guard implementation.
+	 *
+	 * @var Guard
+	 */
+	protected $auth;
 
 	/**
 	 * The password broker implementation.
@@ -24,11 +35,12 @@ class PasswordController extends Controller {
 	 * @param  PasswordBroker  $passwords
 	 * @return void
 	 */
-	public function __construct(PasswordBroker $passwords)
+	public function __construct(
+		Guard $auth, 
+		PasswordBroker $passwords)
 	{
+		$this->auth = $auth;
 		$this->passwords = $passwords;
-
-		//$this->middleware('guest');
 	}
 
 	/**
@@ -50,12 +62,12 @@ class PasswordController extends Controller {
 	 *
 	 * @Post("password/email")
 	 *
-	 * @param  Illuminate\Http\Request $request
+	 * @param  EmailPasswordLinkRequest  $request
 	 * @param  Illuminate\View\Factory $view
 	 * @return Response
 	 */
 	public function postEmail(
-		Request $request,
+		Requests\Auth\EmailPasswordLinkRequest $request,
 		Factory $view)
 	{
 		// Vérification pot de miel
@@ -71,17 +83,17 @@ class PasswordController extends Controller {
       	'minutes' => trans('front/password.minutes'),
       ]);
     });
-		
+
     switch ($response = $this->passwords->sendResetLink($request->only('email'), function($message)
 		{
 			$message->subject(trans('front/password.reset'));
 		}))
 		{
-			case PasswordBroker::INVALID_USER:
-				return redirect()->back()->with('error', trans($response));
-
 			case PasswordBroker::RESET_LINK_SENT:
 				return redirect()->back()->with('status', trans($response));
+
+			case PasswordBroker::INVALID_USER:
+				return redirect()->back()->with('error', trans($response));
 		}
 	}
 
@@ -95,7 +107,7 @@ class PasswordController extends Controller {
 	 * @return Response
 	 */
 	public function getReset(
-		UserGestion $user_gestion, 
+		UserGestion $user_gestion,
 		$token = null)
 	{
 		if (is_null($token))
@@ -110,12 +122,11 @@ class PasswordController extends Controller {
 	 * Reset the given user's password.
 	 *
 	 * @Post("password/reset")
-	 *
-	 * @param  Illuminate\Http\Request $request
+	 * 
+	 * @param  ResetPasswordRequest  $request
 	 * @return Response
 	 */
-	public function postReset(
-		Request $request)
+	public function postReset(Requests\Auth\ResetPasswordRequest $request)
 	{
     $this->passwords->validator(function($credentials)
 		{
@@ -135,13 +146,11 @@ class PasswordController extends Controller {
 
 		switch ($response)
 		{
-			case PasswordBroker::INVALID_PASSWORD:
-			case PasswordBroker::INVALID_TOKEN:
-			case PasswordBroker::INVALID_USER:
-				return redirect()->back()->with('error', trans($response))->withInput();
-
 			case PasswordBroker::PASSWORD_RESET:
 				return redirect()->to('/')->with('ok', trans('passwords.reset'));
+
+			default:
+				return redirect()->back()->with('error', trans($response))->withInput();
 		}
 	}
 

@@ -9,5 +9,6 @@ return [
 	'forget' => 'J\'ai oublié mon mot de passe !',
 	'register' => 'Vous n\'êtes pas encore inscrit ?',
 	'register-info' => 'Vous pouvez vous inscrire rapidement et gratuitement et pouvoir ainsi laisser des commentaires en cliquant sur le bouton ci-dessous.',
-	'registering' => 'Je m\'inscris'
+	'registering' => 'Je m\'inscris',
+	'credentials' => 'Ces informations ne correspondent pas à celles que nous avons dans notre base de données.'
 ];

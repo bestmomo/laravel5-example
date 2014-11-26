@@ -9,5 +9,6 @@ return [
 	'forget' => 'I have forgotten my password !',
 	'register' => 'Not registered ?',
 	'register-info' => 'To register quickly just click on the button !',
-	'registering' => 'Je m\'inscris'
+	'registering' => 'Je m\'inscris',
+	'credentials' => 'These credentials do not match our records.'
 ];

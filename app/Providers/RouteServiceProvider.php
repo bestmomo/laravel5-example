@@ -26,8 +26,8 @@ class RouteServiceProvider extends ServiceProvider {
 		'App\Http\Controllers\ContactController',
 		'App\Http\Controllers\BlogController',
 		'App\Http\Controllers\CommentController',
-		'App\Http\Controllers\AuthController',
-		'App\Http\Controllers\PasswordController',
+		'App\Http\Controllers\Auth\AuthController',
+		'App\Http\Controllers\Auth\PasswordController',
 	];
 
 	/**

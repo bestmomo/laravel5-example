@@ -1,14 +1,15 @@
-<?php namespace App\Http\Controllers;
+<?php namespace App\Http\Controllers\Auth;
 
+use App\Models\User;
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Auth\Guard;
 
-use App\Http\Requests\LoginRequest;
-use App\Http\Requests\RegisterRequest;
 use App\Gestion\UserGestion;
 use Illuminate\Session\SessionManager;
 
 /**
- * @Middleware("guest", except={"logout"})
+ * @Middleware("guest", except={"getLogout"})
  */
 class AuthController extends Controller {
 
@@ -25,8 +26,7 @@ class AuthController extends Controller {
 	 * @param  Guard  $auth
 	 * @return void
 	 */
-	public function __construct(
-		Guard $auth)
+	public function __construct(Guard $auth)
 	{
 		$this->auth = $auth;
 	}
@@ -55,7 +55,7 @@ class AuthController extends Controller {
 	 * @return Response
 	 */
 	public function postRegister(
-		RegisterRequest $request, 
+		Requests\Auth\RegisterRequest $request,
 		UserGestion $user_gestion)
 	{
 		// Vérification pot de miel
@@ -92,19 +92,22 @@ class AuthController extends Controller {
 	 * @return Response
 	 */
 	public function postLogin(
-		LoginRequest $request, 
+		Requests\Auth\LoginRequest $request,
 		SessionManager $session)
 	{
 		// Vérification pot de miel
 		if($request->get('user') != '') return redirect('/');
-		// Traitement
-		if ($this->auth->attempt($request->only('email', 'password'), $request->get('souvenir')))
+
+		$credentials = $request->only('email', 'password');
+
+		if ($this->auth->attempt($credentials, $request->has('souvenir')))
 		{
 			$session->put('statut', $this->auth->user()->role->slug);
 			return redirect('/');
 		}
+
 		return redirect()->back()
-		->with('error', 'Ces informations ne correspondent pas à celles que nous avons dans notre base de données.')
+		->with('error', trans('front/login.credentials'))
 		->withInput($request->only('email'));
 	}
 
@@ -115,7 +118,7 @@ class AuthController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function logout()
+	public function getLogout()
 	{
 		$this->auth->logout();
 
