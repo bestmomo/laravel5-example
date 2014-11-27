@@ -77,8 +77,7 @@
 									<li {!! Request::is('auth/login') ? 'class="active"' : '' !!}>
 										{!! link_to('auth/login', trans('front/site.connection')) !!}
 									</li>
-								@endif
-								@if($statut != 'visitor')
+								@else
 									@if($statut == 'admin')
 										<li>
 											{!! link_to_route('admin', trans('front/site.administration')) !!}
