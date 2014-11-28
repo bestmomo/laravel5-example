@@ -23,14 +23,14 @@ class BlogController extends Controller {
 	 */
 	protected $blog_gestion;
 
-	/**
-	 * The UserGestion instance.
-	 *
-	 * @var App\Gestion\UserGestion
-	 */
-	protected $user_gestion;
+    /**
+     * The UserGestion instance.
+     *
+     * @var App\Gestion\UserGestion
+     */
+    protected $user_gestion;
 
-	/**
+    /**
 	 * The pagination number.
 	 *
 	 * @var App\Gestion\UserGestion
@@ -41,15 +41,16 @@ class BlogController extends Controller {
 	 * Create a new BlogController instance.
 	 *
 	 * @param  App\Gestion\BlogGestion $blog_gestion
-	 * @param  App\Gestion\UserGestion $user_gestion
+     * @param  App\Gestion\UserGestion $user_gestion
 	 * @return void
 	 */
 	public function __construct(
-		BlogGestion $blog_gestion, 
-		UserGestion $user_gestion)
+		BlogGestion $blog_gestion,
+    UserGestion $user_gestion)
 	{
+		$user_gestion->getStatut();
+    $this->user_gestion = $user_gestion;
 		$this->blog_gestion = $blog_gestion;
-		$this->user_gestion = $user_gestion;
 		$this->nbrPages = 2;
 	}	
 
@@ -63,10 +64,8 @@ class BlogController extends Controller {
 	public function indexFront()
 	{
     $posts = $this->blog_gestion->indexFront($this->nbrPages);
-    //$links = Pagination::makeLengthAware($posts, $this->blog_gestion->count(), $this->nbrPages);
     $links = str_replace('/?', '?', $posts->render());
-		$statut = $this->user_gestion->getStatut();
-		return view('front.blog.index', compact('statut', 'posts', 'links'));
+		return view('front.blog.index', compact('posts', 'links'));
 	}
 
 	/**
@@ -81,7 +80,7 @@ class BlogController extends Controller {
 		$statut = $this->user_gestion->getStatut();
 		$posts = $this->blog_gestion->index(10, $statut == 'admin' ? null : $auth->user()->id);
 		$links = Pagination::makeLengthAware($posts, $this->blog_gestion->count(false, $statut == 'admin' ? null : $auth->user()->id), 10);
-		return view('back.blog.index', compact('statut', 'posts', 'links'));
+		return view('back.blog.index', compact('posts', 'links'));
 	}
 
 	/**
@@ -114,9 +113,8 @@ class BlogController extends Controller {
 	public function create(
 		UserGestion $user_gestion)
 	{
-		$statut = $this->user_gestion->getStatut();
-		$url = Medias::getUrl($statut, $user_gestion);
-		return view('back.blog.create')->with(compact('statut', 'url'));
+		$url = Medias::getUrl($user_gestion);
+		return view('back.blog.create')->with(compact('url'));
 	}
 
 	/**
@@ -147,9 +145,8 @@ class BlogController extends Controller {
 		Guard $auth, 
 		$id)
 	{
-		$statut = $this->user_gestion->getStatut();
 		$user = $auth->user();
-		return view('front.blog.show',  array_merge($this->blog_gestion->show($id), compact('statut', 'user')));
+		return view('front.blog.show',  array_merge($this->blog_gestion->show($id), compact('user')));
 	}
 
 	/**
@@ -165,7 +162,7 @@ class BlogController extends Controller {
 	{
 		$statut = $this->user_gestion->getStatut();
 		$url = Medias::getUrl($statut, $user_gestion);
-		return view('back.blog.edit',  array_merge($this->blog_gestion->edit($id), compact('statut', 'url')));
+		return view('back.blog.edit',  array_merge($this->blog_gestion->edit($id), compact('url')));
 	}
 
 	/**
@@ -243,11 +240,10 @@ class BlogController extends Controller {
 	public function tag(Request $request)
 	{
 		$tag = $request->get('tag');
-    $posts = $this->blog_gestion->indexTag($this->nbrPages, $tag);
-    $links = str_replace('/?', '?', $posts->appends(compact('tag'))->render());
-		$statut = $this->user_gestion->getStatut();
+		$posts = $this->blog_gestion->indexTag($this->nbrPages, $tag);
+		$links = str_replace('/?', '?', $posts->appends(compact('tag'))->render());
 		$info = trans('front/blog.info-tag') . '<strong>' . $this->blog_gestion->getTagById($tag) . '</strong>';
-		return view('front.blog.index', compact('statut', 'posts', 'links', 'info'));
+		return view('front.blog.index', compact('posts', 'links', 'info'));
 	}
 
 	/**
@@ -264,11 +260,10 @@ class BlogController extends Controller {
 		Request $request)
 	{
 		$search = $request->get('search');
-    $posts = $this->blog_gestion->search($this->nbrPages, $search);
-    $links = str_replace('/?', '?', $posts->appends(compact('search'))->render());
-		$statut = $this->user_gestion->getStatut();
+		$posts = $this->blog_gestion->search($this->nbrPages, $search);
+		$links = str_replace('/?', '?', $posts->appends(compact('search'))->render());
 		$info = trans('front/blog.info-search') . '<strong>' . $search . '</strong>';
-		return view('front.blog.index', compact('statut', 'posts', 'links', 'info'));
+		return view('front.blog.index', compact('posts', 'links', 'info'));
 	}
 
 }

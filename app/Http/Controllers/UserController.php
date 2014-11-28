@@ -41,6 +41,7 @@ class UserController extends Controller {
 	{
 		$this->user_gestion = $user_gestion;
 		$this->role_gestion = $role_gestion;
+		$user_gestion->getStatut();
 	}
 
 	/**
@@ -82,16 +83,15 @@ class UserController extends Controller {
 		$counts['total'] = array_sum($counts);
 		$users = $this->user_gestion->index(4, $role); 
 		$links = Pagination::makeLengthAware($users, $counts[$role], 4);
-		$statut = $this->user_gestion->getStatut();
 		$roles = $this->role_gestion->all();
 		if($ajax)
 		{
 			return response()->json([
-				'view' => view('back.users.table', compact('users', 'statut', 'links', 'counts', 'roles'))->render(), 
+				'view' => view('back.users.table', compact('users', 'links', 'counts', 'roles'))->render(), 
 				'links' => $links
 			]);			
 		}
-		return view('back.users.index', compact('users', 'statut', 'links', 'counts', 'roles'));		
+		return view('back.users.index', compact('users', 'links', 'counts', 'roles'));		
 	}
 
 	/**
@@ -197,9 +197,8 @@ class UserController extends Controller {
 	 */
 	public function getRoles()
 	{
-		$statut = $this->user_gestion->getStatut();
 		$roles = $this->role_gestion->all();
-		return view('back.users.roles', compact('statut', 'roles'));
+		return view('back.users.roles', compact('roles'));
 	}
 
 	/**

@@ -116,12 +116,14 @@ class AuthController extends Controller {
 	 *
 	 * @Get("auth/logout")
 	 *
+	 * @param  Illuminate\Session\SessionManager  $session
 	 * @return Response
 	 */
-	public function getLogout()
+	public function getLogout(
+		SessionManager $session)
 	{
 		$this->auth->logout();
-
+		$session->put('statut', 'visitor');
 		return redirect('/');
 	}
 

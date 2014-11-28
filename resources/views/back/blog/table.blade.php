@@ -3,7 +3,7 @@
               <td class="text-primary"><strong>{{ $post->titre }}</strong></td>
               <td>{{ $post->created_at }}</td> 
               <td>{!! Form::checkbox('actif', $post->id, $post->actif) !!}</td>
-              @if($statut == 'admin')
+              @if(Session::get('statut') == 'admin')
                 <td>{{ $post->username }}</td>
                 <td>{!! Form::checkbox('vu', $post->id, $post->vu) !!}</td>
               @endif

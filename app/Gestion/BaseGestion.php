@@ -12,7 +12,7 @@ class BaseGestion {
 	/**
 	 * Get number of "vu".
 	 *
-	 * @return void
+	 * @return int
 	 */
 	public function getNumberVu()
 	{

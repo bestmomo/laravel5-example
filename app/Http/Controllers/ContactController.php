@@ -14,27 +14,24 @@ class ContactController extends Controller {
 	/**
 	 * Display a listing of the resource.
 	 *
+	 * @param  ContactGestion $contact_gestion
 	 * @return Response
 	 */
 	public function index(
-		ContactGestion $contact_gestion, 
-		UserGestion $user_gestion)
+		ContactGestion $contact_gestion)
 	{
-		$statut = $user_gestion->getStatut();
 		$messages = $contact_gestion->index();
-		return view('back.messages.index', compact('statut', 'messages'));
+		return view('back.messages.index', compact('messages'));
 	}
 
 	/**
 	 * Show the form for creating a new resource.
 	 *
-	 * @param  UserGestion $user_gestion
 	 * @return Response
 	 */
-	public function create(
-		UserGestion $user_gestion)
+	public function create()
 	{
-		return view('front.contact')->withStatut($user_gestion->getStatut());
+		return view('front.contact');
 	}
 
 	/**

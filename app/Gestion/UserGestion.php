@@ -147,13 +147,11 @@ class UserGestion extends BaseGestion{
 	 */
 	public function getStatut()
 	{
-		if($this->auth->check()) {
-			if(!$this->session->has('statut')) {
-				$this->session->put('statut', $this->auth->user()->role->slug);
-			}
-			return $this->session->get('statut');
+		if(!$this->session->has('statut')) 
+		{
+			$this->session->put('statut', $this->auth->check() ?  $this->auth->user()->role->slug : 'visitor');
 		}
-		return 'visitor';
+		return $this->session->get('statut');
 	}
 
 	/**

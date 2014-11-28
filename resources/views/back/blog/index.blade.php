@@ -25,7 +25,7 @@
   					<th>{{ trans('back/blog.title') }} <a href="#" name="titre" class="order"><span class="fa fa-fw fa-unsorted"></span></a></th>
   					<th>{{ trans('back/blog.date') }} <a href="#" name="created_at" class="order"><span class="fa fa-fw fa-sort-desc"></th>
             <th>{{ trans('back/blog.published') }} <a href="#" name="actif" class="order"><span class="fa fa-fw fa-unsorted"></th> 
-            @if($statut == 'admin')
+            @if(Session::get('statut') == 'admin')
               <th>{{ trans('back/blog.author') }} <a href="#" name="username" class="order"><span class="fa fa-fw fa-unsorted"></th>            
               <th>{{ trans('back/blog.seen') }} <a href="#" name="posts.vu" class="order"><span class="fa fa-fw fa-unsorted"></th>
             @endif

@@ -75,16 +75,16 @@ class PasswordController extends Controller {
 
 		// Localisation email
 		$view->composer('emails.auth.password', function($view) {
-      $view->with([
-      	'title'   => trans('front/password.email-title'),
-      	'intro'   => trans('front/password.email-intro'),
-      	'link'    => trans('front/password.email-link'),
-      	'expire'  => trans('front/password.email-expire'),
-      	'minutes' => trans('front/password.minutes'),
-      ]);
-    });
+            $view->with([
+                'title'   => trans('front/password.email-title'),
+                'intro'   => trans('front/password.email-intro'),
+                'link'    => trans('front/password.email-link'),
+                'expire'  => trans('front/password.email-expire'),
+                'minutes' => trans('front/password.minutes'),
+            ]);
+        });
 
-    switch ($response = $this->passwords->sendResetLink($request->only('email'), function($message)
+        switch ($response = $this->passwords->sendResetLink($request->only('email'), function($message)
 		{
 			$message->subject(trans('front/password.reset'));
 		}))

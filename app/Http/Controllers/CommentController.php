@@ -36,16 +36,13 @@ class CommentController extends Controller {
 	/**
 	 * Display a listing of the resource.
 	 *
-	 * @param  App\Gestion\UserGestion $user_gestion
 	 * @return Response
 	 */
-	public function index(
-		UserGestion $user_gestion)
+	public function index()
 	{
-		$statut = $user_gestion->getStatut();
 		$comments = $this->comment_gestion->index(4);
 		$links = Pagination::makeLengthAware($comments, $this->comment_gestion->count(), 4);
-		return view('back.commentaires.index', compact('statut', 'comments', 'links'));
+		return view('back.commentaires.index', compact('comments', 'links'));
 	}
 
 	/**

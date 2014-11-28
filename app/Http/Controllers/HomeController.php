@@ -22,6 +22,7 @@ class HomeController extends Controller {
 		UserGestion $user_gestion)
 	{
 		$this->user_gestion = $user_gestion;
+		$user_gestion->getStatut();
 	}
 
 	/**
@@ -33,7 +34,7 @@ class HomeController extends Controller {
 	 */
 	public function index()
 	{
-		return view('front.index')->withStatut($this->user_gestion->getStatut());
+		return view('front.index');
 	}
 
 	/**
@@ -45,7 +46,7 @@ class HomeController extends Controller {
 	 */
 	public function missing()
 	{
-		return view('front.missing')->withStatut($this->user_gestion->getStatut());
+		return view('front.missing');
 	}
 
 	/**

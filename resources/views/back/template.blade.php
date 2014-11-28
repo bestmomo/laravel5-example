@@ -46,7 +46,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @if($statut == 'admin')
+                @if(Session::get('statut') == 'admin')
                     {!! link_to_route('admin', trans('back/admin.administration'), [], ['class' => 'navbar-brand']) !!}
                 @else
                     {!! link_to_route('blog.index', trans('back/admin.redaction'), [], ['class' => 'navbar-brand']) !!}
@@ -67,7 +67,7 @@
             <!-- Menu de la barre latérale -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
-                    @if($statut == 'admin')
+                    @if(Session::get('statut') == 'admin')
                         <li {!! Request::is('admin') ? 'class="active"' : '' !!}>
                              <a href="{!! route('admin') !!}"><span class="fa fa-fw fa-dashboard"></span> {{ trans('back/admin.dashboard') }}</a>
                         </li>

@@ -56,7 +56,7 @@
 							<li {!! Request::is('/') ? 'class="active"' : '' !!}>
 								{!! link_to('/', trans('front/site.home')) !!}
 							</li>
-							@if($statut == 'visitor' || $statut == 'user')
+							@if(Session::get('statut') == 'visitor' || Session::get('statut') == 'user')
 								<li {!! Request::is('contact/create') ? 'class="active"' : '' !!}>
 									{!! link_to('contact/create', trans('front/site.contact')) !!}
 								</li>
@@ -73,16 +73,16 @@
 									{!! link_to('password/email', trans('front/site.forget-password')) !!}
 								</li>
 							@else
-								@if($statut == 'visitor')
+								@if(Session::get('statut') == 'visitor')
 									<li {!! Request::is('auth/login') ? 'class="active"' : '' !!}>
 										{!! link_to('auth/login', trans('front/site.connection')) !!}
 									</li>
 								@else
-									@if($statut == 'admin')
+									@if(Session::get('statut') == 'admin')
 										<li>
 											{!! link_to_route('admin', trans('front/site.administration')) !!}
 										</li>
-									@elseif($statut == 'redac') 
+									@elseif(Session::get('statut') == 'redac') 
 										<li>
 											{!! link_to('blog', trans('front/site.redaction')) !!}
 										</li>

@@ -4,7 +4,7 @@
 
 	<style type="text/css">
 		.table { margin-bottom: 0; }
-		.panel-heading { padding: 0px 15px; }
+		.panel-heading { padding: 0 15px; }
 		.border-red {
  			border-style: solid;
     	border-width: 5px;

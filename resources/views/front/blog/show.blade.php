@@ -61,7 +61,7 @@
 						@if(Session::has('warning'))
 							{!! HTML::alert('warning', Session::get('warning')) !!}
 						@endif	
-						@if($statut != 'visitor')
+						@if(Session::get('statut') != 'visitor')
 							{!! Form::open(['url' => 'comment', 'method' => 'post']) !!}	
 								{!! Form::hidden('post_id', $post->id) !!}
 								{!! Form::control('textarea', 12, 'commentaire', $errors, trans('front/blog.comment')) !!}
@@ -85,13 +85,13 @@
 
 	{!! HTML::script('ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js') !!}
 
-	@if($statut != 'visitor')
+	@if(Session::get('statut') != 'visitor')
   	{!! HTML::script('ckeditor/ckeditor.js') !!}
   @endif
 
 	<script>	  
 
-		@if($statut != 'visitor')
+		@if(Session::get('statut') != 'visitor')
 
 			CKEDITOR.replace('commentaire', {
 				language: '{{ config('app.locale') }}',
