@@ -161,7 +161,7 @@ class BlogController extends Controller {
 		$id)
 	{
 		$statut = $this->user_gestion->getStatut();
-		$url = Medias::getUrl($statut, $user_gestion);
+		$url = Medias::getUrl($user_gestion);
 		return view('back.blog.edit',  array_merge($this->blog_gestion->edit($id), compact('url')));
 	}
 
