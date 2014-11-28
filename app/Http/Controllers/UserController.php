@@ -59,6 +59,7 @@ class UserController extends Controller {
 	 *
 	 * @Get("user/sort/{role}")
 	 *
+     * @param  string  $role
 	 * @return Response
 	 */
 	public function indexSort($role)

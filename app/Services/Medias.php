@@ -7,7 +7,6 @@ class Medias  {
 	/**
 	 * Get the media url for redactor
 	 *
-	 * @param  string  $statut
 	 * @param  App\Gestion\UserGestion $user_gestion
 	 * @return string
 	 */

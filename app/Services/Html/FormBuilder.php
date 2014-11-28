@@ -1,6 +1,5 @@
 <?php namespace App\Services\Html;
 
-use Request;
 use Illuminate\Html\FormBuilder as IlluminateFormbuilder;
 
 class FormBuilder extends IlluminateFormbuilder {

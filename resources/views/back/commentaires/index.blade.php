@@ -59,7 +59,7 @@
 					</table>	
 				</div>
 				<div class="panel-body">
-					<td>{!! $comment->contenu !!}</td>	
+					{!! $comment->contenu !!}
 				</div> 
 			</div>
 		@endforeach
@@ -86,7 +86,7 @@
 				$.ajax({
 				  url: 'commentvu/' + this.value,
 				  type: 'PUT',
-				  data: "vu=" + this.checked + "&_token=" + token,
+				  data: "vu=" + this.checked + "&_token=" + token
 				})
 				.done(function() {
 					$('.fa-spin').remove();
@@ -94,16 +94,16 @@
 				})
 				.fail(function() {
 					$('.fa-spin').remove();
-					$chk = $('input[type="checkbox"]:hidden');
-					$chk.parents('.panel').toggleClass('panel-warning').toggleClass('panel-default');
-					$chk.show().prop('checked', $chk.is(':checked') ? null:'checked');
+					var chk = $('input[type="checkbox"]:hidden');
+					chk.parents('.panel').toggleClass('panel-warning').toggleClass('panel-default');
+					chk.show().prop('checked', chk.is(':checked') ? null:'checked');
 					alert('{{ trans('back/comments.fail') }}');
 				});
 			});
 
 			// Gestion de valide
 			$(":checkbox[name='valide']").change(function() { 
-				cases = $(":checkbox[name='valide'][value='" + this.value + "']");
+				var cases = $(":checkbox[name='valide'][value='" + this.value + "']");
 				cases.prop('checked', this.checked);
 				cases.parents('.panel-heading').toggleClass('border-red');
 				cases.hide().parent().append('<i class="fa fa-refresh fa-spin"></i>');
@@ -111,7 +111,7 @@
 				$.ajax({
 				  url: '{!! url('uservalid') !!}' + '/' + this.value,
 				  type: 'PUT',
-				  data: "valid=" + this.checked + "&_token=" + token,
+				  data: "valid=" + this.checked + "&_token=" + token
 				})
 				.done(function() {
 					$('.fa-spin').remove();
@@ -119,7 +119,7 @@
 				})
 				.fail(function() {
 					$('.fa-spin').remove();
-					cases = $('input[type="checkbox"]:hidden');
+					var cases = $('input[type="checkbox"]:hidden');
 					cases.parents('.panel-heading').toggleClass('border-red'); 
 					cases.show().prop('checked', cases.is(':checked') ? null:'checked');
 					alert('{{ trans('back/comments.fail') }}');

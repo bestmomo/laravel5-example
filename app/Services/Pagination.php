@@ -12,6 +12,7 @@ abstract class Pagination
    * @param  Illuminate\Support\Collection  $collection
    * @param  int     $total
    * @param  int     $perPage
+   * @param  string  $appends
    * @return string
    */
   public static function makeLengthAware($collection, $total, $perPage, $appends = null)

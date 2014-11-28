@@ -1,5 +1,8 @@
 <?php namespace App\Services\Html;
 
+use App\Services\Html\HtmlBuilder;
+use App\Services\Html\FormBuilder;
+
 class HtmlServiceProvider extends \Illuminate\Html\HtmlServiceProvider {
 
 	/**
@@ -11,7 +14,7 @@ class HtmlServiceProvider extends \Illuminate\Html\HtmlServiceProvider {
 	{
 		$this->app->bindShared('html', function($app)
 		{
-			return new \App\Services\Html\HtmlBuilder($app['url']);
+			return new HtmlBuilder($app['url']);
 		});
 	}
 
@@ -24,7 +27,7 @@ class HtmlServiceProvider extends \Illuminate\Html\HtmlServiceProvider {
 	{
 		$this->app->bindShared('form', function($app)
 		{
-			$form = new \App\Services\Html\FormBuilder($app['html'], $app['url'], $app['session.store']->getToken());
+			$form = new FormBuilder($app['html'], $app['url'], $app['session.store']->getToken());
 
 			return $form->setSessionStore($app['session.store']);
 		});

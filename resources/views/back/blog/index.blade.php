@@ -58,7 +58,7 @@
         $.ajax({
           url: 'postvu/' + this.value,
           type: 'PUT',
-          data: "vu=" + this.checked + "&_token=" + token,
+          data: "vu=" + this.checked + "&_token=" + token
         })
         .done(function() {
           $('.fa-spin').remove();
@@ -80,7 +80,7 @@
         $.ajax({
           url: 'postactif/' + this.value,
           type: 'PUT',
-          data: "actif=" + this.checked + "&_token=" + token,
+          data: "actif=" + this.checked + "&_token=" + token
         })
         .done(function() {
           $('.fa-spin').remove();
@@ -121,7 +121,7 @@
           url: 'blog/order',
           type: 'GET',
           dataType: 'json',
-          data: "name=" + $(this).attr('name') + "&sens=" + tri,
+          data: "name=" + $(this).attr('name') + "&sens=" + tri
         })
         .done(function(data) {
           $('tbody').html(data.view);

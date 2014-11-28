@@ -115,7 +115,7 @@
 					$(this).hide();
 					var i = $(this).attr('id').substring(7);
 					var existant = $('#contenu' + i).html();
-					var url = $('#formcreate form').attr('action');
+					var url = $('#formcreate').find('form').attr('action');
 					jQuery.data(document.body, 'comment' + i, existant);
 					var html = "<div class='row'><form id='form" + i + "' method='POST' action='" + url + '/' + i + "' accept-charset='UTF-8' class='formajax'><input name='_token' type='hidden' value='" + $('input[name="_token"]').val() + "'><div class='form-group col-lg-12 '><label for='commentaire' class='control-label'>{{ trans('front/blog.change') }}</label><textarea id='cont" + i +"' class='form-control' name='commentaire" + i + "' cols='50' rows='10' id='commentaire'>" + existant + "</textarea><small class='help-block'></small></div><div class='form-group col-lg-12'><input id='val" + i +"' class='btn btn-default' type='submit' value='{{ trans('front/blog.valid') }}'><input id='btn" + i + "' class='btn btn-default btnannuler' type='button' value='{{ trans('front/blog.undo') }}'></div></div>";
 					$('#contenu' + i).html(html);

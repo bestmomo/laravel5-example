@@ -1,7 +1,6 @@
 <?php namespace App\Gestion;
 
 use App\Models\Post, App\Models\Tag, App\Models\Comment;
-use App\Gestion\UserGestion;
 
 class BlogGestion extends BaseGestion{
 

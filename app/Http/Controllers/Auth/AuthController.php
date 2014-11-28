@@ -1,6 +1,5 @@
 <?php namespace App\Http\Controllers\Auth;
 
-use App\Models\User;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Auth\Guard;

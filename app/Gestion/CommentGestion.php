@@ -87,7 +87,6 @@ class CommentGestion extends BaseGestion {
 	/**
 	 * Get a comment.
 	 *
-	 * @param  bool  $vu
 	 * @param  int   $id
 	 * @return Illuminate\Support\Collection
 	 */

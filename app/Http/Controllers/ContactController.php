@@ -3,7 +3,6 @@
 use Illuminate\Http\Request;
 use App\Http\Requests\ContactRequest;
 use App\Gestion\ContactGestion;
-use App\Gestion\UserGestion;
 
 /**
  * @Resource("contact", except={"show", "edit"})

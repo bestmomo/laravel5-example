@@ -139,6 +139,7 @@ class CommentController extends Controller {
 	 * @param  Illuminate\Http\Request $request
 	 * @param  App\Gestion\UserGestion $user_gestion
 	 * @param  int  $id
+     * @return Response
 	 */
 	public function valide(
 		Request $request, 

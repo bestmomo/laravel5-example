@@ -2,6 +2,7 @@
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler {
 
@@ -27,7 +28,7 @@ class Handler extends ExceptionHandler {
 	 */
 	public function render($request, Exception $e)
 	{
-		if($e instanceof \Symfony\Component\HttpKernel\Exception\NotFoundHttpException)
+		if($e instanceof NotFoundHttpException)
 		{
 			return response()->view('front.missing', [], 404);
 		}

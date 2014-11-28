@@ -31,7 +31,7 @@ class UserGestion extends BaseGestion{
 	/**
 	 * Create a new UserGestion instance.
 	 *
-	 * @param  App\Models\User $model
+     * @param  App\Models\User $user
 	 * @param  App\Models\Role $role
 	 * @param  Illuminate\Contracts\Auth\Guard $auth
 	 * @param  Illuminate\Session\SessionManager $session
@@ -176,6 +176,8 @@ class UserGestion extends BaseGestion{
 	/**
 	 * Valide user.
 	 *
+     * @param  bool  $valid
+     * @param  int   $id
 	 * @return void
 	 */
 	public function valide($valid, $id)

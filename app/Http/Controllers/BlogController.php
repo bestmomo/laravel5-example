@@ -120,7 +120,7 @@ class BlogController extends Controller {
 	/**
 	 * Store a newly created resource in storage.
 	 *
-	 * @param  App\Http\Requests\PostCreateRequest $request
+	 * @param  App\Http\Requests\PostCreateRequest $postrequest
 	 * @param  Illuminate\Http\Request $request
 	 * @param  Illuminate\Contracts\Auth\Guard $auth
 	 * @return Response
@@ -160,7 +160,6 @@ class BlogController extends Controller {
 		UserGestion $user_gestion, 
 		$id)
 	{
-		$statut = $this->user_gestion->getStatut();
 		$url = Medias::getUrl($user_gestion);
 		return view('back.blog.edit',  array_merge($this->blog_gestion->edit($id), compact('url')));
 	}

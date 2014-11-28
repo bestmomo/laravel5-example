@@ -69,7 +69,7 @@
         $.ajax({
           url: 'uservu/' + this.value,
           type: 'PUT',
-          data: "vu=" + this.checked + "&_token=" + token,
+          data: "vu=" + this.checked + "&_token=" + token
         })
         .done(function() {
           $('.fa-spin').remove();
@@ -77,19 +77,19 @@
         })
         .fail(function() {
           $('.fa-spin').remove();
-          $chk = $('input[type="checkbox"]:hidden');
-          $chk.show().prop('checked', $chk.is(':checked') ? null:'checked').parents('tr').toggleClass('warning');
+          var chk = $('input[type="checkbox"]:hidden');
+          chk.show().prop('checked', chk.is(':checked') ? null:'checked').parents('tr').toggleClass('warning');
           alert('{{ trans('back/users.fail') }}');
         });
       });
 
       // Traitement tri
-      $('#tri a').click(function(e) {
+      $('#tri').find('a').click(function(e) {
         e.preventDefault();
         // Icone d'attente
         $('.breadcrumb li').append('<span id="tempo" class="fa fa-refresh fa-spin"></span>');  
         // Aspect boutons
-        $('#tri a').removeClass('active');
+        $('#tri').find('a').removeClass('active');
         // Envoi ajax
         $.ajax({
           url: 'user/sort/' + $(this).attr('name'),

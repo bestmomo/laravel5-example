@@ -56,7 +56,6 @@ class AdminController extends Controller {
 	 * @Get("medias", as="medias")
 	 * @Middleware("redac")
 	 *
-	 * @param  UserGestion $user_gestion
      * @return Response
 	 */
 	public function filemanager()

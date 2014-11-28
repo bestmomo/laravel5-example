@@ -1,6 +1,5 @@
 <?php namespace App\Http\Controllers\Auth;
 
-use App\Models\User;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Auth\Guard;
@@ -32,6 +31,7 @@ class PasswordController extends Controller {
 	/**
 	 * Create a new password controller instance.
 	 *
+     * @param Illuminate\Contracts\Auth\Guard  $auth
 	 * @param  PasswordBroker  $passwords
 	 * @return void
 	 */

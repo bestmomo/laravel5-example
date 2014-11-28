@@ -47,7 +47,7 @@
 				</table>	
 			</div>
 			<div class="panel-body">
-				<td>{{ $message->texte }}</td>	
+				{{ $message->texte }}
 			</div>    
 		</div>
 	@endforeach
@@ -67,7 +67,7 @@
 				$.ajax({
 				  url: 'contact/' + this.value,
 				  type: 'PUT',
-				  data: "vu=" + this.checked + "&_token=" + token,
+				  data: "vu=" + this.checked + "&_token=" + token
 				})
 				.done(function() {
 					$('.fa-spin').remove();
@@ -75,7 +75,7 @@
 				})
 				.fail(function() {
 					$('.fa-spin').remove();
-					chk = $('input[type="checkbox"]:hidden');
+					var chk = $('input[type="checkbox"]:hidden');
 					chk.parents('.panel').toggleClass('panel-warning').toggleClass('panel-default');
 					chk.show().prop('checked', chk.is(':checked') ? null:'checked');
 					alert('{{ trans('back/messages.fail') }}');
