@@ -2,8 +2,6 @@
 
 use App\Gestion\BlogGestion;
 use Illuminate\Http\Request;
-use App\Http\Requests\PostCreateRequest;
-use App\Http\Requests\PostUpdateRequest;
 use App\Http\Requests\PostRequest;
 use App\Http\Requests\SearchRequest;
 use Illuminate\Contracts\Auth\Guard;
