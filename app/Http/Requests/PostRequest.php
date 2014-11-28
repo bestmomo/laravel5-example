@@ -1,8 +1,9 @@
 <?php namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Request;
 
-class PostUpdateRequest extends FormRequest {
+class PostRequest extends FormRequest {
 
 	/**
 	 * Get the validation rules that apply to the request.
@@ -11,12 +12,12 @@ class PostUpdateRequest extends FormRequest {
 	 */
 	public function rules()
 	{
-		$id = \Request::segment(2);
+		$id = Request::segment(2) ? ',' . Request::segment(2) : '';
 		return [
 			'titre' => 'required|max:255',
 			'sommaire' => 'required|max:65000',
 			'contenu' => 'required|max:65000',
-			'slug' => 'required|unique:posts,slug,' . $id,
+			'slug' => 'required|unique:posts,slug' . $id,
 			'tags' => 'tags'
 		];
 	}

@@ -4,6 +4,7 @@ use App\Gestion\BlogGestion;
 use Illuminate\Http\Request;
 use App\Http\Requests\PostCreateRequest;
 use App\Http\Requests\PostUpdateRequest;
+use App\Http\Requests\PostRequest;
 use App\Http\Requests\SearchRequest;
 use Illuminate\Contracts\Auth\Guard;
 use App\Gestion\UserGestion;
@@ -126,7 +127,7 @@ class BlogController extends Controller {
 	 * @return Response
 	 */
 	public function store(
-		PostCreateRequest $postrequest,
+		PostRequest $postrequest,
 		Request $request,
 		Guard $auth)
 	{
@@ -173,7 +174,7 @@ class BlogController extends Controller {
 	 * @return Response
 	 */
 	public function update(
-		PostUpdateRequest $blogrequest,
+		PostRequest $postrequest,
 		Request $request,
 		$id)
 	{
