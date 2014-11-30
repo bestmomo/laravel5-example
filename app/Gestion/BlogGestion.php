@@ -117,7 +117,7 @@ class BlogGestion extends BaseGestion{
 	 */
 	public function indexTag($n, $id)
 	{
-		return $this->post
+		return $this->model
 		->select('id', 'created_at', 'updated_at', 'titre', 'slug', 'user_id', 'sommaire')
 		->whereActif(true)
 		->with('user')
