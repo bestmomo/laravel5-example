@@ -12,7 +12,7 @@ class Tag extends Model  {
 	protected $table = 'tags';
 
 	/**
-	 * One to Many relation
+	 * Many to Many relation
 	 *
 	 * @return Illuminate\Database\Eloquent\Relations\belongToMany
 	 */

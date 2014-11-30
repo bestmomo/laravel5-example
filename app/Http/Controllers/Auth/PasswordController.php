@@ -1,12 +1,11 @@
 <?php namespace App\Http\Controllers\Auth;
 
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\PasswordBroker;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-
-use App\Gestion\UserGestion;
+use App\Http\Requests\Auth\EmailPasswordLinkRequest;
+use App\Http\Requests\Auth\ResetPasswordRequest;
 use Illuminate\View\Factory;
 
 /**
@@ -20,7 +19,7 @@ class PasswordController extends Controller {
 	 * @var Guard
 	 */
 	protected $auth;
-
+	
 	/**
 	 * The password broker implementation.
 	 *
@@ -31,7 +30,7 @@ class PasswordController extends Controller {
 	/**
 	 * Create a new password controller instance.
 	 *
-     * @param Illuminate\Contracts\Auth\Guard  $auth
+   * @param Illuminate\Contracts\Auth\Guard  $auth
 	 * @param  PasswordBroker  $passwords
 	 * @return void
 	 */
@@ -51,10 +50,9 @@ class PasswordController extends Controller {
 	 * @param  App\Gestion\UserGestion $user_gestion
 	 * @return Response
 	 */
-	public function getEmail(
-		UserGestion $user_gestion)
+	public function getEmail()
 	{
-		return view('front.auth.password')->withStatut($user_gestion->getStatut());
+		return view('front.auth.password');
 	}
 
 	/**
@@ -67,7 +65,7 @@ class PasswordController extends Controller {
 	 * @return Response
 	 */
 	public function postEmail(
-		Requests\Auth\EmailPasswordLinkRequest $request,
+		EmailPasswordLinkRequest $request,
 		Factory $view)
 	{
 		// Vérification pot de miel
@@ -84,7 +82,7 @@ class PasswordController extends Controller {
             ]);
         });
 
-        switch ($response = $this->passwords->sendResetLink($request->only('email'), function($message)
+    switch ($response = $this->passwords->sendResetLink($request->only('email'), function($message)
 		{
 			$message->subject(trans('front/password.reset'));
 		}))
@@ -102,20 +100,17 @@ class PasswordController extends Controller {
 	 *
 	 * @Get("password/reset/{token}")
 	 *
-	 * @param  App\Gestion\UserGestion $user_gestion
 	 * @param  string  $token
 	 * @return Response
 	 */
-	public function getReset(
-		UserGestion $user_gestion,
-		$token = null)
+	public function getReset($token = null)
 	{
 		if (is_null($token))
 		{
 			throw new NotFoundHttpException;
 		}
 
-		return view('front.auth.passwordreset')->with(['token' => $token, 'statut' => $user_gestion->getStatut()]);
+		return view('front.auth.passwordreset')->with('token', $token);
 	}
 
 	/**
@@ -126,7 +121,7 @@ class PasswordController extends Controller {
 	 * @param  ResetPasswordRequest  $request
 	 * @return Response
 	 */
-	public function postReset(Requests\Auth\ResetPasswordRequest $request)
+	public function postReset(ResetPasswordRequest $request)
 	{
     $this->passwords->validator(function($credentials)
 		{
@@ -142,6 +137,8 @@ class PasswordController extends Controller {
 			$user->password = bcrypt($password);
 
 			$user->save();
+
+			$this->auth->login($user);
 		});
 
 		switch ($response)

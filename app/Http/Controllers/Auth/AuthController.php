@@ -1,9 +1,9 @@
 <?php namespace App\Http\Controllers\Auth;
 
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Auth\Guard;
-
+use App\Http\Requests\Auth\RegisterRequest;
+use App\Http\Requests\Auth\LoginRequest ;
 use App\Gestion\UserGestion;
 use Illuminate\Session\SessionManager;
 
@@ -35,13 +35,11 @@ class AuthController extends Controller {
 	 *
 	 * @Get("auth/register")
 	 *
-	 * @param  App\Gestion\UserGestion $user_gestion
 	 * @return Response
 	 */
-	public function getRegister(
-		UserGestion $user_gestion)
+	public function getRegister()
 	{
-		return view('front.auth.register')->withStatut($user_gestion->getStatut());
+		return view('front.auth.register');
 	}
 
 	/**
@@ -54,7 +52,7 @@ class AuthController extends Controller {
 	 * @return Response
 	 */
 	public function postRegister(
-		Requests\Auth\RegisterRequest $request,
+		RegisterRequest $request,
 		UserGestion $user_gestion)
 	{
 		// Vérification pot de miel
@@ -72,13 +70,11 @@ class AuthController extends Controller {
 	 *
 	 * @Get("auth/login")
 	 *
-	 * @param  App\Gestion\UserGestion $user_gestion
 	 * @return Response
 	 */
-	public function getLogin(
-		UserGestion $user_gestion)
+	public function getLogin()
 	{
-		return view('front.auth.login')->withStatut($user_gestion->getStatut());
+		return view('front.auth.login');
 	}
 
 	/**
@@ -91,7 +87,7 @@ class AuthController extends Controller {
 	 * @return Response
 	 */
 	public function postLogin(
-		Requests\Auth\LoginRequest $request,
+		LoginRequest $request,
 		SessionManager $session)
 	{
 		// Vérification pot de miel

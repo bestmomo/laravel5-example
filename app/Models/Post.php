@@ -24,7 +24,7 @@ class Post extends Model  {
 	}
 
 	/**
-	 * One to Many relation
+	 * Many to Many relation
 	 *
 	 * @return Illuminate\Database\Eloquent\Relations\belongToMany
 	 */

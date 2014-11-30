@@ -55,7 +55,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	}
 
 	/**
-	 * One to Many relation
+	 * Many to Many relation
 	 *
 	 * @return Illuminate\Database\Eloquent\Relations\belongsToMany
 	 */
