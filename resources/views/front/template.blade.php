@@ -104,10 +104,10 @@
 
     <main role="main" class="container">
   		@if(Session::has('ok'))
-				{!! HTML::alert('success', Session::get('ok')) !!}
+  			@include('partials/error', ['type' => 'success', 'message' => Session::get('ok')])
 			@endif	
 			@if(isset($info))
-				{!! HTML::alert('info', $info) !!}
+				@include('partials/error', ['type' => 'info', 'message' => $info])
 			@endif
       @yield('main')
     </main>

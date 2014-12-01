@@ -6,7 +6,7 @@ return [
 	'home' => 'Retour sur le site',
 	'logout' => 'Déconnexion',
 	'dashboard' => 'Tableau de bord',
-	'users' => 'utilisateurs',
+	'users' => 'Utilisateurs',
 	'see-all' => 'Voir tous',
 	'add' => 'Ajouter',
 	'messages' => 'Messages',
@@ -16,6 +16,5 @@ return [
 	'new-messages' => 'Nouveaux messages !',
 	'new-registers' => 'Nouveaux inscrits !',
 	'new-posts' => 'Nouveaux articles !',
-	'new-comments' => 'Nouveaux commentaires !',
-	'details' => 'Détails'
+	'new-comments' => 'Nouveaux commentaires !'
 ];

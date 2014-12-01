@@ -3,11 +3,7 @@
 @section('main')
 
  <!-- Entête de page -->
-  {!!  HTML::backEntete(
-  trans('back/roles.dashboard'),
-  'user',
-  link_to('user', trans('back/users.Users')) . ' / ' . trans('back/roles.roles')
-  ) !!}
+  @include('back.partials.entete', ['titre' => trans('back/roles.dashboard'), 'icone' => 'user', 'fil' => link_to('user', trans('back/users.Users')) . ' / ' . trans('back/roles.roles')])
 
 	<div class="col-sm-12">
 		@if(Session::has('ok'))

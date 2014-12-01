@@ -43,10 +43,10 @@ class AdminController extends Controller {
 		BlogGestion $blog_gestion,
 		CommentGestion $comment_gestion)
 	{	
-		$nbrMessages = $contact_gestion->getNumberVu();
-		$nbrUsers = $this->user_gestion->getNumberVu();
-		$nbrPosts = $blog_gestion->getNumberVu();
-		$nbrComments = $comment_gestion->getNumberVu();
+		$nbrMessages = $contact_gestion->getNumber();
+		$nbrUsers = $this->user_gestion->getNumber();
+		$nbrPosts = $blog_gestion->getNumber();
+		$nbrComments = $comment_gestion->getNumber();
 		return view('back.index', compact('nbrMessages', 'nbrUsers', 'nbrPosts', 'nbrComments'));
 	}
 

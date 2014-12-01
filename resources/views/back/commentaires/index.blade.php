@@ -17,11 +17,7 @@
 @section('main')
 
  <!-- Entête de page -->
-  {!!  HTML::backEntete(
-  trans('back/comments.dashboard'),
-  'comment',
-  trans('back/comments.comments')
-  ) !!}
+  @include('back.partials.entete', ['titre' => trans('back/comments.dashboard'), 'icone' => 'comment', 'fil' => trans('back/comments.comments')])
 
   <div class="row col-lg-12">
     <div class="pull-right">{!! $links !!}</div>

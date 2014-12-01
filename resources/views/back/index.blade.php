@@ -3,29 +3,17 @@
 @section('main')
 
  <!-- Entête de page -->
-  {!!  HTML::backEntete(
-  trans('back/admin.dashboard'),
-  'dashboard',
-  trans('back/admin.dashboard')
-  ) !!}
+  @include('back.partials.entete', ['titre' => trans('back/admin.dashboard'), 'icone' => 'dashboard', 'fil' => trans('back/admin.dashboard')])
 
   <div class="row">
 
-    @if($nbrMessages)
-      {!! HTML::panneauAdmin('primary', 'envelope', $nbrMessages, trans('back/admin.new-messages'), 'contact', trans('back/admin.details')) !!}
-    @endif
+    @include('back/partials/pannel', ['color' => 'primary', 'icone' => 'envelope', 'nbr' => $nbrMessages, 'nom' => trans('back/admin.new-messages'), 'url' => 'contact', 'total' => trans('back/admin.messages')])
 
-    @if($nbrUsers)
-      {!! HTML::panneauAdmin('green', 'user', $nbrUsers, trans('back/admin.new-registers'), 'user', trans('back/admin.details')) !!}
-    @endif
+    @include('back/partials/pannel', ['color' => 'green', 'icone' => 'user', 'nbr' => $nbrUsers, 'nom' => trans('back/admin.new-registers'), 'url' => 'user', 'total' => trans('back/admin.users')])
 
-    @if($nbrPosts)
-      {!! HTML::panneauAdmin('yellow', 'pencil', $nbrPosts, trans('back/admin.new-posts'), 'blog', trans('back/admin.details')) !!}
-    @endif
+    @include('back/partials/pannel', ['color' => 'yellow', 'icone' => 'pencil', 'nbr' => $nbrPosts, 'nom' => trans('back/admin.new-posts'), 'url' => 'blog', 'total' => trans('back/admin.posts')])
 
-    @if($nbrComments)
-      {!! HTML::panneauAdmin('red', 'comment', $nbrComments, trans('back/admin.new-comments'), 'comment', trans('back/admin.details')) !!}
-    @endif
+    @include('back/partials/pannel', ['color' => 'red', 'icone' => 'comment', 'nbr' => $nbrComments, 'nom' => trans('back/admin.new-comments'), 'url' => 'comment', 'total' => trans('back/admin.comments')])
 
   </div>
   <!-- /.row -->

@@ -5,10 +5,10 @@
     <div class="box">
       <div class="col-lg-12">
       	@if(Session::has('status'))
-      		{!! HTML::alert('success', Session::get('status')) !!}
+      		@include('partials/error', ['type' => 'success', 'message' => Session::get('status')])
 				@endif
 				@if(Session::has('error'))
-					{!! HTML::alert('danger', Session::get('error')) !!}
+					@include('partials/error', ['type' => 'danger', 'message' => Session::get('error')])
 				@endif	
 				<hr>	
 				<h2 class="intro-text text-center">{{ trans('front/password.title') }}</h2>

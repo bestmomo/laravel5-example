@@ -3,14 +3,10 @@
 @section('main')
 
  <!-- Entête de page -->
-  {!!  HTML::backEntete(
-  trans('back/blog.dashboard') . link_to_route('blog.create', trans('back/blog.add'), [], ['class' => 'btn btn-info pull-right']),
-  'pencil',
-  trans('back/blog.posts')
-  ) !!}
+  @include('back.partials.entete', ['titre' => trans('back/blog.dashboard') . link_to_route('blog.create', trans('back/blog.add'), [], ['class' => 'btn btn-info pull-right']), 'icone' => 'pencil', 'fil' => trans('back/blog.posts')])
 
 	@if(Session::has('ok'))
-    {!! HTML::alert('success', Session::get('ok')) !!}
+    @include('partials/error', ['type' => 'success', 'message' => Session::get('ok')])
 	@endif
 
   <div class="row col-lg-12">

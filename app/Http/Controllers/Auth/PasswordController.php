@@ -137,8 +137,6 @@ class PasswordController extends Controller {
 			$user->password = bcrypt($password);
 
 			$user->save();
-
-			$this->auth->login($user);
 		});
 
 		switch ($response)

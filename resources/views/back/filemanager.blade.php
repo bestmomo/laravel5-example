@@ -37,11 +37,7 @@
 @section('main')
 
  <!-- Entête de page -->
-  {!!  HTML::backEntete(
-  trans('back/medias.dashboard'),
-  'file-image-o',
-  trans('back/medias.medias')
-  ) !!}
+  @include('back.partials.entete', ['titre' => trans('back/medias.dashboard'), 'icone' => 'file-image-o', 'fil' => trans('back/medias.medias')])
 
 	<div class="iframe-responsive-wrapper">
 	    <img class="iframe-ratio" src="data:image/gif;base64,R0lGODlhEAAJAIAAAP///wAAACH5BAEAAAAALAAAAAAQAAkAAAIKhI+py+0Po5yUFQA7"/>

@@ -3,11 +3,7 @@
 @section('main')
 
  <!-- Entête de page -->
-  {!!  HTML::backEntete(
-  trans('back/users.dashboard'),
-  'user',
-  link_to('user', trans('back/users.Users')) . ' / ' . trans('back/users.edition')
-  ) !!}
+  @include('back.partials.entete', ['titre' => trans('back/users.dashboard'), 'icone' => 'user', 'fil' => link_to('user', trans('back/users.Users')) . ' / ' . trans('back/users.edition')])
 
 	<div class="col-sm-12">
 		{!! Form::open(['url' => 'user/' . $user->id, 'method' => 'put', 'class' => 'form-horizontal panel']) !!}	

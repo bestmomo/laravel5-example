@@ -16,6 +16,5 @@ return [
 	'new-messages' => 'New posts !',
 	'new-registers' => 'New users !',
 	'new-posts' => 'New posts !',
-	'new-comments' => 'New comments !',
-	'details' => 'Details'
+	'new-comments' => 'New comments !'
 ];

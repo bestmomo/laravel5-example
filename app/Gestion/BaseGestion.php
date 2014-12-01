@@ -10,13 +10,15 @@ class BaseGestion {
 	protected $model;
 
 	/**
-	 * Get number of "vu".
+	 * Get number of records.
 	 *
 	 * @return int
 	 */
-	public function getNumberVu()
+	public function getNumber()
 	{
-		return $this->model->whereVu(0)->count();
+		$total = $this->model->all()->count();
+		$new = $this->model->whereVu(0)->count();
+		return compact('total', 'new');
 	}
 
 	/**

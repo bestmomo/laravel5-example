@@ -12,11 +12,7 @@
 @section('main')
 
  <!-- Entête de page -->
-  {!!  HTML::backEntete(
-  trans('back/messages.dashboard'),
-  'envelope',
-  trans('back/messages.messages')
-  ) !!}
+  @include('back.partials.entete', ['titre' => trans('back/messages.dashboard'), 'icone' => 'envelope', 'fil' => trans('back/messages.messages')])
 
   @foreach ($messages as $message)
 		<div class="panel {!! $message->vu? 'panel-default' : 'panel-warning' !!}">

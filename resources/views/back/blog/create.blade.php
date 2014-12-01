@@ -9,11 +9,7 @@
 @section('main')
 
  <!-- Entête de page -->
-  {!!  HTML::backEntete(
-  trans('back/blog.dashboard'),
-  'pencil',
-  link_to('blog', 'Articles') . ' / ' . trans('back/blog.creation')
-  ) !!}
+  @include('back.partials.entete', ['titre' => trans('back/blog.dashboard'), 'icone' => 'pencil', 'fil' => link_to('blog', 'Articles') . ' / ' . trans('back/blog.creation')])
 
 	<div class="col-sm-12">
 		{!! Form::open(['url' => 'blog', 'method' => 'post', 'class' => 'form-horizontal panel']) !!}	
