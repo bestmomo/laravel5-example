@@ -130,8 +130,7 @@ class UserGestion extends BaseGestion{
 	{
 		$user = $this->model->findOrFail($id);
 		$select = $this->role->all()->lists('titre', 'id');
-		$statut = $this->getStatut();
-		return compact('user', 'select', 'statut');
+		return compact('user', 'select');
 	}
 
 	public function update($inputs, $id)

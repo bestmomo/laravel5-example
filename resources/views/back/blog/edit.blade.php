@@ -6,16 +6,16 @@
   @include('back.partials.entete', ['titre' => trans('back/blog.dashboard'), 'icone' => 'pencil', 'fil' => link_to('blog', 'Articles') . ' / ' . trans('back/blog.edition')])
 
 	<div class="col-sm-12">
-		{!! Form::open(['url' => 'blog/' . $post->id, 'method' => 'put', 'class' => 'form-horizontal panel']) !!}	
+		{!! Form::model($post, ['route' => ['blog.update', $post->id], 'method' => 'put', 'class' => 'form-horizontal panel']) !!}
 		  
 		  <div class="form-group checkbox pull-right">
 			  <label>
 			    {!! Form::checkbox('actif', $post->actif, $post->actif) !!}
-			    Publié
+			    {{ trans('back/blog.published') }}
 			  </label>
 			</div>
 			
-			{!! Form::control('text', 0, 'titre', $errors, trans('back/blog.title'), $post->titre) !!}
+			{!! Form::control('text', 0, 'titre', $errors, trans('back/blog.title')) !!}
 
 		  <div class="form-group {!! $errors->has('slug') ? 'has-error' : '' !!}">
 		  	{!! Form::label('slug', trans('back/blog.permalink'), ['class' => 'control-label']) !!}
@@ -23,8 +23,8 @@
 		  	<small class="help-block">{!! $errors->first('slug') !!}</small>
 		  </div>
 
-		  {!! Form::control('textarea', 0, 'sommaire', $errors, trans('back/blog.summary'), $post->sommaire) !!}
-			{!! Form::control('textarea', 0, 'contenu', $errors, trans('back/blog.content'), $post->contenu) !!}
+		  {!! Form::control('textarea', 0, 'sommaire', $errors, trans('back/blog.summary')) !!}
+			{!! Form::control('textarea', 0, 'contenu', $errors, trans('back/blog.content')) !!}
 			{!! Form::control('text', 0, 'tags', $errors, trans('back/blog.tags'), implode(',', $tags)) !!}
 
 		  {!! Form::submit(trans('front/form.send')) !!}
