@@ -7,7 +7,7 @@
 
 	<div class="col-sm-12">
 		@if(Session::has('ok'))
-    	{!! HTML::alert('success', Session::get('ok')) !!}
+    	@include('partials/error', ['type' => 'success', 'message' => Session::get('ok')])
 		@endif
 		{!! Form::open(['url' => 'user/roles', 'method' => 'post', 'class' => 'form-horizontal panel']) !!}	
 			@foreach ($roles as $role) 

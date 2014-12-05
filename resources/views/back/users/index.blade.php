@@ -26,7 +26,7 @@
   </div>
 
 	@if(Session::has('ok'))
-    {!! HTML::alert('success', Session::get('ok')) !!}
+    @include('partials/error', ['type' => 'success', 'message' => Session::get('ok')])
 	@endif
 
   <div class="pull-right link">{!! $links !!}</div>
