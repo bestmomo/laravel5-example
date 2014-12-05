@@ -27,7 +27,7 @@ trait DateAttribute {
 	}
 
 	/**
-	 * Format updated_at attribute
+	 * Format date
 	 *
 	 * @return string
 	 */
