@@ -51,7 +51,7 @@ class BlogGestion extends BaseGestion{
 		$post->contenu = $inputs['contenu'];	
 		$post->slug = $inputs['slug'];
 		$post->actif = isset($inputs['actif']);	
-		if($user_id) $post->user_id = $user_id; // En cas de création
+		if($user_id) $post->user_id = $user_id;
 		$post->save();
 		return $post;
 	}
@@ -59,36 +59,15 @@ class BlogGestion extends BaseGestion{
 	/**
 	 * Get count.
 	 *
-	 * @param  bool    $published
-	 * @param  int     $user_id
-	 * @param  int     $id
-	 * @param  string  $search
+	 * @param  int $user_id
 	 * @return int
 	 */
-	public function count($published = true, $user_id = false, $id = false, $search = false)
+	public function count($user_id = false)
 	{
 		if($user_id)
 		{
 			return $this->model->where('user_id', $user_id)->count();
 		} 
-		if($published)
-		{
-			return $this->model->whereActif(true)->count();
-		}		
-		if($id)
-		{
-			return $this->model
-			->whereActif(true)
-			->whereHas('tags', function($q) use($id) { $q->where('tags.id', $id);	})
-			->count();
-		}		
-		if($search)
-		{
-			return $this->model
-			->where('sommaire', 'LIKE', "%$search%")
-			->orWhere('contenu', 'LIKE', "%$search%")
-			->count();			
-		}
 		return $this->model->count();		
 	}
 

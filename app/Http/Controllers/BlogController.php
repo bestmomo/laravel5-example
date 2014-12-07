@@ -78,7 +78,7 @@ class BlogController extends Controller {
 	{
 		$statut = $this->user_gestion->getStatut();
 		$posts = $this->blog_gestion->index(10, $statut == 'admin' ? null : $auth->user()->id);
-		$links = Pagination::makeLengthAware($posts, $this->blog_gestion->count(false, $statut == 'admin' ? null : $auth->user()->id), 10);
+		$links = Pagination::makeLengthAware($posts, $this->blog_gestion->count($statut == 'admin' ? null : $auth->user()->id), 10);
 		return view('back.blog.index', compact('posts', 'links'));
 	}
 
@@ -96,7 +96,7 @@ class BlogController extends Controller {
 	{
 		$statut = $this->user_gestion->getStatut();
 		$posts = $this->blog_gestion->index(10, $statut == 'admin' ? null : $auth->user()->id, $request->get('name'), $request->get('sens'));
-		$links = Pagination::makeLengthAware($posts, $this->blog_gestion->count(false, $statut == 'admin' ? null : $auth->user()->id), 10);
+		$links = Pagination::makeLengthAware($posts, $this->blog_gestion->count($statut == 'admin' ? null : $auth->user()->id), 10);
 		return response()->json([
 			'view' => view('back.blog.table', compact('statut', 'posts'))->render(), 
 			'links' => $links
