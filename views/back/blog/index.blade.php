@@ -70,7 +70,6 @@
 
       // Traitement du actif
       $(document).on('change', ':checkbox[name="actif"]', function() {
-        $(this).parents('tr').toggleClass('warning');
         $(this).hide().parent().append('<i class="fa fa-refresh fa-spin"></i>');
         var token = $('input[name="_token"]').val();
         $.ajax({
