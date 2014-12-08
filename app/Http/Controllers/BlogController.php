@@ -47,7 +47,6 @@ class BlogController extends Controller {
 		BlogGestion $blog_gestion,
     UserGestion $user_gestion)
 	{
-		$user_gestion->getStatut();
     $this->user_gestion = $user_gestion;
 		$this->blog_gestion = $blog_gestion;
 		$this->nbrPages = 2;
@@ -106,13 +105,11 @@ class BlogController extends Controller {
 	/**
 	 * Show the form for creating a new resource.
 	 *
-	 * @param  App\Gestion\UserGestion $user_gestion
 	 * @return Response
 	 */
-	public function create(
-		UserGestion $user_gestion)
+	public function create()
 	{
-		$url = Medias::getUrl($user_gestion);
+		$url = Medias::getUrl($this->user_gestion);
 		return view('back.blog.create')->with(compact('url'));
 	}
 

@@ -6,26 +6,6 @@ use Illuminate\Session\SessionManager;
 class HomeController extends Controller {
 
 	/**
-	 * The UserGestion instance.
-	 *
-	 * @var App\Gestion\UserGestion
-	 */
-	protected $user_gestion;
-
-	/**
-	 * Create a new HomeController instance.
-	 *
-	 * @param  App\Gestion\UserGestion $user_gestion
-	 * @return void
-	 */
-	public function __construct(
-		UserGestion $user_gestion)
-	{
-		$this->user_gestion = $user_gestion;
-		$user_gestion->getStatut();
-	}
-
-	/**
 	 * Display the home page.
 	 *
 	 * @Get("/", as="home")

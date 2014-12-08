@@ -24,7 +24,6 @@ class AdminController extends Controller {
     public function __construct(UserGestion $user_gestion)
     {
 			$this->user_gestion = $user_gestion;
-			$user_gestion->getStatut();
     }
 
     /**

@@ -31,7 +31,7 @@ class UserGestion extends BaseGestion{
 	/**
 	 * Create a new UserGestion instance.
 	 *
-     * @param  App\Models\User $user
+   * @param  App\Models\User $user
 	 * @param  App\Models\Role $role
 	 * @param  Illuminate\Contracts\Auth\Guard $auth
 	 * @param  Illuminate\Session\SessionManager $session
@@ -146,10 +146,6 @@ class UserGestion extends BaseGestion{
 	 */
 	public function getStatut()
 	{
-		if(!$this->session->has('statut')) 
-		{
-			$this->session->put('statut', $this->auth->check() ?  $this->auth->user()->role->slug : 'visitor');
-		}
 		return $this->session->get('statut');
 	}
 

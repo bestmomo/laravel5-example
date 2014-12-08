@@ -1,6 +1,6 @@
 <?php namespace App\Http\Middleware;
 
-use Closure, Session;
+use Closure, Session, Auth;
 use Illuminate\Contracts\Routing\Middleware;
 
 class App implements Middleware {
@@ -27,6 +27,11 @@ class App implements Middleware {
 		}
 
 		app()->setLocale(Session::get('locale'));
+
+		if(!Session::has('statut')) 
+		{
+			Session::put('statut', Auth::check() ?  Auth::user()->role->slug : 'visitor');
+		}
 
 		return $next($request);
 	}

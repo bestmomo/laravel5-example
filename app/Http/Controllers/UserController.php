@@ -41,7 +41,6 @@ class UserController extends Controller {
 	{
 		$this->user_gestion = $user_gestion;
 		$this->role_gestion = $role_gestion;
-		$user_gestion->getStatut();
 	}
 
 	/**
