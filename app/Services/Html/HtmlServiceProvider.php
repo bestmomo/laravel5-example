@@ -1,7 +1,6 @@
 <?php namespace App\Services\Html;
 
 use App\Services\Html\HtmlBuilder;
-use App\Services\Html\FormBuilder;
 
 class HtmlServiceProvider extends \Illuminate\Html\HtmlServiceProvider {
 
