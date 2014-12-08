@@ -6,7 +6,6 @@ use App\Http\Requests\PostRequest;
 use App\Http\Requests\SearchRequest;
 use Illuminate\Contracts\Auth\Guard;
 use App\Gestion\UserGestion;
-use App\Services\Pagination;
 use App\Services\Medias;
 
 /**
@@ -22,17 +21,17 @@ class BlogController extends Controller {
 	 */
 	protected $blog_gestion;
 
-    /**
-     * The UserGestion instance.
-     *
-     * @var App\Gestion\UserGestion
-     */
-    protected $user_gestion;
-
-    /**
-	 * The pagination number.
+	/**
+	 * The UserGestion instance.
 	 *
 	 * @var App\Gestion\UserGestion
+	 */
+	protected $user_gestion;
+
+	/**
+	 * The pagination number.
+	 *
+	 * @var int
 	 */
 	protected $nbrPages;
 
@@ -40,9 +39,9 @@ class BlogController extends Controller {
 	 * Create a new BlogController instance.
 	 *
 	 * @param  App\Gestion\BlogGestion $blog_gestion
-     * @param  App\Gestion\UserGestion $user_gestion
+	 * @param  App\Gestion\UserGestion $user_gestion
 	 * @return void
-	 */
+	*/
 	public function __construct(
 		BlogGestion $blog_gestion,
     UserGestion $user_gestion)
@@ -77,7 +76,7 @@ class BlogController extends Controller {
 	{
 		$statut = $this->user_gestion->getStatut();
 		$posts = $this->blog_gestion->index(10, $statut == 'admin' ? null : $auth->user()->id);
-		$links = Pagination::makeLengthAware($posts, $this->blog_gestion->count($statut == 'admin' ? null : $auth->user()->id), 10);
+		$links = str_replace('/?', '?', $posts->render());
 		return view('back.blog.index', compact('posts', 'links'));
 	}
 
@@ -95,7 +94,7 @@ class BlogController extends Controller {
 	{
 		$statut = $this->user_gestion->getStatut();
 		$posts = $this->blog_gestion->index(10, $statut == 'admin' ? null : $auth->user()->id, $request->get('name'), $request->get('sens'));
-		$links = Pagination::makeLengthAware($posts, $this->blog_gestion->count($statut == 'admin' ? null : $auth->user()->id), 10);
+		$links = str_replace('/?', '?', $posts->render());
 		return response()->json([
 			'view' => view('back.blog.table', compact('statut', 'posts'))->render(), 
 			'links' => $links

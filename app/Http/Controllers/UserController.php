@@ -6,7 +6,6 @@ use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Http\Requests\RoleRequest;
 use Illuminate\Http\Request;
-use App\Services\Pagination;
 
 /**
  * @Resource("user")
@@ -82,7 +81,7 @@ class UserController extends Controller {
 		];
 		$counts['total'] = array_sum($counts);
 		$users = $this->user_gestion->index(4, $role); 
-		$links = Pagination::makeLengthAware($users, $counts[$role], 4);
+		$links = str_replace('/?', '?', $users->render());
 		$roles = $this->role_gestion->all();
 		if($ajax)
 		{

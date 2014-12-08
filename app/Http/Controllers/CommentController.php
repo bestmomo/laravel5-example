@@ -6,7 +6,6 @@ use Illuminate\Contracts\Auth\Guard;
 use App\Gestion\CommentGestion;
 use App\Gestion\UserGestion;
 use App\Gestion\BlogGestion;
-use App\Services\Pagination;
 
 /**
  * @Resource("comment", except={"create","show"})
@@ -41,7 +40,7 @@ class CommentController extends Controller {
 	public function index()
 	{
 		$comments = $this->comment_gestion->index(4);
-		$links = Pagination::makeLengthAware($comments, $this->comment_gestion->count(), 4);
+		$links = str_replace('/?', '?', $comments->render());
 		return view('back.commentaires.index', compact('comments', 'links'));
 	}
 

@@ -26,7 +26,7 @@ class AdminController extends Controller {
 			$this->user_gestion = $user_gestion;
     }
 
-    /**
+  /**
 	 * Show the admin panel.
 	 *
 	 * @Get("admin", as="admin")
