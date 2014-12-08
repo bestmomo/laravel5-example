@@ -26,8 +26,6 @@ class PasswordController extends Controller {
 	/**
 	 * Send a reset link to the given user.
 	 *
-	 * @Post("password/email")
-	 *
 	 * @param  EmailPasswordLinkRequest  $request
 	 * @param  Illuminate\View\Factory $view
 	 * @return Response
