@@ -1,8 +1,8 @@
-<?php namespace App\Gestion;
+<?php namespace App\Repositories;
 
 use App\Models\Role;
 
-class RoleGestion {
+class RoleRepository {
 
 	/**
 	 * The Role instance.
@@ -12,7 +12,7 @@ class RoleGestion {
 	protected $role;
 
 	/**
-	 * Create a new RolegGestion instance.
+	 * Create a new RolegRepository instance.
 	 *
 	 * @param  App\Models\Role $role
 	 * @return void

@@ -3,9 +3,9 @@
 use App\Http\Requests\CommentRequest;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\Guard;
-use App\Gestion\CommentGestion;
-use App\Gestion\UserGestion;
-use App\Gestion\BlogGestion;
+use App\Repositories\CommentRepository;
+use App\Repositories\UserRepository;
+use App\Repositories\BlogRepository;
 
 /**
  * @Resource("comment", except={"create","show"})
@@ -14,20 +14,20 @@ use App\Gestion\BlogGestion;
 class CommentController extends Controller {
 
 	/**
-	 * The CommentGestion instance.
+	 * The CommentRepository instance.
 	 *
-	 * @var App\Gestion\CommentGestion
+	 * @var App\Repositories\CommentRepository
 	 */
 	protected $comment_gestion;
 
 	/**
 	 * Create a new CommentController instance.
 	 *
-	 * @param  App\Gestion\CommentGestion $comment_gestion
+	 * @param  App\Repositories\CommentRepository $comment_gestion
 	 * @return void
 	 */
 	public function __construct(
-		CommentGestion $comment_gestion)
+		CommentRepository $comment_gestion)
 	{
 		$this->comment_gestion = $comment_gestion;
 	}
@@ -93,7 +93,7 @@ class CommentController extends Controller {
 	 * @param  App\requests\CommentRequest $commentrequest
 	 * @param  Illuminate\Http\Request $request
 	 * @param  App\Services\Purifier $purifier
-	 * @param  App\Gestion\BlogGestion $blog_gestion
+	 * @param  App\Repositories\BlogRepository $blog_gestion
 	 * @param  int  $id
 	 * @return Response
 	 */
@@ -101,7 +101,7 @@ class CommentController extends Controller {
 		CommentRequest $commentrequest,
 		Request $request, 
 		Purifier $purifier,
-		BlogGestion $blog_gestion,
+		BlogRepository $blog_gestion,
 		$id)
 	{
 		$id = $request->segment(2);
@@ -136,13 +136,13 @@ class CommentController extends Controller {
 	 * @Put("/uservalid/{id}")
 	 *
 	 * @param  Illuminate\Http\Request $request
-	 * @param  App\Gestion\UserGestion $user_gestion
+	 * @param  App\Repositories\UserRepository $user_gestion
 	 * @param  int  $id
      * @return Response
 	 */
 	public function valide(
 		Request $request, 
-		UserGestion $user_gestion, 
+		UserRepository $user_gestion, 
 		$id)
 	{
 		$user_gestion->valide($request->input('valid'), $id);

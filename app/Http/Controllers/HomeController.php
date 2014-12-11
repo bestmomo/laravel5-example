@@ -1,6 +1,5 @@
 <?php namespace App\Http\Controllers;
 
-use App\Gestion\UserGestion;
 use Illuminate\Session\SessionManager;
 
 class HomeController extends Controller {

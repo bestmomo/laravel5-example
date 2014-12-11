@@ -1,11 +1,11 @@
-<?php namespace App\Gestion;
+<?php namespace App\Repositories;
 
 use App\Models\Comment;
 
-class CommentGestion extends BaseGestion {
+class CommentRepository extends BaseRepository {
 
 	/**
-	 * Create a new CommentGestion instance.
+	 * Create a new CommentRepository instance.
 	 *
 	 * @param  App\Models\Comment $comment
 	 * @return void

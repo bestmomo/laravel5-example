@@ -1,8 +1,8 @@
-<?php namespace App\Gestion;
+<?php namespace App\Repositories;
 
 use App\Models\Post, App\Models\Tag, App\Models\Comment;
 
-class BlogGestion extends BaseGestion{
+class BlogRepository extends BaseRepository{
 
 	/**
 	 * The Tag instance.
@@ -19,7 +19,7 @@ class BlogGestion extends BaseGestion{
 	protected $comment;
 
 	/**
-	 * Create a new BlogGestion instance.
+	 * Create a new BlogRepository instance.
 	 *
 	 * @param  App\Models\Post $post
 	 * @param  App\Models\Tag $tag
@@ -190,7 +190,7 @@ class BlogGestion extends BaseGestion{
 		$post = $this->model->findOrFail($id);
 		$post = $this->savePost($post, $inputs);
 
-		// Gestion éventuelle des tags
+		// Repository éventuelle des tags
 		$tags_id = [];
 		if(array_key_exists('tags',  $inputs) && $inputs['tags'] != '') {
 			$tags = explode(',', $inputs['tags']);
@@ -247,7 +247,7 @@ class BlogGestion extends BaseGestion{
 		$post = new $this->model;	
 		$post = $this->savePost($post, $inputs, $user_id);
 
-		// Gestion éventuelle des tags
+		// Repository éventuelle des tags
 		if(array_key_exists('tags',  $inputs) && $inputs['tags'] != '') {
 			$tags = explode(',', $inputs['tags']);
 			foreach ($tags as $tag) {

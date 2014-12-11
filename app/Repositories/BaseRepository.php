@@ -1,6 +1,6 @@
-<?php namespace App\Gestion;
+<?php namespace App\Repositories;
 
-class BaseGestion {
+class BaseRepository {
 
 	/**
 	 * The Model instance.

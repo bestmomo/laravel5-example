@@ -1,11 +1,11 @@
 <?php namespace App\Http\Controllers;
 
-use App\Gestion\BlogGestion;
+use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Request;
 use App\Http\Requests\PostRequest;
 use App\Http\Requests\SearchRequest;
-use Illuminate\Contracts\Auth\Guard;
-use App\Gestion\UserGestion;
+use App\Repositories\BlogRepository;
+use App\Repositories\UserRepository;
 use App\Services\Medias;
 
 /**
@@ -15,16 +15,16 @@ use App\Services\Medias;
 class BlogController extends Controller {
 
 	/**
-	 * The BlogGestion instance.
+	 * The BlogRepository instance.
 	 *
-	 * @var App\Gestion\BlogGestion
+	 * @var App\Repositories\BlogRepository
 	 */
 	protected $blog_gestion;
 
 	/**
-	 * The UserGestion instance.
+	 * The UserRepository instance.
 	 *
-	 * @var App\Gestion\UserGestion
+	 * @var App\Repositories\UserRepository
 	 */
 	protected $user_gestion;
 
@@ -38,13 +38,13 @@ class BlogController extends Controller {
 	/**
 	 * Create a new BlogController instance.
 	 *
-	 * @param  App\Gestion\BlogGestion $blog_gestion
-	 * @param  App\Gestion\UserGestion $user_gestion
+	 * @param  App\Repositories\BlogRepository $blog_gestion
+	 * @param  App\Repositories\UserRepository $user_gestion
 	 * @return void
 	*/
 	public function __construct(
-		BlogGestion $blog_gestion,
-    UserGestion $user_gestion)
+		BlogRepository $blog_gestion,
+    	UserRepository $user_gestion)
 	{
     $this->user_gestion = $user_gestion;
 		$this->blog_gestion = $blog_gestion;
@@ -147,12 +147,12 @@ class BlogController extends Controller {
 	/**
 	 * Show the form for editing the specified resource.
 	 *
-	 * @param  App\Gestion\UserGestion $user_gestion
+	 * @param  App\Repositories\UserRepository $user_gestion
 	 * @param  int  $id
 	 * @return Response
 	 */
 	public function edit(
-		UserGestion $user_gestion, 
+		UserRepository $user_gestion, 
 		$id)
 	{
 		$url = Medias::getUrl($user_gestion);

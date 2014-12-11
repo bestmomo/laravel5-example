@@ -1,11 +1,11 @@
-<?php namespace App\Gestion;
+<?php namespace App\Repositories;
 
 use App\Models\User, App\Models\Role;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Session\SessionManager;
 use File;
 
-class UserGestion extends BaseGestion{
+class UserRepository extends BaseRepository{
 
 	/**
 	 * The Role instance.
@@ -29,9 +29,9 @@ class UserGestion extends BaseGestion{
 	protected $session;
 
 	/**
-	 * Create a new UserGestion instance.
+	 * Create a new UserRepository instance.
 	 *
-   * @param  App\Models\User $user
+   	 * @param  App\Models\User $user
 	 * @param  App\Models\Role $role
 	 * @param  Illuminate\Contracts\Auth\Guard $auth
 	 * @param  Illuminate\Session\SessionManager $session

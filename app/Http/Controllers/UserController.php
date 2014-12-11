@@ -1,7 +1,7 @@
 <?php namespace App\Http\Controllers;
 
-use App\Gestion\UserGestion;
-use App\Gestion\RoleGestion;
+use App\Repositories\UserRepository;
+use App\Repositories\RoleRepository;
 use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Http\Requests\RoleRequest;
@@ -14,29 +14,29 @@ use Illuminate\Http\Request;
 class UserController extends Controller {
 
 	/**
-	 * The UserGestion instance.
+	 * The UserRepository instance.
 	 *
-	 * @var App\Gestion\UserGestion
+	 * @var App\Repositories\UserRepository
 	 */
 	protected $user_gestion;
 
 	/**
-	 * The RoleGestion instance.
+	 * The RoleRepository instance.
 	 *
-	 * @var App\Gestion\RoleGestion
+	 * @var App\Repositories\RoleRepository
 	 */	
 	protected $role_gestion;
 
 	/**
 	 * Create a new UserController instance.
 	 *
-	 * @param  App\Gestion\UserGestion $user_gestion
-	 * @param  App\Gestion\RoleGestion $role_gestion
+	 * @param  App\Repositories\UserRepository $user_gestion
+	 * @param  App\Repositories\RoleRepository $role_gestion
 	 * @return void
 	 */
 	public function __construct(
-		UserGestion $user_gestion,
-		RoleGestion $role_gestion)
+		UserRepository $user_gestion,
+		RoleRepository $role_gestion)
 	{
 		$this->user_gestion = $user_gestion;
 		$this->role_gestion = $role_gestion;

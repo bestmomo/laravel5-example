@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use App\Http\Requests\ContactRequest;
-use App\Gestion\ContactGestion;
+use App\Repositories\ContactRepository;
 
 /**
  * @Resource("contact", except={"show", "edit"})
@@ -13,11 +13,11 @@ class ContactController extends Controller {
 	/**
 	 * Display a listing of the resource.
 	 *
-	 * @param  ContactGestion $contact_gestion
+	 * @param  ContactRepository $contact_gestion
 	 * @return Response
 	 */
 	public function index(
-		ContactGestion $contact_gestion)
+		ContactRepository $contact_gestion)
 	{
 		$messages = $contact_gestion->index();
 		return view('back.messages.index', compact('messages'));
@@ -36,13 +36,13 @@ class ContactController extends Controller {
 	/**
 	 * Store a newly created resource in storage.
 	 *
-	 * @param  App\Gestion\ContactGestion $contact_gestion
+	 * @param  App\Repositories\ContactRepository $contact_gestion
 	 * @param  ContactRequest $contactrequest
 	 * @param  Illuminate\Http\Request $request
 	 * @return Response
 	 */
 	public function store(
-		ContactGestion $contact_gestion,
+		ContactRepository $contact_gestion,
 		ContactRequest $contactrequest,
 		Request $request)
 	{
@@ -56,13 +56,13 @@ class ContactController extends Controller {
 	/**
 	 * Update the specified resource in storage.
 	 *
-	 * @param  App\Gestion\ContactGestion $contact_gestion
+	 * @param  App\Repositories\ContactRepository $contact_gestion
 	 * @param  Illuminate\Http\Request $request
 	 * @param  int  $id
 	 * @return Response
 	 */
 	public function update(
-		ContactGestion $contact_gestion,
+		ContactRepository $contact_gestion,
 		Request $request, 		 
 		$id)
 	{
@@ -73,12 +73,12 @@ class ContactController extends Controller {
 	/**
 	 * Remove the specified resource from storage.
 	 *
-	 * @param  App\Gestion\ContactGestion $contact_gestion
+	 * @param  App\Repositories\ContactRepository $contact_gestion
 	 * @param  int  $id
 	 * @return Response
 	 */
 	public function destroy(
-		ContactGestion $contact_gestion, 
+		ContactRepository $contact_gestion, 
 		$id)
 	{
 		$contact_gestion->destroy($id);

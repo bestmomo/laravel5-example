@@ -1,27 +1,27 @@
 <?php namespace App\Http\Controllers;
 
-use App\Gestion\ContactGestion;
-use App\Gestion\UserGestion;
-use App\Gestion\BlogGestion;
-use App\Gestion\CommentGestion;
+use App\Repositories\ContactRepository;
+use App\Repositories\UserRepository;
+use App\Repositories\BlogRepository;
+use App\Repositories\CommentRepository;
 use App\Services\Medias;
 
 class AdminController extends Controller {
 
     /**
-     * The UserGestion instance.
+     * The UserRepository instance.
      *
-     * @var App\Gestion\UserGestion
+     * @var App\Repositories\UserRepository
      */
     protected $user_gestion;
 
     /**
      * Create a new AdminController instance.
      *
-     * @param  App\Gestion\UserGestion $user_gestion
+     * @param  App\Repositories\UserRepository $user_gestion
      * @return void
      */
-    public function __construct(UserGestion $user_gestion)
+    public function __construct(UserRepository $user_gestion)
     {
 			$this->user_gestion = $user_gestion;
     }
@@ -32,15 +32,15 @@ class AdminController extends Controller {
 	 * @Get("admin", as="admin")
 	 * @Middleware("admin")
 	 *
-	 * @param  App\Gestion\ContactGestion $contact_gestion
-	 * @param  App\Gestion\BlogGestion $blog_gestion
-	 * @param  App\Gestion\CommentGestion $comment_gestion
+	 * @param  App\Repositories\ContactRepository $contact_gestion
+	 * @param  App\Repositories\BlogRepository $blog_gestion
+	 * @param  App\Repositories\CommentRepository $comment_gestion
 	 * @return Response
 	 */
 	public function admin(
-		ContactGestion $contact_gestion, 
-		BlogGestion $blog_gestion,
-		CommentGestion $comment_gestion)
+		ContactRepository $contact_gestion, 
+		BlogRepository $blog_gestion,
+		CommentRepository $comment_gestion)
 	{	
 		$nbrMessages = $contact_gestion->getNumber();
 		$nbrUsers = $this->user_gestion->getNumber();

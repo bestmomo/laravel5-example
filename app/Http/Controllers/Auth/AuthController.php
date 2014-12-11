@@ -7,7 +7,7 @@ use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Session\SessionManager;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
-use App\Gestion\UserGestion;
+use App\Repositories\UserRepository;
 
 class AuthController extends Controller {
 
@@ -81,13 +81,13 @@ class AuthController extends Controller {
 	 * Handle a registration request for the application.
 	 *
 	 * @param  App\Http\Requests\RegisterRequest  $request
-	 * @param  App\Gestion\UserGestion $user_gestion
+	 * @param  App\Repositories\UserRepository $user_gestion
 	 * @param  Illuminate\Session\SessionManager  $session
 	 * @return Response
 	 */
 	public function postRegister(
 		RegisterRequest $request,
-		UserGestion $user_gestion,
+		UserRepository $user_gestion,
 		SessionManager $session)
 	{
 		// Vérification pot de miel

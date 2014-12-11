@@ -1,11 +1,11 @@
-<?php namespace App\Gestion;
+<?php namespace App\Repositories;
 
 use App\Models\Contact;
 
-class ContactGestion extends BaseGestion {
+class ContactRepository extends BaseRepository {
 
 	/**
-	 * Create a new ContactGestion instance.
+	 * Create a new ContactRepository instance.
 	 *
 	 * @param  App\Models\Contact $contact
 	 * @return void
