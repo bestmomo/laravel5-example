@@ -1,10 +1,11 @@
 <?php namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Presenters\DatePresenter;
 
 class Post extends Model  {
 
-	use DateAttribute;
+	use DatePresenter;
 
 	/**
 	 * The database table used by the model.

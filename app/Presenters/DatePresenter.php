@@ -1,8 +1,8 @@
-<?php namespace App\Models;
+<?php namespace App\Presenters;
 
 use Carbon\Carbon;
 
-trait DateAttribute {
+trait DatePresenter {
 
 	/**
 	 * Format created_at attribute
