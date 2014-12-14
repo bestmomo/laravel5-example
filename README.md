@@ -8,10 +8,10 @@
 * `cd projectname`
 * `composer instal`
 * `php artisan key:generate`
-* Create a database and inform *app/config/database.php*
+* Create a database and inform *resources/config/database.php*
 * `php artisan migrate` to create tables
 * `php artisan db:seed` to populate tables
-* Inform *app/config/mail.php* for email sends
+* Inform *resources/config/mail.php* for email sends
 
 ### Include ###
 
