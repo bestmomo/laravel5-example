@@ -11,6 +11,7 @@
 * Create a database and inform *resources/config/database.php*
 * `php artisan migrate` to create tables
 * `php artisan db:seed` to populate tables
+* `php artisan route:scan` to create routes
 * Inform *resources/config/mail.php* for email sends
 
 ### Include ###
