@@ -13,7 +13,7 @@ return [
 	|
 	*/
 
-	'debug' => (bool) getenv('APP_DEBUG') ?: false,
+	'debug' => env('APP_DEBUG'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -78,7 +78,7 @@ return [
 	|
 	*/
 
-	'key' => 'YourSecretKey!!!',
+	'key' => env('APP_KEY') ?: 'YourSecretKey!!!',
 
 	'cipher' => MCRYPT_RIJNDAEL_128,
 
@@ -200,8 +200,8 @@ return [
 		'Validator' => 'Illuminate\Support\Facades\Validator',
 		'View'      => 'Illuminate\Support\Facades\View',
 
-		'HTML' 			=> 'Illuminate\Html\HtmlFacade',
-    'Form' 			=> 'Illuminate\Html\FormFacade',
+		'HTML' 		=> 'Illuminate\Html\HtmlFacade',
+    	'Form' 		=> 'Illuminate\Html\FormFacade',
 
 	],
 
