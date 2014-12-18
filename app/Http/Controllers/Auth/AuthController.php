@@ -4,7 +4,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
 use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Session\SessionManager;
+use Illuminate\Events\Dispatcher;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Repositories\UserRepository;
@@ -40,12 +40,12 @@ class AuthController extends Controller {
 	 * Handle a login request to the application.
 	 *
 	 * @param  App\Http\Requests\LoginRequest  $request
-	 * @param  Illuminate\Session\SessionManager  $session
+	 * @param  Illuminate\Events\Dispatcher  $event
 	 * @return Response
 	 */
 	public function postLogin(
 		LoginRequest $request,
-		SessionManager $session)
+		Dispatcher $event)
 	{
 		// Vérification pot de miel
 		if($request->get('user') != '') return redirect('/');
@@ -54,7 +54,7 @@ class AuthController extends Controller {
 
 		if ($this->auth->attempt($credentials, $request->has('souvenir')))
 		{
-			$session->put('statut', $this->auth->user()->role->slug);
+			$event->fire('user.login', [$this->auth->user()]);
 			return redirect('/');
 		}
 
@@ -66,14 +66,14 @@ class AuthController extends Controller {
 	/**
 	 * Log the user out of the application.
 	 *
-	 * @param  Illuminate\Session\SessionManager  $session
+	 * @param  Illuminate\Events\Dispatcher  $event
 	 * @return Response
 	 */
 	public function getLogout(
-		SessionManager $session)
+		Dispatcher $event)
 	{
 		$this->auth->logout();
-		$session->put('statut', 'visitor');
+		$event->fire('user.logout');
 		return redirect('/');
 	}
 
@@ -82,13 +82,13 @@ class AuthController extends Controller {
 	 *
 	 * @param  App\Http\Requests\RegisterRequest  $request
 	 * @param  App\Repositories\UserRepository $user_gestion
-	 * @param  Illuminate\Session\SessionManager  $session
+	 * @param  Illuminate\Events\Dispatcher  $event
 	 * @return Response
 	 */
 	public function postRegister(
 		RegisterRequest $request,
 		UserRepository $user_gestion,
-		SessionManager $session)
+		Dispatcher $event)
 	{
 		// Vérification pot de miel
 		if($request->get('user') != '') return redirect('/');
@@ -96,7 +96,7 @@ class AuthController extends Controller {
 		$user = $user_gestion->store($request->all());
 
 		$this->auth->login($user);
-		$session->put('statut', 'visitor');
+		$event->fire('user.logout');
 
 		return redirect('/')->with('ok', trans('front/register.ok'));
 	}
