@@ -13,7 +13,7 @@
 * `php artisan db:seed` to populate tables
 * `php artisan route:scan` to create routes
 * `php artisan event:scan` to create events
-* Inform *resources/config/mail.php* for email sends
+* Inform *config/mail.php* for email sends
 
 ### Include ###
 
