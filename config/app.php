@@ -78,7 +78,7 @@ return [
 	|
 	*/
 
-	'key' => env('APP_KEY') ?: 'YourSecretKey!!!',
+	'key' => env('APP_KEY', 'YourSecretKey!!!'),
 
 	'cipher' => MCRYPT_RIJNDAEL_128,
 
@@ -144,7 +144,7 @@ return [
 		'App\Providers\EventServiceProvider',
 		'App\Providers\RouteServiceProvider',
 		'App\Services\Html\HtmlServiceProvider',
-		
+
 	],
 
 	/*
