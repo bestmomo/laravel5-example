@@ -49,7 +49,7 @@ class UserRepository extends BaseRepository{
 		$this->session = $session;
 	}
 
-  private function save($user, $inputs)
+  	private function save($user, $inputs)
 	{		
 		if(isset($inputs['vu'])) 
 			$user->vu = $inputs['vu'] == 'true';		
@@ -93,6 +93,12 @@ class UserRepository extends BaseRepository{
 		->paginate($n);
 	}
 
+	/**
+	 * Count the users.
+	 *
+	 * @param  string  $role
+	 * @return int
+	 */
 	public function count($role = null)
 	{
 		if($role)
@@ -105,12 +111,24 @@ class UserRepository extends BaseRepository{
 		return $this->model->count();
 	}
 
-  public function create(){
-  	$select = $this->role->all()->lists('titre', 'id');
-  	$statut = $this->getStatut();
+	/**
+	 * Get a user collection.
+	 *
+	 * @return Illuminate\Support\Collection
+	 */
+	public function create(){
+		$select = $this->role->all()->lists('titre', 'id');
+		$statut = $this->getStatut();
 		return compact('select', 'statut');
-  }
+	}
 
+	/**
+	 * Create a user.
+	 *
+	 * @param  array  $inputs
+	 * @param  int    $user_id
+	 * @return App\Models\User 
+	 */
 	public function store($inputs)
 	{
 		$user = new $this->model;		
@@ -119,6 +137,12 @@ class UserRepository extends BaseRepository{
 		return $user;
 	}
 
+	/**
+	 * Get user collection.
+	 *
+	 * @param  string  $slug
+	 * @return Illuminate\Support\Collection
+	 */
 	public function show($id)
 	{
 		$user = $this->model->with('role')->findOrFail($id);
@@ -126,6 +150,12 @@ class UserRepository extends BaseRepository{
 		return compact('user' ,'statut');
 	}
 
+	/**
+	 * Get user collection.
+	 *
+	 * @param  int  $id
+	 * @return Illuminate\Support\Collection
+	 */
 	public function edit($id)
 	{
 		$user = $this->model->findOrFail($id);
@@ -133,6 +163,13 @@ class UserRepository extends BaseRepository{
 		return compact('user', 'select');
 	}
 
+	/**
+	 * Update a user.
+	 *
+	 * @param  array  $inputs
+	 * @param  int    $id
+	 * @return void
+	 */
 	public function update($inputs, $id)
 	{
 		$user = $this->model->findOrFail($id);
@@ -156,10 +193,10 @@ class UserRepository extends BaseRepository{
 	 */
 	public function getName()
 	{
-    $name = strtolower(strtr(utf8_decode($this->auth->user()->username), 
-    	utf8_decode('àáâãäçèéêëìíîïñòóôõöùúûüýÿÀÁÂÃÄÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝ'), 
-    	'aaaaaceeeeiiiinooooouuuuyyAAAAACEEEEIIIINOOOOOUUUUY'
-    ));
+		$name = strtolower(strtr(utf8_decode($this->auth->user()->username), 
+			utf8_decode('àáâãäçèéêëìíîïñòóôõöùúûüýÿÀÁÂÃÄÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝ'), 
+			'aaaaaceeeeiiiinooooouuuuyyAAAAACEEEEIIIINOOOOOUUUUY'
+		));
 		$directory = base_path() . config('medias.url-files') . $name;
 		if (!File::isDirectory($directory))
 		{

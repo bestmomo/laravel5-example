@@ -44,7 +44,7 @@ class BlogRepository extends BaseRepository{
 	 * @param  bool   $user_id
 	 * @return App\Models\Post
 	 */
-  private function savePost($post, $inputs, $user_id = null)
+  	private function savePost($post, $inputs, $user_id = null)
 	{	
 		$post->titre = $inputs['titre'];
 		$post->sommaire = $inputs['sommaire'];	
