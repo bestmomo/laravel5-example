@@ -3,7 +3,7 @@
 use App\Models\User, App\Models\Role;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Session\SessionManager;
-use File;
+use Illuminate\Filesystem\FileSystem;
 
 class UserRepository extends BaseRepository{
 
@@ -22,9 +22,16 @@ class UserRepository extends BaseRepository{
 	protected $auth;
 
 	/**
-	 * The Store instance.
+	 * The FileSystem instance.
 	 *
-	 * @var Illuminate\Session\Store
+	 * @var Illuminate\Filesystem\FileSystem
+	 */	
+	protected $file;
+
+	/**
+	 * The SessionManager instance.
+	 *
+	 * @var Illuminate\Session\SessionManager
 	 */	
 	protected $session;
 
@@ -34,6 +41,7 @@ class UserRepository extends BaseRepository{
    	 * @param  App\Models\User $user
 	 * @param  App\Models\Role $role
 	 * @param  Illuminate\Contracts\Auth\Guard $auth
+	 * @param  Illuminate\Filesystem\FileSystem $file
 	 * @param  Illuminate\Session\SessionManager $session
 	 * @return void
 	 */
@@ -41,19 +49,22 @@ class UserRepository extends BaseRepository{
 		User $user, 
 		Role $role, 
 		Guard $auth, 
+		FileSystem $file,
 		SessionManager $session)
 	{
 		$this->model = $user;
 		$this->role = $role;
 		$this->auth = $auth;
+		$this->file = $file;
 		$this->session = $session;
 	}
 
   	private function save($user, $inputs)
 	{		
 		if(isset($inputs['vu'])) 
+		{
 			$user->vu = $inputs['vu'] == 'true';		
-		else {	
+		} else {	
 			$user->username = $inputs['username'];
 			$user->email = $inputs['email'];	
 			if(isset($inputs['role'])) 
@@ -63,6 +74,7 @@ class UserRepository extends BaseRepository{
 				$user->role_id = $role_user->id;
 			}
 		}
+
 		$user->save();
 	}
 
@@ -86,6 +98,7 @@ class UserRepository extends BaseRepository{
 			->orderBy('created_at', 'desc')
 			->paginate($n);			
 		}
+
 		return $this->model
 		->with('role')		
 		->orderBy('vu', 'asc')
@@ -108,6 +121,7 @@ class UserRepository extends BaseRepository{
 				$q->whereSlug($role);
 			})->count();			
 		}
+
 		return $this->model->count();
 	}
 
@@ -116,9 +130,11 @@ class UserRepository extends BaseRepository{
 	 *
 	 * @return Illuminate\Support\Collection
 	 */
-	public function create(){
+	public function create()
+	{
 		$select = $this->role->all()->lists('titre', 'id');
 		$statut = $this->getStatut();
+
 		return compact('select', 'statut');
 	}
 
@@ -131,9 +147,12 @@ class UserRepository extends BaseRepository{
 	 */
 	public function store($inputs)
 	{
-		$user = new $this->model;		
+		$user = new $this->model;
+
 		$user->password = bcrypt($inputs['password']);
+
 		$this->save($user, $inputs);
+
 		return $user;
 	}
 
@@ -146,7 +165,9 @@ class UserRepository extends BaseRepository{
 	public function show($id)
 	{
 		$user = $this->model->with('role')->findOrFail($id);
+
 		$statut = $this->getStatut();
+
 		return compact('user' ,'statut');
 	}
 
@@ -159,7 +180,9 @@ class UserRepository extends BaseRepository{
 	public function edit($id)
 	{
 		$user = $this->model->findOrFail($id);
+
 		$select = $this->role->all()->lists('titre', 'id');
+
 		return compact('user', 'select');
 	}
 
@@ -173,6 +196,7 @@ class UserRepository extends BaseRepository{
 	public function update($inputs, $id)
 	{
 		$user = $this->model->findOrFail($id);
+
 		$this->save($user, $inputs);
 	}
 
@@ -197,11 +221,14 @@ class UserRepository extends BaseRepository{
 			utf8_decode('àáâãäçèéêëìíîïñòóôõöùúûüýÿÀÁÂÃÄÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝ'), 
 			'aaaaaceeeeiiiinooooouuuuyyAAAAACEEEEIIIINOOOOOUUUUY'
 		));
+
 		$directory = base_path() . config('medias.url-files') . $name;
-		if (!File::isDirectory($directory))
+
+		if (!$this->file->isDirectory($directory))
 		{
-			File::makeDirectory($directory); 
+			$this->file->makeDirectory($directory); 
 		}  
+
 		return $name;  
 	}
 
@@ -215,7 +242,9 @@ class UserRepository extends BaseRepository{
 	public function valide($valid, $id)
 	{
 		$user = $this->model->findOrFail($id);
+
 		$user->valid = $valid == 'true';
+
 		$user->save();
 	}
 

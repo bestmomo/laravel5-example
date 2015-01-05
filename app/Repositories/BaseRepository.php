@@ -12,12 +12,14 @@ class BaseRepository {
 	/**
 	 * Get number of records.
 	 *
-	 * @return int
+	 * @return array
 	 */
 	public function getNumber()
 	{
 		$total = $this->model->all()->count();
+
 		$new = $this->model->whereVu(0)->count();
+
 		return compact('total', 'new');
 	}
 

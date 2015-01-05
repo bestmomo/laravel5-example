@@ -43,7 +43,9 @@ class RoleRepository {
 		foreach ($inputs as $key => $value)
 		{
 			$role = $this->role->where('slug', $key)->firstOrFail();
+
 			$role->titre = $value;
+			
 			$role->save();
 		}
 	}

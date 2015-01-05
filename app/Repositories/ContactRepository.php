@@ -36,10 +36,12 @@ class ContactRepository extends BaseRepository {
 	 */
 	public function store($inputs)
 	{
-		$contact = new $this->model;		
+		$contact = new $this->model;
+
 		$contact->nom = $inputs['nom'];
 		$contact->email = $inputs['email'];
 		$contact->texte = $inputs['message'];
+
 		$contact->save();
 	}
 
@@ -53,7 +55,9 @@ class ContactRepository extends BaseRepository {
 	public function update($vu, $id)
 	{
 		$contact = $this->model->findOrFail($id);
+
 		$contact->vu = $vu == 'true';
+
 		$contact->save();
 	}
 

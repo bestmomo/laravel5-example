@@ -52,23 +52,10 @@ class BlogRepository extends BaseRepository{
 		$post->slug = $inputs['slug'];
 		$post->actif = isset($inputs['actif']);	
 		if($user_id) $post->user_id = $user_id;
-		$post->save();
-		return $post;
-	}
 
-	/**
-	 * Get count.
-	 *
-	 * @param  int $user_id
-	 * @return int
-	 */
-	public function count($user_id = false)
-	{
-		if($user_id)
-		{
-			return $this->model->where('user_id', $user_id)->count();
-		} 
-		return $this->model->count();		
+		$post->save();
+
+		return $post;
 	}
 
 	/**
@@ -101,7 +88,7 @@ class BlogRepository extends BaseRepository{
 		->whereActif(true)
 		->with('user')
 		->orderBy('created_at', 'desc')
-		->whereHas('tags', function($q) use($id) { $q->where('tags.id', $id);	})
+		->whereHas('tags', function($q) use($id) { $q->where('tags.id', $id); })
 		->paginate($n);
 	}
 
@@ -138,10 +125,12 @@ class BlogRepository extends BaseRepository{
 		->select('posts.id', 'posts.created_at', 'titre', 'posts.vu', 'actif', 'user_id', 'slug', 'username')
 		->join('users', 'users.id', '=', 'posts.user_id')
 		->orderBy($orderby, $direction);
+
 		if($user_id) 
 		{
 			$query->where('user_id', $user_id);
 		} 
+
 		return $query->paginate($n);
 	}
 
@@ -154,11 +143,13 @@ class BlogRepository extends BaseRepository{
 	public function show($slug)
 	{
 		$post = $this->model->with('user', 'tags')->whereSlug($slug)->firstOrFail();
+
 		$comments = $this->comment
 		->wherePost_id($post->id)
 		->with('user')
 		->whereHas('user', function($q) {	$q->whereValid(true);	})
 		->get();
+
 		return compact('post', 'comments');
 	}
 
@@ -171,10 +162,13 @@ class BlogRepository extends BaseRepository{
 	public function edit($id)
 	{
 		$post = $this->model->with('tags')->findOrFail($id);
+
 		$tags = [];
+
 		foreach($post->tags as $tag) {
 			array_push($tags, $tag->tag);
 		}
+
 		return compact('post', 'tags');
 	}
 
@@ -190,10 +184,12 @@ class BlogRepository extends BaseRepository{
 		$post = $this->model->findOrFail($id);
 		$post = $this->savePost($post, $inputs);
 
-		// Repository éventuelle des tags
+		// Gestion éventuelle des tags
 		$tags_id = [];
 		if(array_key_exists('tags',  $inputs) && $inputs['tags'] != '') {
+
 			$tags = explode(',', $inputs['tags']);
+
 			foreach ($tags as $tag) {
 				$tag_ref = $this->tag->whereTag($tag)->first();
 				if(is_null($tag_ref)) {
@@ -204,6 +200,7 @@ class BlogRepository extends BaseRepository{
 				array_push($tags_id, $tag_ref->id);
 			}
 		}
+
 		$post->tags()->sync($tags_id);
 	}
 
@@ -217,7 +214,9 @@ class BlogRepository extends BaseRepository{
 	public function updateVu($inputs, $id)
 	{
 		$post = $this->model->findOrFail($id);
-		$post->vu = $inputs['vu'] == 'true';	
+
+		$post->vu = $inputs['vu'] == 'true';
+
 		$post->save();			
 	}
 
@@ -231,7 +230,9 @@ class BlogRepository extends BaseRepository{
 	public function updateActif($inputs, $id)
 	{
 		$post = $this->model->findOrFail($id);
+
 		$post->actif = $inputs['actif'] == 'true';	
+
 		$post->save();			
 	}
 
@@ -249,7 +250,9 @@ class BlogRepository extends BaseRepository{
 
 		// Repository éventuelle des tags
 		if(array_key_exists('tags',  $inputs) && $inputs['tags'] != '') {
+
 			$tags = explode(',', $inputs['tags']);
+
 			foreach ($tags as $tag) {
 				$tag_ref = $this->tag->whereTag($tag)->first();
 				if(is_null($tag_ref)) {
@@ -274,7 +277,9 @@ class BlogRepository extends BaseRepository{
 	public function destroy($id)
 	{
 		$model = $this->model->findOrFail($id);
+
 		$model->tags()->detach();
+		
 		$model->delete();
 	}	
 
@@ -282,7 +287,7 @@ class BlogRepository extends BaseRepository{
 	 * Get post slug.
 	 *
 	 * @param  int  $comment_id
-	 * @return int
+	 * @return string
 	 */
 	public function getSlug($comment_id)
 	{

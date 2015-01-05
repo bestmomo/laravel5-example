@@ -39,10 +39,12 @@ class CommentRepository extends BaseRepository {
 	 */
  	public function store($inputs, $user_id)
 	{
-		$comment = new $this->model;		
+		$comment = new $this->model;	
+
 		$comment->contenu = $inputs['commentaire'];
 		$comment->post_id = $inputs['post_id'];
 		$comment->user_id = $user_id;
+
 		$comment->save();
 	}
 
@@ -55,8 +57,10 @@ class CommentRepository extends BaseRepository {
 	 */
  	public function updateContenu($commentaire, $id)
 	{
-		$comment = $this->model->find($id);		
+		$comment = $this->model->find($id);	
+
 		$comment->contenu = $commentaire;
+
 		$comment->save();
 	}
 
@@ -70,24 +74,16 @@ class CommentRepository extends BaseRepository {
 	public function update($vu, $id)
 	{
 		$comment = $this->model->findOrFail($id);
-		$comment->vu = $vu == 'true';
-		$comment->save();
-	}
 
-	/**
-	 * Get number of comments.
-	 *
-	 * @return int
-	 */
-	public function count()
-	{
-		return $this->model->count();
+		$comment->vu = $vu == 'true';
+
+		$comment->save();
 	}
 
 	/**
 	 * Get a comment.
 	 *
-	 * @param  int   $id
+	 * @param  int  $id
 	 * @return Illuminate\Support\Collection
 	 */
 	public function getComment($id)
