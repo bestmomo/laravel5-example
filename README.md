@@ -2,6 +2,8 @@
 
 **Laravel 5 example** is a tutorial application. It's a work in progress because Laravel 5 is still alpha.
 
+Fixed to commit 8e80fd5b180440c1b0feb82a1b71ac39785ca3ce before remove of annotations that must be taken over as 3rd package.
+
 ### Installation ###
 
 * `git clone https://github.com/bestmomo/laravel5-example.git projectname`
