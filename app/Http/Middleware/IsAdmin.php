@@ -1,11 +1,10 @@
 <?php namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Contracts\Routing\Middleware;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\RedirectResponse;
 
-class IsAdmin implements Middleware {
+class IsAdmin {
 
 	/**
 	 * The Guard implementation.

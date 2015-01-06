@@ -1,11 +1,10 @@
 <?php namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Contracts\Routing\Middleware;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\RedirectResponse;
 
-class IsRedactor implements Middleware {
+class IsRedactor {
 
 	/**
 	 * The Guard implementation.

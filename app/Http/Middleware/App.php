@@ -1,9 +1,8 @@
 <?php namespace App\Http\Middleware;
 
 use Closure, Session, Auth;
-use Illuminate\Contracts\Routing\Middleware;
 
-class App implements Middleware {
+class App {
 
 	/**
 	 * The availables languages.
