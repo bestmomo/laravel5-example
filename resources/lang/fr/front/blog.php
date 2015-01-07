@@ -15,7 +15,7 @@ return [
 	'undo' => 'Annuler',
 	'fail-update' => 'Echec de la mise à jour. Aucunes données ou texte trop long',
 	'fail-delete' => 'Echec de la mise à jour',
-	'warning' => 'Merci de votre participation. Votre commentaire apparaîtra lorsqu\'un administrateur l\'aura validé (Lorsque vous aurez été validé vos autres commentaires appraitront immédiatement)',
+	'warning' => 'Merci de votre participation. Votre commentaire apparaîtra lorsqu\'un administrateur l\'aura validé (Lorsque vous aurez été validé vos autres commentaires apparaitront immédiatement)',
 	'search' => 'Chercher dans le blog',
 	'info-tag' => 'Articles trouvés avec le mot-clé ',
 	'info-search' => 'Articles trouvés avec la recherche ' 

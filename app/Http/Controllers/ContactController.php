@@ -4,11 +4,17 @@ use Illuminate\Http\Request;
 use App\Http\Requests\ContactRequest;
 use App\Repositories\ContactRepository;
 
-/**
- * @Resource("contact", except={"show", "edit"})
- * @Middleware("admin", except={"create","store"})
- */
 class ContactController extends Controller {
+
+	/**
+	 * Create a new ContactController instance.
+	 *
+	 * @return void
+	 */
+	public function __construct()
+	{
+		$this->middleware('admin', ['except' => ['create', 'store']]);
+	}
 
 	/**
 	 * Display a listing of the resource.

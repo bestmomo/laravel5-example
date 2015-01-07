@@ -5,9 +5,8 @@
 	"license": "MIT",
 	"type": "project",
 	"require": {
-		"laravel/framework": "dev-master#8e80fd5b180440c1b0feb82a1b71ac39785ca3ce",
-		"illuminate/html": "~5.0",
-		"doctrine/annotations": "~1.0"
+		"laravel/framework": "~5.0",
+		"illuminate/html": "~5.0"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "~4.0",

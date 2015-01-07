@@ -59,7 +59,7 @@
 
 					<div class="row" id="formcreate"> 
 						@if(Session::has('warning'))
-							{!! HTML::alert('warning', Session::get('warning')) !!}
+							@include('partials/error', ['type' => 'warning', 'message' => Session::get('warning')])
 						@endif	
 						@if(Session::get('statut') != 'visitor')
 							{!! Form::open(['url' => 'comment', 'method' => 'post']) !!}	

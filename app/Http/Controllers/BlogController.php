@@ -8,10 +8,6 @@ use App\Repositories\BlogRepository;
 use App\Repositories\UserRepository;
 use App\Services\Medias;
 
-/**
- * @Resource("blog")
- * @Middleware("redac", except={"indexFront","show","tag","search"}) 
- */
 class BlogController extends Controller {
 
 	/**
@@ -49,19 +45,19 @@ class BlogController extends Controller {
     $this->user_gestion = $user_gestion;
 		$this->blog_gestion = $blog_gestion;
 		$this->nbrPages = 2;
+
+		$this->middleware('redac', ['except' => ['indexFront','show','tag','search']]);
 	}	
 
 	/**
 	 * Display a listing of the resource.
 	 *
-	 * @Get("articles")
-	 *
 	 * @return Response
 	 */
 	public function indexFront()
 	{
-    $posts = $this->blog_gestion->indexFront($this->nbrPages);
-    $links = str_replace('/?', '?', $posts->render());
+    	$posts = $this->blog_gestion->indexFront($this->nbrPages);
+    	$links = str_replace('/?', '?', $posts->render());
 		return view('front.blog.index', compact('posts', 'links'));
 	}
 
@@ -82,7 +78,6 @@ class BlogController extends Controller {
 
 	/**
 	 * Display a listing of the resource.
-	 * @Get("blog/order")
 	 *
 	 * @param  Illuminate\Http\Request $request
 	 * @param  Illuminate\Contracts\Auth\Guard $auth
@@ -179,8 +174,6 @@ class BlogController extends Controller {
 	/**
 	 * Update "vu" for the specified resource in storage.
 	 *
-	 * @Put("postvu/{id}")
-	 *
 	 * @param  Illuminate\Http\Request $request
 	 * @param  int  $id
 	 * @return Response
@@ -195,8 +188,6 @@ class BlogController extends Controller {
 
 	/**
 	 * Update "actif" for the specified resource in storage.
-	 *
-	 * @Put("postactif/{id}")
 	 *
 	 * @param  Illuminate\Http\Request $request
 	 * @param  int  $id
@@ -226,8 +217,8 @@ class BlogController extends Controller {
 	}
 
 	/**
-	 * @Get("blog/tag")
-	 *
+	 * Get tagged posts
+	 * 
 	 * @param  Illuminate\Http\Request $request
 	 * @return Response
 	 */
@@ -242,8 +233,6 @@ class BlogController extends Controller {
 
 	/**
 	 * Find search in blog
-	 *
-	 * @Get("blog/search")
 	 *
 	 * @param  App\Http\Requests\SearchRequest $searchrequest
 	 * @param  Illuminate\Http\Request $request

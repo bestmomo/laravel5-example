@@ -7,10 +7,6 @@ use App\Repositories\CommentRepository;
 use App\Repositories\UserRepository;
 use App\Repositories\BlogRepository;
 
-/**
- * @Resource("comment", except={"create","show"})
- * @Middleware("admin", except={"store","edit","update","destroy"})
- */
 class CommentController extends Controller {
 
 	/**
@@ -30,6 +26,9 @@ class CommentController extends Controller {
 		CommentRepository $comment_gestion)
 	{
 		$this->comment_gestion = $comment_gestion;
+
+		$this->middleware('admin', ['except' => ['store', 'edit', 'update', 'destroy']]);
+		$this->middleware('auth', ['only' => ['store', 'update', 'destroy']]);
 	}
 
 	/**
@@ -46,8 +45,6 @@ class CommentController extends Controller {
 
 	/**
 	 * Store a newly created resource in storage.
-	 *
-	 * @Middleware("auth")
 	 *
 	 * @param  App\requests\CommentRequest $commentrequest
 	 * @param  Illuminate\Http\Request $request
@@ -71,8 +68,6 @@ class CommentController extends Controller {
 	/**
 	 * Update "vu" in the specified resource in storage.
 	 *
-	 * @put("commentvu/{id}")
-	 *
 	 * @param  Illuminate\Http\Request $request
 	 * @param  int  $id
 	 * @return Response
@@ -88,12 +83,9 @@ class CommentController extends Controller {
 	/**
 	 * Update the specified resource in storage.
 	 *
-	 * @Middleware("auth")
-	 *
 	 * @param  App\requests\CommentRequest $commentrequest
 	 * @param  Illuminate\Http\Request $request
 	 * @param  App\Services\Purifier $purifier
-	 * @param  App\Repositories\BlogRepository $blog_gestion
 	 * @param  int  $id
 	 * @return Response
 	 */
@@ -101,7 +93,6 @@ class CommentController extends Controller {
 		CommentRequest $commentrequest,
 		Request $request, 
 		Purifier $purifier,
-		BlogRepository $blog_gestion,
 		$id)
 	{
 		$id = $request->segment(2);
@@ -113,8 +104,6 @@ class CommentController extends Controller {
 
 	/**
 	 * Remove the specified resource from storage.
-	 *
-	 * @Middleware("auth")
 	 *
 	 * @param  Illuminate\Http\Request $request
 	 * @param  int  $id
@@ -132,8 +121,6 @@ class CommentController extends Controller {
 
 	/**
 	 * Validate an user
-	 *
-	 * @Put("/uservalid/{id}")
 	 *
 	 * @param  Illuminate\Http\Request $request
 	 * @param  App\Repositories\UserRepository $user_gestion

@@ -7,10 +7,6 @@ use App\Http\Requests\UserUpdateRequest;
 use App\Http\Requests\RoleRequest;
 use Illuminate\Http\Request;
 
-/**
- * @Resource("user")
- * @Middleware("admin")
- */
 class UserController extends Controller {
 
 	/**
@@ -40,6 +36,8 @@ class UserController extends Controller {
 	{
 		$this->user_gestion = $user_gestion;
 		$this->role_gestion = $role_gestion;
+
+		$this->middleware('admin');
 	}
 
 	/**
@@ -54,8 +52,6 @@ class UserController extends Controller {
 
 	/**
 	 * Display a listing of the resource.
-	 *
-	 * @Get("user/sort/{role}")
 	 *
      * @param  string  $role
 	 * @return Response
@@ -161,8 +157,6 @@ class UserController extends Controller {
 	/**
 	 * Update the specified resource in storage.
 	 *
-	 * @Put("uservu/{id}")
-	 *
 	 * @param  Illuminate\Http\Request $request
 	 * @param  int  $id
 	 * @return Response
@@ -190,8 +184,6 @@ class UserController extends Controller {
 	/**
 	 * Display the roles form
 	 *
-	 * @Get("user/roles")
-	 *
 	 * @return Response
 	 */
 	public function getRoles()
@@ -202,8 +194,6 @@ class UserController extends Controller {
 
 	/**
 	 * Update roles
-	 *
-	 * @Post("user/roles")
 	 *
 	 * @param  App\requests\RoleRequest $rolerequest
 	 * @param  Illuminate\Http\Request $request

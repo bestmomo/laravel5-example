@@ -5,23 +5,13 @@ use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvi
 class EventServiceProvider extends ServiceProvider {
 
 	/**
-	 * The class to scan for event annotations.
-	 *
-	 * @var array
-	 */
-	protected $scan = [
-		'App\Services\Statut',
-	];
-
-	/**
 	 * The event handler mappings for the application.
 	 *
 	 * @var array
 	 */
 	protected $listen = [
-		'event.name' => [
-			'EventListener',
-		],
+		'user.login' => ['App\Services\Statut@setLoginStatut'],
+		'user.logout' => ['App\Services\Statut@setVisitorStatut']
 	];
 
 }

@@ -7,8 +7,6 @@ class HomeController extends Controller {
 	/**
 	 * Display the home page.
 	 *
-	 * @Get("/", as="home")
-	 *
 	 * @return Response
 	 */
 	public function index()
@@ -19,8 +17,6 @@ class HomeController extends Controller {
 	/**
 	 * Display the missing page (404).
 	 *
-	 * @Get("/missing")
-	 *
 	 * @return Response
 	 */
 	public function missing()
@@ -30,8 +26,6 @@ class HomeController extends Controller {
 
 	/**
 	 * Change language.
-	 *
-	 * @Get("/language")
 	 *
 	 * @param  Illuminate\Session\SessionManager  $session
 	 * @return Response

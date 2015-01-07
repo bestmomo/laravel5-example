@@ -23,14 +23,11 @@ class AdminController extends Controller {
      */
     public function __construct(UserRepository $user_gestion)
     {
-			$this->user_gestion = $user_gestion;
+		$this->user_gestion = $user_gestion;
     }
 
-  /**
+  	/**
 	 * Show the admin panel.
-	 *
-	 * @Get("admin", as="admin")
-	 * @Middleware("admin")
 	 *
 	 * @param  App\Repositories\ContactRepository $contact_gestion
 	 * @param  App\Repositories\BlogRepository $blog_gestion
@@ -51,9 +48,6 @@ class AdminController extends Controller {
 
 	/**
 	 * Show the media panel.
-	 *
-	 * @Get("medias", as="medias")
-	 * @Middleware("redac")
 	 *
      * @return Response
 	 */
