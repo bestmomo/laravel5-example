@@ -25,8 +25,6 @@ class Statut  {
 
 	/**
 	 * Set the login user statut
-	 *
-	 * @Hears("user.login")
 	 * 
 	 * @param  App\Models\User $user
 	 * @return void
@@ -38,8 +36,6 @@ class Statut  {
 
 	/**
 	 * Set the visitor user statut
-	 *
-	 * @Hears("user.logout")
 	 * 
 	 * @return void
 	 */
