@@ -83,7 +83,7 @@ class UserController extends Controller {
 		{
 			return response()->json([
 				'view' => view('back.users.table', compact('users', 'links', 'counts', 'roles'))->render(), 
-				'links' => $links
+				'links' => str_replace('/sort/total', '', $links)
 			]);			
 		}
 		return view('back.users.index', compact('users', 'links', 'counts', 'roles'));		
