@@ -96,7 +96,7 @@ class AuthController extends Controller {
 		$user = $user_gestion->store($request->all());
 
 		$this->auth->login($user);
-		$event->fire('user.logout');
+		$event->fire('user.login', $user);
 
 		return redirect('/')->with('ok', trans('front/register.ok'));
 	}

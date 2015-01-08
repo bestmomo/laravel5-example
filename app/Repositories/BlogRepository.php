@@ -75,7 +75,7 @@ class BlogRepository extends BaseRepository{
 	}
 
 	/**
-	 * Get model collection.
+	 * Get post collection.
 	 *
 	 * @param  int  $n
 	 * @param  int  $id
@@ -147,7 +147,7 @@ class BlogRepository extends BaseRepository{
 		$comments = $this->comment
 		->wherePost_id($post->id)
 		->with('user')
-		->whereHas('user', function($q) {	$q->whereValid(true);	})
+		->whereHas('user', function($q) { $q->whereValid(true); })
 		->get();
 
 		return compact('post', 'comments');
@@ -248,7 +248,7 @@ class BlogRepository extends BaseRepository{
 		$post = new $this->model;	
 		$post = $this->savePost($post, $inputs, $user_id);
 
-		// Repository éventuelle des tags
+		// Création éventuelle des tags
 		if(array_key_exists('tags',  $inputs) && $inputs['tags'] != '') {
 
 			$tags = explode(',', $inputs['tags']);

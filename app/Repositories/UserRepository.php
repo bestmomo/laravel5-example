@@ -59,6 +59,13 @@ class UserRepository extends BaseRepository{
 		$this->session = $session;
 	}
 
+	/**
+	 * Save the User.
+	 *
+	 * @param  App\Models\User $user
+	 * @param  Array  $inputs
+	 * @return void
+	 */
   	private function save($user, $inputs)
 	{		
 		if(isset($inputs['vu'])) 
@@ -67,9 +74,9 @@ class UserRepository extends BaseRepository{
 		} else {	
 			$user->username = $inputs['username'];
 			$user->email = $inputs['email'];	
-			if(isset($inputs['role'])) 
+			if(isset($inputs['role'])) {
 				$user->role_id = $inputs['role'];	
-			else {
+			} else {
 				$role_user = $this->role->where('slug', 'user')->first();
 				$user->role_id = $role_user->id;
 			}

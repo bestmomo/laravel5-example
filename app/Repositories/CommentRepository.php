@@ -57,7 +57,7 @@ class CommentRepository extends BaseRepository {
 	 */
  	public function updateContenu($commentaire, $id)
 	{
-		$comment = $this->model->find($id);	
+		$comment = $this->model->findOrFail($id);	
 
 		$comment->contenu = $commentaire;
 
