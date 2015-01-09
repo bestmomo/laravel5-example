@@ -54,14 +54,4 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	  return $this->hasMany('App\Models\Comment');
 	}
 
-	/**
-	 * Many to Many relation
-	 *
-	 * @return Illuminate\Database\Eloquent\Relations\belongsToMany
-	 */
-  public function roles()
-  {
-    return $this->belongsToMany('Role');
-  }
-
 }
