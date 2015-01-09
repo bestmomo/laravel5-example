@@ -70,15 +70,11 @@ class UserController extends Controller {
 	 */
 	private function indexGo($role, $ajax = false)
 	{
-		$counts = [
-			'admin' => $this->user_gestion->count('admin'),
-			'redac' => $this->user_gestion->count('redac'),
-			'user' => $this->user_gestion->count('user')
-		];
-		$counts['total'] = array_sum($counts);
+		$counts = $this->user_gestion->counts();
 		$users = $this->user_gestion->index(4, $role); 
 		$links = str_replace('/?', '?', $users->render());
 		$roles = $this->role_gestion->all();
+
 		if($ajax)
 		{
 			return response()->json([
@@ -86,6 +82,7 @@ class UserController extends Controller {
 				'links' => str_replace('/sort/total', '', $links)
 			]);			
 		}
+
 		return view('back.users.index', compact('users', 'links', 'counts', 'roles'));		
 	}
 

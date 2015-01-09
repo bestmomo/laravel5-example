@@ -133,6 +133,25 @@ class UserRepository extends BaseRepository{
 	}
 
 	/**
+	 * Count the users.
+	 *
+	 * @param  string  $role
+	 * @return int
+	 */
+	public function counts()
+	{
+		$counts = [
+			'admin' => $this->count('admin'),
+			'redac' => $this->count('redac'),
+			'user' => $this->count('user')
+		];
+
+		$counts['total'] = array_sum($counts);
+
+		return $counts;
+	}
+
+	/**
 	 * Get a user collection.
 	 *
 	 * @return Illuminate\Support\Collection
