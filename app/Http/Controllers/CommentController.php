@@ -85,19 +85,16 @@ class CommentController extends Controller {
 	 *
 	 * @param  App\requests\CommentRequest $commentrequest
 	 * @param  Illuminate\Http\Request $request
-	 * @param  App\Services\Purifier $purifier
 	 * @param  int  $id
 	 * @return Response
 	 */
 	public function update(
 		CommentRequest $commentrequest,
 		Request $request, 
-		Purifier $purifier,
 		$id)
 	{
 		$id = $request->segment(2);
 		$commentaire = $request->get('commentaire' . $id);
-		$commentaire = $purifier->clean($commentaire);
 		$this->comment_gestion->updateContenu($commentaire, $id);
 		return response()->json(['id' => $id, 'contenu' => $commentaire]);	
 	}
