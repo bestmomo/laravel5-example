@@ -5,7 +5,7 @@
 	"license": "MIT",
 	"type": "project",
 	"require": {
-		"laravel/framework": "dev-master#e33584db10fa3ca84bce135998a62e8c7529bff5",
+		"laravel/framework": "~5.0",
 		"illuminate/html": "~5.0"
 	},
 	"require-dev": {
