@@ -42,11 +42,11 @@ class BlogController extends Controller {
 		BlogRepository $blog_gestion,
     	UserRepository $user_gestion)
 	{
-    $this->user_gestion = $user_gestion;
+    	$this->user_gestion = $user_gestion;
 		$this->blog_gestion = $blog_gestion;
 		$this->nbrPages = 2;
 
-		$this->middleware('redac', ['except' => ['indexFront','show','tag','search']]);
+		$this->middleware('redac', ['except' => ['indexFront', 'show', 'tag', 'search']]);
 	}	
 
 	/**
@@ -58,6 +58,7 @@ class BlogController extends Controller {
 	{
     	$posts = $this->blog_gestion->indexFront($this->nbrPages);
     	$links = str_replace('/?', '?', $posts->render());
+
 		return view('front.blog.index', compact('posts', 'links'));
 	}
 
@@ -72,7 +73,9 @@ class BlogController extends Controller {
 	{
 		$statut = $this->user_gestion->getStatut();
 		$posts = $this->blog_gestion->index(10, $statut == 'admin' ? null : $auth->user()->id);
+
 		$links = str_replace('/?', '?', $posts->render());
+
 		return view('back.blog.index', compact('posts', 'links'));
 	}
 
@@ -89,7 +92,9 @@ class BlogController extends Controller {
 	{
 		$statut = $this->user_gestion->getStatut();
 		$posts = $this->blog_gestion->index(10, $statut == 'admin' ? null : $auth->user()->id, $request->get('name'), $request->get('sens'));
+		
 		$links = str_replace('/?', '?', $posts->render());
+
 		return response()->json([
 			'view' => view('back.blog.table', compact('statut', 'posts'))->render(), 
 			'links' => $links
@@ -121,6 +126,7 @@ class BlogController extends Controller {
 		Guard $auth)
 	{
 		$this->blog_gestion->store($request->all(), $auth->user()->id);
+
 		return redirect('blog')->with('ok', trans('back/blog.stored'));
 	}
 
@@ -136,6 +142,7 @@ class BlogController extends Controller {
 		$id)
 	{
 		$user = $auth->user();
+
 		return view('front.blog.show',  array_merge($this->blog_gestion->show($id), compact('user')));
 	}
 
@@ -151,6 +158,7 @@ class BlogController extends Controller {
 		$id)
 	{
 		$url = Medias::getUrl($user_gestion);
+
 		return view('back.blog.edit',  array_merge($this->blog_gestion->edit($id), compact('url')));
 	}
 
@@ -168,6 +176,7 @@ class BlogController extends Controller {
 		$id)
 	{
 		$this->blog_gestion->update($request->all(), $id);
+
 		return redirect('blog')->with('ok', trans('back/blog.updated'));		
 	}
 
@@ -183,6 +192,7 @@ class BlogController extends Controller {
 		$id)
 	{
 		$this->blog_gestion->updateVu($request->all(), $id);
+
 		return response()->json(['statut' => 'ok']);
 	}
 
@@ -198,6 +208,7 @@ class BlogController extends Controller {
 		$id)
 	{
 		$this->blog_gestion->updateActif($request->all(), $id);
+
 		return response()->json(['statut' => 'ok']);
 	}
 
@@ -213,6 +224,7 @@ class BlogController extends Controller {
 		$id)
 	{
 		$this->blog_gestion->destroy($id);
+
 		return redirect('blog')->with('ok', trans('back/blog.destroyed'));		
 	}
 
@@ -228,6 +240,7 @@ class BlogController extends Controller {
 		$posts = $this->blog_gestion->indexTag($this->nbrPages, $tag);
 		$links = str_replace('/?', '?', $posts->appends(compact('tag'))->render());
 		$info = trans('front/blog.info-tag') . '<strong>' . $this->blog_gestion->getTagById($tag) . '</strong>';
+		
 		return view('front.blog.index', compact('posts', 'links', 'info'));
 	}
 
@@ -246,6 +259,7 @@ class BlogController extends Controller {
 		$posts = $this->blog_gestion->search($this->nbrPages, $search);
 		$links = str_replace('/?', '?', $posts->appends(compact('search'))->render());
 		$info = trans('front/blog.info-search') . '<strong>' . $search . '</strong>';
+		
 		return view('front.blog.index', compact('posts', 'links', 'info'));
 	}
 

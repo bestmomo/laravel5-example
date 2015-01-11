@@ -1,6 +1,6 @@
 <?php namespace App\Http\Controllers;
 
-use Illuminate\Session\SessionManager;
+use App\Commands\ChangeLocaleCommand;
 
 class HomeController extends Controller {
 
@@ -31,9 +31,10 @@ class HomeController extends Controller {
 	 * @return Response
 	 */
 	public function language(
-		SessionManager $session)
+		ChangeLocaleCommand $changeLocaleCommand)
 	{
-		$session->set('locale', $session->get('locale') == 'fr' ? 'en' : 'fr');
+		$this->dispatch($changeLocaleCommand);
+
 		return redirect()->back();
 	}
 

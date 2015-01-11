@@ -26,6 +26,7 @@ class ContactController extends Controller {
 		ContactRepository $contact_gestion)
 	{
 		$messages = $contact_gestion->index();
+
 		return view('back.messages.index', compact('messages'));
 	}
 
@@ -54,8 +55,10 @@ class ContactController extends Controller {
 	{
 		// Vérification pot de miel
 		if($request->get('user') != '') return redirect('/');	
+
 		// Traitement	
 		$contact_gestion->store($request->all());
+
 		return redirect('/')->with('ok', trans('front/contact.ok'));
 	}
 
@@ -73,6 +76,7 @@ class ContactController extends Controller {
 		$id)
 	{
 		$contact_gestion->update($request->input('vu'), $id);
+
 		return response()->json(['statut' => 'ok']);
 	}
 
@@ -88,6 +92,7 @@ class ContactController extends Controller {
 		$id)
 	{
 		$contact_gestion->destroy($id);
+		
 		return redirect('contact');
 	}
 

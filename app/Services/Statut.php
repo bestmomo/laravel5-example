@@ -1,27 +1,8 @@
 <?php namespace App\Services;
 
-use Illuminate\Session\SessionManager;
+use Session, Auth;
 
 class Statut  {
-
-	/**
-	 * The SessionManager instance.
-	 *
-	 * @var Illuminate\Session\SessionManager
-	 */
-	protected $session;
-
-	/**
-	 * Create a new CommentController instance.
-	 *
-	 * @param  Illuminate\Session\SessionManager $session
-	 * @return void
-	 */
-	public function __construct(
-		SessionManager $session)
-	{
-		$this->session = $session;
-	}
 
 	/**
 	 * Set the login user statut
@@ -31,7 +12,7 @@ class Statut  {
 	 */
 	public function setLoginStatut($user)
 	{
-		$this->session->put('statut', $user->role->slug);
+		Session::put('statut', $user->role->slug);
 	}
 
 	/**
@@ -41,7 +22,20 @@ class Statut  {
 	 */
 	public function setVisitorStatut()
 	{
-		$this->session->put('statut', 'visitor');
+		Session::put('statut', 'visitor');
+	}
+
+	/**
+	 * Set the statut
+	 * 
+	 * @return void
+	 */
+	public function setStatut()
+	{
+		if(!Session::has('statut')) 
+		{
+			Session::put('statut', Auth::check() ?  Auth::user()->role->slug : 'visitor');
+		}
 	}
 
 }

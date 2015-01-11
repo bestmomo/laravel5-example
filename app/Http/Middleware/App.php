@@ -1,36 +1,65 @@
 <?php namespace App\Http\Middleware;
 
-use Closure, Session, Auth;
+use Closure;
+
+use App\Commands\SetLocaleCommand;
+
+use Illuminate\Bus\Dispatcher as BusDispatcher;
+use Illuminate\Events\Dispatcher as EventDispatcher;
 
 class App {
 
 	/**
-	 * The availables languages.
+	 * The command bus.
 	 *
-	 * @array $languages
+	 * @array $bus
 	 */
-	protected $languages = ['en','fr'];
+	protected $bus;
+
+	/**
+	 * The event bus.
+	 *
+	 * @array $event
+	 */
+	protected $event;
+
+	/**
+	 * The command bus.
+	 *
+	 * @array $bus
+	 */
+	protected $setLocaleCommand;
+
+	/**
+	 * Create a new App instance.
+	 *
+	 * @param  Illuminate\Bus\Dispatcher $bus
+	 * @param  Illuminate\Events\Dispatcher $event
+	 * @param  App\Commands\SetLocaleCommand $setLocaleCommand
+	 * @return void
+	*/
+	public function __construct(
+		BusDispatcher $bus,
+		EventDispatcher $event,
+		SetLocaleCommand $setLocaleCommand)
+	{
+		$this->bus = $bus;
+		$this->event = $event;
+		$this->setLocaleCommand = $setLocaleCommand;
+	}
 
 	/**
 	 * Handle an incoming request.
 	 *
-	 * @param  \Illuminate\Http\Request  $request
-	 * @param  \Closure  $next
+	 * @param  Illuminate\Http\Request  $request
+	 * @param  Closure  $next
 	 * @return mixed
 	 */
 	public function handle($request, Closure $next)
 	{
-		if(!Session::has('locale'))
-		{
-			Session::put('locale', $request->getPreferredLanguage($this->languages));
-		}
+		$this->bus->dispatch($this->setLocaleCommand);
 
-		app()->setLocale(Session::get('locale'));
-
-		if(!Session::has('statut')) 
-		{
-			Session::put('statut', Auth::check() ?  Auth::user()->role->slug : 'visitor');
-		}
+		$this->event->fire('user.access');
 
 		return $next($request);
 	}

@@ -11,7 +11,8 @@ class EventServiceProvider extends ServiceProvider {
 	 */
 	protected $listen = [
 		'user.login' => ['App\Services\Statut@setLoginStatut'],
-		'user.logout' => ['App\Services\Statut@setVisitorStatut']
+		'user.logout' => ['App\Services\Statut@setVisitorStatut'],
+		'user.access' => ['App\Services\Statut@setStatut']
 	];
 
 }

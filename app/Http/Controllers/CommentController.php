@@ -40,6 +40,7 @@ class CommentController extends Controller {
 	{
 		$comments = $this->comment_gestion->index(4);
 		$links = str_replace('/?', '?', $comments->render());
+
 		return view('back.commentaires.index', compact('comments', 'links'));
 	}
 
@@ -58,10 +59,12 @@ class CommentController extends Controller {
 	{
 		$inputs = $request->all();
 		$this->comment_gestion->store($inputs, $auth->user()->id);
+
 		if($auth->user()->valid)
 		{
 			return redirect()->back();
 		}
+
 		return redirect()->back()->with('warning', trans('front/blog.warning'));
 	}		
 
@@ -77,6 +80,7 @@ class CommentController extends Controller {
 		$id)
 	{
 		$this->comment_gestion->update($request->input('vu'), $id);
+
 		return response()->json(['statut' => 'ok']);		
 	}
 
@@ -96,6 +100,7 @@ class CommentController extends Controller {
 		$id = $request->segment(2);
 		$commentaire = $request->get('commentaire' . $id);
 		$this->comment_gestion->updateContenu($commentaire, $id);
+
 		return response()->json(['id' => $id, 'contenu' => $commentaire]);	
 	}
 
@@ -109,10 +114,12 @@ class CommentController extends Controller {
 	public function destroy(Request $request, $id)
 	{
 		$this->comment_gestion->destroy($id);
+
 		if($request->ajax())
 		{
 			return response()->json(['id' => $id]);
 		}
+
 		return redirect('comment');
 	}
 
@@ -130,6 +137,7 @@ class CommentController extends Controller {
 		$id)
 	{
 		$user_gestion->valide($request->input('valid'), $id);
+		
 		return response()->json(['statut' => 'ok']);		
 	}
 

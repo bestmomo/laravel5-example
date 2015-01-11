@@ -33,6 +33,7 @@ class AuthController extends Controller {
 	public function __construct(Guard $auth)
 	{
 		$this->auth = $auth;
+
 		$this->middleware('guest', ['except' => 'getLogout']);
 	}
 
@@ -55,6 +56,7 @@ class AuthController extends Controller {
 		if ($this->auth->attempt($credentials, $request->has('souvenir')))
 		{
 			$event->fire('user.login', [$this->auth->user()]);
+			
 			return redirect('/');
 		}
 
@@ -73,7 +75,9 @@ class AuthController extends Controller {
 		Dispatcher $event)
 	{
 		$this->auth->logout();
+
 		$event->fire('user.logout');
+
 		return redirect('/');
 	}
 
@@ -96,6 +100,7 @@ class AuthController extends Controller {
 		$user = $user_gestion->store($request->all());
 
 		$this->auth->login($user);
+
 		$event->fire('user.login', $user);
 
 		return redirect('/')->with('ok', trans('front/register.ok'));
