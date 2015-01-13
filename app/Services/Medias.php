@@ -1,7 +1,5 @@
 <?php namespace App\Services;
 
-use Session;
-
 class Medias  {
 
 	/**
@@ -13,7 +11,7 @@ class Medias  {
 	public static function getUrl($user_gestion)
 	{
 		$url = config('medias.url');
-		if(Session::get('statut') == 'redac')
+		if(session('statut') == 'redac')
 		{
 			$name = $user_gestion->getName();
 			$url .= '?exclusiveFolder=' . $name;

@@ -1,6 +1,6 @@
 <?php namespace App\Services;
 
-use Session, Auth;
+use Auth;
 
 class Statut  {
 
@@ -12,7 +12,7 @@ class Statut  {
 	 */
 	public function setLoginStatut($user)
 	{
-		Session::put('statut', $user->role->slug);
+		session()->put('statut', $user->role->slug);
 	}
 
 	/**
@@ -22,7 +22,7 @@ class Statut  {
 	 */
 	public function setVisitorStatut()
 	{
-		Session::put('statut', 'visitor');
+		session()->put('statut', 'visitor');
 	}
 
 	/**
@@ -32,9 +32,9 @@ class Statut  {
 	 */
 	public function setStatut()
 	{
-		if(!Session::has('statut')) 
+		if(!session()->has('statut')) 
 		{
-			Session::put('statut', Auth::check() ?  Auth::user()->role->slug : 'visitor');
+			session()->put('statut', Auth::check() ?  Auth::user()->role->slug : 'visitor');
 		}
 	}
 

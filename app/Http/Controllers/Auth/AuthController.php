@@ -44,9 +44,7 @@ class AuthController extends Controller {
 	 * @param  Illuminate\Events\Dispatcher  $event
 	 * @return Response
 	 */
-	public function postLogin(
-		LoginRequest $request,
-		Dispatcher $event)
+	public function postLogin(LoginRequest $request)
 	{
 		// Vérification pot de miel
 		if($request->get('user') != '') return redirect('/');
@@ -55,7 +53,7 @@ class AuthController extends Controller {
 
 		if ($this->auth->attempt($credentials, $request->has('souvenir')))
 		{
-			$event->fire('user.login', [$this->auth->user()]);
+			event('user.login', [$this->auth->user()]);
 			
 			return redirect('/');
 		}
@@ -71,12 +69,11 @@ class AuthController extends Controller {
 	 * @param  Illuminate\Events\Dispatcher  $event
 	 * @return Response
 	 */
-	public function getLogout(
-		Dispatcher $event)
+	public function getLogout()
 	{
 		$this->auth->logout();
 
-		$event->fire('user.logout');
+		event('user.logout');
 
 		return redirect('/');
 	}
@@ -91,8 +88,7 @@ class AuthController extends Controller {
 	 */
 	public function postRegister(
 		RegisterRequest $request,
-		UserRepository $user_gestion,
-		Dispatcher $event)
+		UserRepository $user_gestion)
 	{
 		// Vérification pot de miel
 		if($request->get('user') != '') return redirect('/');
@@ -101,7 +97,7 @@ class AuthController extends Controller {
 
 		$this->auth->login($user);
 
-		$event->fire('user.login', $user);
+		event('user.login', $user);
 
 		return redirect('/')->with('ok', trans('front/register.ok'));
 	}

@@ -3,7 +3,6 @@
 use App\Commands\Command;
 
 use Illuminate\Contracts\Bus\SelfHandling;
-use Session;
 
 class ChangeLocaleCommand extends Command implements SelfHandling {
 
@@ -14,7 +13,7 @@ class ChangeLocaleCommand extends Command implements SelfHandling {
 	 */
 	public function handle()
 	{
-		Session::set('locale', Session::get('locale') == 'fr' ? 'en' : 'fr');
+		session()->set('locale', session('locale') == 'fr' ? 'en' : 'fr');
 	}
 
 }

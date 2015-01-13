@@ -2,7 +2,7 @@
 
 use App\Commands\Command;
 
-use Session, Request;
+use Request;
 
 use Illuminate\Contracts\Bus\SelfHandling;
 
@@ -22,12 +22,12 @@ class SetLocaleCommand extends Command implements SelfHandling {
 	 */
 	public function handle()
 	{
-		if(!Session::has('locale'))
+		if(session()->has('locale'))
 		{
-			Session::put('locale', Request::getPreferredLanguage($this->languages));
+			session()->put('locale', Request::getPreferredLanguage($this->languages));
 		}
 
-		app()->setLocale(Session::get('locale'));
+		app()->setLocale(session('locale'));
 	}
 
 }
