@@ -22,7 +22,7 @@ class SetLocaleCommand extends Command implements SelfHandling {
 	 */
 	public function handle()
 	{
-		if(session()->has('locale'))
+		if(!session()->has('locale'))
 		{
 			session()->put('locale', Request::getPreferredLanguage($this->languages));
 		}
