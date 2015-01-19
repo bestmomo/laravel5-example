@@ -39,10 +39,6 @@ class Handler extends ExceptionHandler {
 	{
 		if ($this->isHttpException($e))
 		{		
-			if($e instanceof NotFoundHttpException)
-			{
-				return response()->view('front.missing', [], 404);
-			}
 			return $this->renderHttpException($e);
 		}
 		return parent::render($request, $e);
