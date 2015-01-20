@@ -1,9 +1,7 @@
 <?php namespace App\Repositories;
 
 use App\Models\User, App\Models\Role;
-use Illuminate\Contracts\Auth\Guard;
-use Illuminate\Session\SessionManager;
-use Illuminate\Filesystem\FileSystem;
+use File, Auth;
 
 class UserRepository extends BaseRepository{
 
@@ -15,48 +13,18 @@ class UserRepository extends BaseRepository{
 	protected $role;
 
 	/**
-	 * The Guard instance.
-	 *
-	 * @var Illuminate\Contracts\Auth\Guard
-	 */	
-	protected $auth;
-
-	/**
-	 * The FileSystem instance.
-	 *
-	 * @var Illuminate\Filesystem\FileSystem
-	 */	
-	protected $file;
-
-	/**
-	 * The SessionManager instance.
-	 *
-	 * @var Illuminate\Session\SessionManager
-	 */	
-	protected $session;
-
-	/**
 	 * Create a new UserRepository instance.
 	 *
    	 * @param  App\Models\User $user
 	 * @param  App\Models\Role $role
-	 * @param  Illuminate\Contracts\Auth\Guard $auth
-	 * @param  Illuminate\Filesystem\FileSystem $file
-	 * @param  Illuminate\Session\SessionManager $session
 	 * @return void
 	 */
 	public function __construct(
 		User $user, 
-		Role $role, 
-		Guard $auth, 
-		FileSystem $file,
-		SessionManager $session)
+		Role $role)
 	{
 		$this->model = $user;
 		$this->role = $role;
-		$this->auth = $auth;
-		$this->file = $file;
-		$this->session = $session;
 	}
 
 	/**
@@ -233,7 +201,7 @@ class UserRepository extends BaseRepository{
 	 */
 	public function getStatut()
 	{
-		return $this->session->get('statut');
+		return session()->get('statut');
 	}
 
 	/**
@@ -243,16 +211,16 @@ class UserRepository extends BaseRepository{
 	 */
 	public function getName()
 	{
-		$name = strtolower(strtr(utf8_decode($this->auth->user()->username), 
+		$name = strtolower(strtr(utf8_decode(Auth::user()->username), 
 			utf8_decode('àáâãäçèéêëìíîïñòóôõöùúûüýÿÀÁÂÃÄÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝ'), 
 			'aaaaaceeeeiiiinooooouuuuyyAAAAACEEEEIIIINOOOOOUUUUY'
 		));
 
 		$directory = base_path() . config('medias.url-files') . $name;
 
-		if (!$this->file->isDirectory($directory))
+		if (!File::isDirectory($directory))
 		{
-			$this->file->makeDirectory($directory); 
+			File::makeDirectory($directory); 
 		}  
 
 		return $name;  
