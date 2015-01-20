@@ -201,7 +201,7 @@ class UserRepository extends BaseRepository{
 	 */
 	public function getStatut()
 	{
-		return session()->get('statut');
+		return session('statut');
 	}
 
 	/**
