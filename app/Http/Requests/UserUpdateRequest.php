@@ -1,7 +1,5 @@
 <?php namespace App\Http\Requests;
 
-use Request;
-
 class UserUpdateRequest extends Request {
 
 	/**
@@ -11,7 +9,7 @@ class UserUpdateRequest extends Request {
 	 */
 	public function rules()
 	{
-		$id = Request::segment(2);
+		$id = \Request::segment(2);
 		return $rules = [
 			'username' => 'required|max:30|alpha|unique:users,username,' . $id, 
 			'email' => 'required|email|unique:users,email,' . $id

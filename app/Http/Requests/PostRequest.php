@@ -1,7 +1,5 @@
 <?php namespace App\Http\Requests;
 
-use Request;
-
 class PostRequest extends Request {
 
 	/**
@@ -11,7 +9,7 @@ class PostRequest extends Request {
 	 */
 	public function rules()
 	{
-		$id = Request::segment(2) ? ',' . Request::segment(2) : '';
+		$id = \Request::segment(2) ? ',' . \Request::segment(2) : '';
 		return [
 			'titre' => 'required|max:255',
 			'sommaire' => 'required|max:65000',
