@@ -4,6 +4,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 
 use Illuminate\View\Factory;
+use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\PasswordBroker;
 use App\Http\Requests\Auth\EmailPasswordLinkRequest;
 use App\Http\Requests\Auth\ResetPasswordRequest;
@@ -22,6 +23,20 @@ class PasswordController extends Controller {
 	*/
 
 	use ResetsPasswords;
+
+	/**
+	 * Create a new password controller instance.
+	 *
+	 * @param \Illuminate\Contracts\Auth\Guard $auth
+	 * @param \Illuminate\Contracts\Auth\PasswordBroker $passwords
+	 * @return void
+	 */
+	public function __construct(Guard $auth, PasswordBroker $passwords)
+	{
+		$this->auth = $auth;
+		$this->passwords = $passwords;
+		$this->middleware('guest');
+	}
 
 	/**
 	 * Send a reset link to the given user.
@@ -48,7 +63,7 @@ class PasswordController extends Controller {
             ]);
         });
 
-    switch ($response = $this->passwords->sendResetLink($request->only('email'), function($message)
+    	switch ($response = $this->passwords->sendResetLink($request->only('email'), function($message)
 		{
 			$message->subject(trans('front/password.reset'));
 		}))
