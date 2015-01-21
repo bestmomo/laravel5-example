@@ -20,7 +20,7 @@
 					{!! Form::control('password', 6, 'password', $errors, trans('front/login.password')) !!}
 					{!! Form::submit(trans('front/form.send'), ['col-lg-12']) !!}
 					{!! Form::check('souvenir', trans('front/login.remind')) !!}
-					{!! Form::text('user', '', ['class' => 'hpet']) !!}		  
+					{!! Form::text('address', '', ['class' => 'hpet']) !!}		  
 					<div class="col-lg-12">					
 						{!! link_to('password/email', trans('front/login.forget')) !!}
 					</div>

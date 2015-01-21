@@ -143,11 +143,11 @@
 					e.preventDefault();
 					var i = $(this).attr('id').substring(4);
 					$('#val' + i).parent().html('<i class="fa fa-refresh fa-spin fa-2x"></i>').addClass('text-center');
-			    $.ajax({
-			    	method: 'put',
-			      url: $(this).attr('action'),
-			      data: $(this).serialize()
-			    })
+					$.ajax({
+						method: 'put',
+					  url: $(this).attr('action'),
+					  data: $(this).serialize()
+					})
 					.done(function(data) {
 						$('#comment' + data.id).show();
 						$('#contenu' + data.id).html(data.contenu);	
@@ -166,11 +166,11 @@
 					var i = $(this).attr('id').substring(13);
 					var token = $('input[name="_token"]').val();
 					$(this).replaceWith('<i class="fa fa-refresh fa-spin pull-right"></i>');
-			    $.ajax({
-			    	method: 'delete',
-			      url: '{!! url('comment') !!}' + '/' + i,
-			      data: '_token=' + token
-			    })
+					$.ajax({
+						method: 'delete',
+					  url: '{!! url('comment') !!}' + '/' + i,
+					  data: '_token=' + token
+					})
 					.done(function(data) {
 						$('#comment' + data.id).parents('.commentitem').remove();
 					})

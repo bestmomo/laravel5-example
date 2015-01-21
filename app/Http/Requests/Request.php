@@ -7,7 +7,7 @@ abstract class Request extends FormRequest {
 	public function authorize()
 	{
 		// Honeypot 
-		return  $this->input('user') == '';
+		return  $this->input('address') == '';
 	}
 
 }

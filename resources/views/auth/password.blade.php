@@ -20,7 +20,7 @@
 
 						{!! Form::control('email', 6, 'email', $errors, trans('front/password.email')) !!}
 						{!! Form::submit(trans('front/form.send'), ['col-lg-12']) !!}
-						{!! Form::text('user', '', ['class' => 'hpet']) !!}	
+						{!! Form::text('address', '', ['class' => 'hpet']) !!}	
 						
 					</div>
 

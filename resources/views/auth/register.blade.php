@@ -20,7 +20,7 @@
 						{!! Form::control('password', 6, 'password_confirmation', $errors, trans('front/register.confirm-password')) !!}
 						
 					</div>
-					{!! Form::text('user', '', ['class' => 'hpet']) !!}	
+					{!! Form::text('address', '', ['class' => 'hpet']) !!}	
 
 					<div class="row">	
 						{!! Form::submit(trans('front/form.send'), ['col-lg-12']) !!}

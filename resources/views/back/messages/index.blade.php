@@ -59,7 +59,7 @@
 			$(':checkbox').change(function() {     
 				$(this).parents('.panel').toggleClass('panel-warning').toggleClass('panel-default');
 				$(this).hide().parent().append('<i class="fa fa-refresh fa-spin"></i>');
-		  	var token = $('input[name="_token"]').val();
+		  		var token = $('input[name="_token"]').val();
 				$.ajax({
 				  url: 'contact/' + this.value,
 				  type: 'PUT',

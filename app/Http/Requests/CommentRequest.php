@@ -9,7 +9,7 @@ class CommentRequest extends Request {
 	 */
 	public function rules()
 	{
-		$id = \Request::segment(2);
+		$id = $this->segment(2);
 		return [
 			'commentaire' . $id => 'required|max:65000',
 		];
