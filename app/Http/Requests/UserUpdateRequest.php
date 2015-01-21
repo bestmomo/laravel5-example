@@ -1,6 +1,7 @@
 <?php namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Request;
 
 class UserUpdateRequest extends FormRequest {
 
@@ -11,21 +12,11 @@ class UserUpdateRequest extends FormRequest {
 	 */
 	public function rules()
 	{
-		$id = \Request::segment(2);
+		$id = Request::segment(2);
 		return $rules = [
 			'username' => 'required|max:30|alpha|unique:users,username,' . $id, 
 			'email' => 'required|email|unique:users,email,' . $id
 		];
-	}
-
-	/**
-	 * Determine if the user is authorized to make this request.
-	 *
-	 * @return bool
-	 */
-	public function authorize()
-	{
-		return true;
 	}
 
 }

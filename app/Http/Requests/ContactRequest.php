@@ -1,8 +1,6 @@
 <?php namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
-
-class ContactRequest extends FormRequest {
+class ContactRequest extends Request {
 
 	/**
 	 * Get the validation rules that apply to the request.
@@ -16,16 +14,6 @@ class ContactRequest extends FormRequest {
 			'email' => 'required|email',
 			'message' => 'required|max:1000'
 		];
-	}
-
-	/**
-	 * Determine if the user is authorized to make this request.
-	 *
-	 * @return bool
-	 */
-	public function authorize()
-	{
-		return true;
 	}
 
 }

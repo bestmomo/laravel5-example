@@ -46,9 +46,6 @@ class AuthController extends Controller {
 	 */
 	public function postLogin(LoginRequest $request)
 	{
-		// Vérification pot de miel
-		if($request->get('user') != '') return redirect('/');
-
 		$credentials = $request->only('email', 'password');
 
 		if ($this->auth->attempt($credentials, $request->has('souvenir')))
@@ -90,9 +87,6 @@ class AuthController extends Controller {
 		RegisterRequest $request,
 		UserRepository $user_gestion)
 	{
-		// Vérification pot de miel
-		if($request->get('user') != '') return redirect('/');
-
 		$user = $user_gestion->store($request->all());
 
 		$this->auth->login($user);

@@ -49,9 +49,6 @@ class PasswordController extends Controller {
 		EmailPasswordLinkRequest $request,
 		Factory $view)
 	{
-		// Vérification pot de miel
-		if($request->get('user') != '') return redirect('/');
-
 		// Localisation email
 		$view->composer('emails.auth.password', function($view) {
             $view->with([

@@ -53,9 +53,6 @@ class ContactController extends Controller {
 		ContactRequest $contactrequest,
 		Request $request)
 	{
-		// Vérification pot de miel
-		if($request->get('user') != '') return redirect('/');	
-
 		// Traitement	
 		$contact_gestion->store($request->all());
 
