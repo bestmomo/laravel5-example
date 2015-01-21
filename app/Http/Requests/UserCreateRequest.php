@@ -1,8 +1,6 @@
 <?php namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
-
-class UserCreateRequest extends FormRequest {
+class UserCreateRequest extends Request {
 
 	/**
 	 * Get the validation rules that apply to the request.
