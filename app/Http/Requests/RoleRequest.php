@@ -1,6 +1,8 @@
 <?php namespace App\Http\Requests;
 
-class RoleRequest extends Request {
+use Illuminate\Foundation\Http\FormRequest;
+
+class RoleRequest extends FormRequest {
 
 	/**
 	 * Get the validation rules that apply to the request.
@@ -14,6 +16,16 @@ class RoleRequest extends Request {
 			'redac' => 'required|alpha|max:50',
 			'user'  => 'required|alpha|max:50'
 		];
+	}
+
+	/**
+	 * Determine if the user is authorized to make this request.
+	 *
+	 * @return bool
+	 */
+	public function authorize()
+	{
+		return true;
 	}
 
 }
