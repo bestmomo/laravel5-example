@@ -7,7 +7,7 @@ return [
 	'tags' => 'Tags : ',
 	'comments' => 'Comments',
 	'comment' => 'A comment ?',
-	'info-comment' => 'Vous must be loged to add a comment !',
+	'info-comment' => 'You must be loged to add a comment !',
 	'delete' => 'Delete comment',
 	'edit' => 'Update comment',
 	'change' => 'Change your comment there :',
