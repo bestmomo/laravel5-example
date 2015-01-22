@@ -56,7 +56,7 @@
 							<li {!! Request::is('/') ? 'class="active"' : '' !!}>
 								{!! link_to('/', trans('front/site.home')) !!}
 							</li>
-							@if(Session::get('statut') == 'visitor' || Session::get('statut') == 'user')
+							@if(session('statut') == 'visitor' || session('statut') == 'user')
 								<li {!! Request::is('contact/create') ? 'class="active"' : '' !!}>
 									{!! link_to('contact/create', trans('front/site.contact')) !!}
 								</li>
@@ -73,16 +73,16 @@
 									{!! link_to('password/email', trans('front/site.forget-password')) !!}
 								</li>
 							@else
-								@if(Session::get('statut') == 'visitor')
+								@if(session('statut') == 'visitor')
 									<li {!! Request::is('auth/login') ? 'class="active"' : '' !!}>
 										{!! link_to('auth/login', trans('front/site.connection')) !!}
 									</li>
 								@else
-									@if(Session::get('statut') == 'admin')
+									@if(session('statut') == 'admin')
 										<li>
 											{!! link_to_route('admin', trans('front/site.administration')) !!}
 										</li>
-									@elseif(Session::get('statut') == 'redac') 
+									@elseif(session('statut') == 'redac') 
 										<li>
 											{!! link_to('blog', trans('front/site.redaction')) !!}
 										</li>
@@ -93,7 +93,7 @@
 								@endif
 							@endif
 							<li class="imgflag">
-								<a href="{!! url('language') !!}"><img width="32" height="32" alt="en" src="{!! asset('img/' . (Session::get('locale') == 'fr' ? 'english' : 'french') . '-flag.png') !!}"></a>
+								<a href="{!! url('language') !!}"><img width="32" height="32" alt="en" src="{!! asset('img/' . (session('locale') == 'fr' ? 'english' : 'french') . '-flag.png') !!}"></a>
 							</li>
 						</ul>
 					</div>
@@ -103,8 +103,8 @@
     </header>
 
     <main role="main" class="container">
-  		@if(Session::has('ok'))
-  			@include('partials/error', ['type' => 'success', 'message' => Session::get('ok')])
+  		@if(session()->has('ok'))
+  			@include('partials/error', ['type' => 'success', 'message' => session('ok')])
 			@endif	
 			@if(isset($info))
 				@include('partials/error', ['type' => 'info', 'message' => $info])
@@ -118,7 +118,7 @@
 		</footer>
 		
 		{!! HTML::script('//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js') !!}
-    <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
+    	<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
 		{!! HTML::script('js/plugins.js') !!}
 		{!! HTML::script('js/main.js') !!}
 

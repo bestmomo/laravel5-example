@@ -5,8 +5,8 @@
  <!-- Entête de page -->
   @include('back.partials.entete', ['titre' => trans('back/blog.dashboard') . link_to_route('blog.create', trans('back/blog.add'), [], ['class' => 'btn btn-info pull-right']), 'icone' => 'pencil', 'fil' => trans('back/blog.posts')])
 
-	@if(Session::has('ok'))
-    @include('partials/error', ['type' => 'success', 'message' => Session::get('ok')])
+	@if(session()->has('ok'))
+    @include('partials/error', ['type' => 'success', 'message' => session('ok')])
 	@endif
 
   <div class="row col-lg-12">
@@ -21,7 +21,7 @@
   					<th>{{ trans('back/blog.title') }} <a href="#" name="titre" class="order"><span class="fa fa-fw fa-unsorted"></span></a></th>
   					<th>{{ trans('back/blog.date') }} <a href="#" name="created_at" class="order"><span class="fa fa-fw fa-sort-desc"></th>
             <th>{{ trans('back/blog.published') }} <a href="#" name="actif" class="order"><span class="fa fa-fw fa-unsorted"></th> 
-            @if(Session::get('statut') == 'admin')
+            @if(session('statut') == 'admin')
               <th>{{ trans('back/blog.author') }} <a href="#" name="username" class="order"><span class="fa fa-fw fa-unsorted"></th>            
               <th>{{ trans('back/blog.seen') }} <a href="#" name="posts.vu" class="order"><span class="fa fa-fw fa-unsorted"></th>
             @endif

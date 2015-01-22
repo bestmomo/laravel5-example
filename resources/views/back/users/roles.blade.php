@@ -6,8 +6,8 @@
   @include('back.partials.entete', ['titre' => trans('back/roles.dashboard'), 'icone' => 'user', 'fil' => link_to('user', trans('back/users.Users')) . ' / ' . trans('back/roles.roles')])
 
 	<div class="col-sm-12">
-		@if(Session::has('ok'))
-    	@include('partials/error', ['type' => 'success', 'message' => Session::get('ok')])
+		@if(session()->has('ok'))
+    	@include('partials/error', ['type' => 'success', 'message' => session('ok')])
 		@endif
 		{!! Form::open(['url' => 'user/roles', 'method' => 'post', 'class' => 'form-horizontal panel']) !!}	
 			@foreach ($roles as $role) 

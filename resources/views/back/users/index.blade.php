@@ -25,8 +25,8 @@
     @endforeach
   </div>
 
-	@if(Session::has('ok'))
-    @include('partials/error', ['type' => 'success', 'message' => Session::get('ok')])
+	@if(session()->has('ok'))
+    @include('partials/error', ['type' => 'success', 'message' => session('ok')])
 	@endif
 
   <div class="pull-right link">{!! $links !!}</div>

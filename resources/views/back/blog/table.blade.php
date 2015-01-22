@@ -1,9 +1,9 @@
           @foreach ($posts as $post)
-            <tr {!! !$post->vu && Session::get('statut') == 'admin'? 'class="warning"' : '' !!}>
+            <tr {!! !$post->vu && session('statut') == 'admin'? 'class="warning"' : '' !!}>
               <td class="text-primary"><strong>{{ $post->titre }}</strong></td>
               <td>{{ $post->created_at }}</td> 
               <td>{!! Form::checkbox('actif', $post->id, $post->actif) !!}</td>
-              @if(Session::get('statut') == 'admin')
+              @if(session('statut') == 'admin')
                 <td>{{ $post->username }}</td>
                 <td>{!! Form::checkbox('vu', $post->id, $post->vu) !!}</td>
               @endif

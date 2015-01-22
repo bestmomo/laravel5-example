@@ -58,10 +58,10 @@
 					@endif	
 
 					<div class="row" id="formcreate"> 
-						@if(Session::has('warning'))
-							@include('partials/error', ['type' => 'warning', 'message' => Session::get('warning')])
+						@if(session()->has('warning'))
+							@include('partials/error', ['type' => 'warning', 'message' => session('warning')])
 						@endif	
-						@if(Session::get('statut') != 'visitor')
+						@if(session('statut') != 'visitor')
 							{!! Form::open(['url' => 'comment', 'method' => 'post']) !!}	
 								{!! Form::hidden('post_id', $post->id) !!}
 								{!! Form::control('textarea', 12, 'commentaire', $errors, trans('front/blog.comment')) !!}
@@ -85,13 +85,13 @@
 
 	{!! HTML::script('ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js') !!}
 
-	@if(Session::get('statut') != 'visitor')
+	@if(session('statut') != 'visitor')
   	{!! HTML::script('ckeditor/ckeditor.js') !!}
   @endif
 
 	<script>	  
 
-		@if(Session::get('statut') != 'visitor')
+		@if(session('statut') != 'visitor')
 
 			CKEDITOR.replace('commentaire', {
 				language: '{{ config('app.locale') }}',
