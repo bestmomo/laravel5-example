@@ -116,8 +116,8 @@
    		 @yield('footer')
 			<p class="text-center"><small>Copyright &copy; Momo</small></p>
 		</footer>
-		
-		{!! HTML::script('//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js') !!}
+		{!! HTML::script('//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js', array('async' => 'async')) !!} 
+	
     <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
 		{!! HTML::script('js/plugins.js') !!}
 		{!! HTML::script('js/main.js') !!}
