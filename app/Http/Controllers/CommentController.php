@@ -47,14 +47,12 @@ class CommentController extends Controller {
 	/**
 	 * Store a newly created resource in storage.
 	 *
-	 * @param  App\requests\CommentRequest $commentrequest
-	 * @param  Illuminate\Http\Request $request
+	 * @param  App\requests\CommentRequest $request
 	 * @param  Illuminate\Contracts\Auth\Guard $auth
 	 * @return Response
 	 */
 	public function store(
-		CommentRequest $commentrequest,
-		Request $request,
+		CommentRequest $request,
 		Guard $auth)
 	{
 		$inputs = $request->all();
@@ -87,14 +85,12 @@ class CommentController extends Controller {
 	/**
 	 * Update the specified resource in storage.
 	 *
-	 * @param  App\requests\CommentRequest $commentrequest
-	 * @param  Illuminate\Http\Request $request
+	 * @param  App\requests\CommentRequest $request
 	 * @param  int  $id
 	 * @return Response
 	 */
 	public function update(
-		CommentRequest $commentrequest,
-		Request $request, 
+		CommentRequest $request, 
 		$id)
 	{
 		$id = $request->segment(2);

@@ -43,6 +43,7 @@ class AdminController extends Controller {
 		$nbrUsers = $this->user_gestion->getNumber();
 		$nbrPosts = $blog_gestion->getNumber();
 		$nbrComments = $comment_gestion->getNumber();
+
 		return view('back.index', compact('nbrMessages', 'nbrUsers', 'nbrPosts', 'nbrComments'));
 	}
 
@@ -54,6 +55,7 @@ class AdminController extends Controller {
 	public function filemanager()
 	{
 		$url = Medias::getUrl($this->user_gestion);
+		
 		return view('back.filemanager', compact('url'));
 	}
 

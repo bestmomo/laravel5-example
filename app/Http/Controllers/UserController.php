@@ -99,16 +99,14 @@ class UserController extends Controller {
 	/**
 	 * Store a newly created resource in storage.
 	 *
-	 * @param  App\requests\UserCreateRequest $usercreaterequest
-	 * @param  Illuminate\Http\Request $request
+	 * @param  App\requests\UserCreateRequest $request
 	 *
 	 * @return Response
 	 */
-	public function store(
-		UserCreateRequest $usercreaterequest,
-		Request $request)
+	public function store(UserCreateRequest $request)
 	{
 		$this->user_gestion->store($request->all());
+
 		return redirect('user')->with('ok', trans('back/users.created'));
 	}
 
@@ -137,17 +135,16 @@ class UserController extends Controller {
 	/**
 	 * Update the specified resource in storage.
 	 *
-	 * @param  App\requests\UserUpdateRequest $userupdaterequest
-	 * @param  Illuminate\Http\Request $request
+	 * @param  App\requests\UserUpdateRequest $request
 	 * @param  int  $id
 	 * @return Response
 	 */
 	public function update(
-		UserUpdateRequest $userupdaterequest,
-		Request $request,
+		UserUpdateRequest $request,
 		$id)
 	{
 		$this->user_gestion->update($request->all(), $id);
+
 		return redirect('user')->with('ok', trans('back/users.updated'));
 	}
 
@@ -163,6 +160,7 @@ class UserController extends Controller {
 		$id)
 	{
 		$this->user_gestion->update($request->all(), $id);
+
 		return response()->json(['statut' => 'ok']);
 	}
 
@@ -175,6 +173,7 @@ class UserController extends Controller {
 	public function destroy($id)
 	{
 		$this->user_gestion->destroy($id);
+
 		return redirect('user')->with('ok', trans('back/users.destroyed'));
 	}
 
@@ -186,21 +185,20 @@ class UserController extends Controller {
 	public function getRoles()
 	{
 		$roles = $this->role_gestion->all();
+
 		return view('back.users.roles', compact('roles'));
 	}
 
 	/**
 	 * Update roles
 	 *
-	 * @param  App\requests\RoleRequest $rolerequest
-	 * @param  Illuminate\Http\Request $request
+	 * @param  App\requests\RoleRequest $request
 	 * @return Response
 	 */
-	public function postRoles(
-		RoleRequest $rolerequest,
-		Request $request)
+	public function postRoles(RoleRequest $request)
 	{
 		$this->role_gestion->update($request->except('_token'));
+		
 		return redirect('user/roles')->with('ok', trans('back/roles.ok'));
 	}
 

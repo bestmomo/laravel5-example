@@ -44,16 +44,13 @@ class ContactController extends Controller {
 	 * Store a newly created resource in storage.
 	 *
 	 * @param  App\Repositories\ContactRepository $contact_gestion
-	 * @param  ContactRequest $contactrequest
-	 * @param  Illuminate\Http\Request $request
+	 * @param  ContactRequest $request
 	 * @return Response
 	 */
 	public function store(
 		ContactRepository $contact_gestion,
-		ContactRequest $contactrequest,
-		Request $request)
+		ContactRequest $request)
 	{
-		// Traitement	
 		$contact_gestion->store($request->all());
 
 		return redirect('/')->with('ok', trans('front/contact.ok'));

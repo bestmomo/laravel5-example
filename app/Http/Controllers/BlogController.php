@@ -115,14 +115,12 @@ class BlogController extends Controller {
 	/**
 	 * Store a newly created resource in storage.
 	 *
-	 * @param  App\Http\Requests\PostCreateRequest $postrequest
-	 * @param  Illuminate\Http\Request $request
+	 * @param  App\Http\Requests\PostCreateRequest $request
 	 * @param  Illuminate\Contracts\Auth\Guard $auth
 	 * @return Response
 	 */
 	public function store(
-		PostRequest $postrequest,
-		Request $request,
+		PostRequest $request,
 		Guard $auth)
 	{
 		$this->blog_gestion->store($request->all(), $auth->user()->id);
@@ -165,14 +163,12 @@ class BlogController extends Controller {
 	/**
 	 * Update the specified resource in storage.
 	 *
-	 * @param  App\Http\Requests\PostUpdateRequest $blogrequest
-	 * @param  Illuminate\Http\Request $request
+	 * @param  App\Http\Requests\PostUpdateRequest $request
 	 * @param  int  $id
 	 * @return Response
 	 */
 	public function update(
-		PostRequest $postrequest,
-		Request $request,
+		PostRequest $request,
 		$id)
 	{
 		$this->blog_gestion->update($request->all(), $id);
@@ -247,13 +243,10 @@ class BlogController extends Controller {
 	/**
 	 * Find search in blog
 	 *
-	 * @param  App\Http\Requests\SearchRequest $searchrequest
-	 * @param  Illuminate\Http\Request $request
+	 * @param  App\Http\Requests\SearchRequest $request
 	 * @return Response
 	 */
-	public function search(
-		SearchRequest $searchrequest,
-		Request $request)
+	public function search(SearchRequest $request)
 	{
 		$search = $request->get('search');
 		$posts = $this->blog_gestion->search($this->nbrPages, $search);
