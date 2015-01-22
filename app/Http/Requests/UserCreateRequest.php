@@ -12,7 +12,7 @@ class UserCreateRequest extends Request {
 		return [
 			'username' => 'required|max:30|alpha|unique:users',
 			'email' => 'required|email|unique:users',
-			'password' => 'required|min:8|same:Confirmation_mot_de_passe'
+			'password' => 'required|confirmed|min:8'
 		];
 	}
 
