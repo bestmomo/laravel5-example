@@ -15,16 +15,6 @@ class HomeController extends Controller {
 	}
 
 	/**
-	 * Display the missing page (404).
-	 *
-	 * @return Response
-	 */
-	public function missing()
-	{
-		return view('front.missing');
-	}
-
-	/**
 	 * Change language.
 	 *
 	 * @param  Illuminate\Session\SessionManager  $session

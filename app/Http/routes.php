@@ -16,7 +16,6 @@ Route::get('/', [
 	'uses' => 'HomeController@index', 
 	'as' => 'home'
 ]);
-Route::get('missing', 'HomeController@missing');
 Route::get('language', 'HomeController@language');
 
 
