@@ -17,7 +17,11 @@ Route::get('/', [
 	'as' => 'home'
 ]);
 Route::get('missing', 'HomeController@missing');
+// Hint: Your Error 404 page is located here - views/errors/404.blade.php
+// You can customize its logic here - ????
+
 Route::get('language', 'HomeController@language');
+
 
 
 // Admin
