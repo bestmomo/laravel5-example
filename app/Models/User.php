@@ -54,4 +54,24 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	  return $this->hasMany('App\Models\Comment');
 	}
 
+	/**
+	 * Check admin role
+	 *
+	 * @return bool
+	 */
+	public function isAdmin()
+	{
+		return $this->role->slug == 'admin';
+	}
+
+	/**
+	 * Check not user role
+	 *
+	 * @return bool
+	 */
+	public function isNotUser()
+	{
+		return $this->role->slug != 'user';
+	}
+
 }
