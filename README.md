@@ -1,6 +1,6 @@
 ## Laravel 5 example ##
 
-**Laravel 5 example** is a tutorial application. It's a work in progress because Laravel 5 is still alpha.
+**Laravel 5 example** is a tutorial application.
 
 ### Installation ###
 
