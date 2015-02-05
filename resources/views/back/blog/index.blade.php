@@ -2,7 +2,7 @@
 
 @section('main')
 
- <!-- Entête de page -->
+ <!-- Page header -->
   @include('back.partials.entete', ['title' => trans('back/blog.dashboard') . link_to_route('blog.create', trans('back/blog.add'), [], ['class' => 'btn btn-info pull-right']), 'icone' => 'pencil', 'fil' => trans('back/blog.posts')])
 
 	@if(session()->has('ok'))
@@ -46,7 +46,7 @@
     
     $(function() {
 
-      // Traitement du vu
+      // Processing the 'seen' value
       $(document).on('change', ':checkbox[name="seen"]', function() {
         $(this).parents('tr').toggleClass('warning');
         $(this).hide().parent().append('<i class="fa fa-refresh fa-spin"></i>');
@@ -68,7 +68,7 @@
         });
       });
 
-      // Traitement du actif
+      // Processing the 'active' value
       $(document).on('change', ':checkbox[name="active"]', function() {
         $(this).hide().parent().append('<i class="fa fa-refresh fa-spin"></i>');
         var token = $('input[name="_token"]').val();
@@ -89,17 +89,17 @@
         });
       });
 
-      // Traitement du tri
+      // Sorting
       $('a.order').click(function(e) {
         e.preventDefault();
-        // Sens actuel du tri
+        // Current sort direction
         var sens;
-        if($('span', this).hasClass('fa-unsorted')) sens = 'aucun';
+        if($('span', this).hasClass('fa-unsorted')) sens = 'unsorted';
         else if ($('span', this).hasClass('fa-sort-desc')) sens = 'desc';
         else if ($('span', this).hasClass('fa-sort-asc')) sens = 'asc';
-        // Remise à zéro de l'ensemble
+        // Reset all css
         $('a.order span').removeClass().addClass('fa fa-fw fa-unsorted');
-        // Ajustement du sélectionné
+        // updating CSS
         $('span', this).removeClass();
         var tri;
         if(sens == 'aucun' || sens == 'asc') {
@@ -111,7 +111,7 @@
         }
         // Icone d'attente
         $('.breadcrumb li').append('<span id="tempo" class="fa fa-refresh fa-spin"></span>');       
-        // Envoi ajax
+        // Sending ajax
         $.ajax({
           url: 'blog/order',
           type: 'GET',
