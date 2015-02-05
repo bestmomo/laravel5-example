@@ -10,5 +10,6 @@ return [
 	'register' => 'Not registered ?',
 	'register-info' => 'To register quickly just click on the button !',
 	'registering' => 'I subscribe',
-	'credentials' => 'These credentials do not match our records.'
+	'credentials' => 'These credentials do not match our records.',
+	'log' => 'Your email or your user name'
 ];

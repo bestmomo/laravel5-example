@@ -41,12 +41,15 @@ class AuthController extends Controller {
 	 * Handle a login request to the application.
 	 *
 	 * @param  App\Http\Requests\LoginRequest  $request
-	 * @param  Illuminate\Events\Dispatcher  $event
 	 * @return Response
 	 */
 	public function postLogin(LoginRequest $request)
 	{
-		$credentials = $request->only('email', 'password');
+		$logValue = $request->input('log');
+
+		$logAccess = filter_var($logValue, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+
+		$credentials = [$logAccess => $logValue, 'password' => $request->input('password')];
 
 		if ($this->auth->attempt($credentials, $request->has('souvenir')))
 		{
@@ -80,7 +83,6 @@ class AuthController extends Controller {
 	 *
 	 * @param  App\Http\Requests\RegisterRequest  $request
 	 * @param  App\Repositories\UserRepository $user_gestion
-	 * @param  Illuminate\Events\Dispatcher  $event
 	 * @return Response
 	 */
 	public function postRegister(

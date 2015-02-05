@@ -10,13 +10,13 @@
 				<hr>	
 				<h2 class="intro-text text-center">{{ trans('front/login.connection') }}</h2>
 				<hr>
-        <p>{{ trans('front/login.text') }}</p>				
+        		<p>{{ trans('front/login.text') }}</p>				
 				
 				{!! Form::open(['url' => 'auth/login', 'method' => 'post', 'role' => 'form']) !!}	
 				
 				<div class="row">
 
-					{!! Form::control('email', 6, 'email', $errors, trans('front/login.email')) !!}
+					{!! Form::control('text', 6, 'log', $errors, trans('front/login.log')) !!}
 					{!! Form::control('password', 6, 'password', $errors, trans('front/login.password')) !!}
 					{!! Form::submit(trans('front/form.send'), ['col-lg-12']) !!}
 					{!! Form::check('souvenir', trans('front/login.remind')) !!}
