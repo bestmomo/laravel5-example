@@ -2,8 +2,8 @@
 
 @section('main')
 
- <!-- Entête de page -->
-  @include('back.partials.entete', ['titre' => trans('back/blog.dashboard') . link_to_route('blog.create', trans('back/blog.add'), [], ['class' => 'btn btn-info pull-right']), 'icone' => 'pencil', 'fil' => trans('back/blog.posts')])
+ <!-- Page header -->
+  @include('back.partials.entete', ['title' => trans('back/blog.dashboard') . link_to_route('blog.create', trans('back/blog.add'), [], ['class' => 'btn btn-info pull-right']), 'icone' => 'pencil', 'fil' => trans('back/blog.posts')])
 
 	@if(session()->has('ok'))
     @include('partials/error', ['type' => 'success', 'message' => session('ok')])
@@ -18,12 +18,12 @@
   		<table class="table">
   			<thead>
   				<tr>
-  					<th>{{ trans('back/blog.title') }} <a href="#" name="titre" class="order"><span class="fa fa-fw fa-unsorted"></span></a></th>
+  					<th>{{ trans('back/blog.title') }} <a href="#" name="title" class="order"><span class="fa fa-fw fa-unsorted"></span></a></th>
   					<th>{{ trans('back/blog.date') }} <a href="#" name="created_at" class="order"><span class="fa fa-fw fa-sort-desc"></th>
-            <th>{{ trans('back/blog.published') }} <a href="#" name="actif" class="order"><span class="fa fa-fw fa-unsorted"></th> 
+            <th>{{ trans('back/blog.published') }} <a href="#" name="active" class="order"><span class="fa fa-fw fa-unsorted"></th> 
             @if(session('statut') == 'admin')
               <th>{{ trans('back/blog.author') }} <a href="#" name="username" class="order"><span class="fa fa-fw fa-unsorted"></th>            
-              <th>{{ trans('back/blog.seen') }} <a href="#" name="posts.vu" class="order"><span class="fa fa-fw fa-unsorted"></th>
+              <th>{{ trans('back/blog.seen') }} <a href="#" name="posts.seen" class="order"><span class="fa fa-fw fa-unsorted"></th>
             @endif
   				</tr>
   			</thead>
@@ -46,60 +46,60 @@
     
     $(function() {
 
-      // Traitement du vu
-      $(document).on('change', ':checkbox[name="vu"]', function() {
+      // Processing the 'seen' value
+      $(document).on('change', ':checkbox[name="seen"]', function() {
         $(this).parents('tr').toggleClass('warning');
         $(this).hide().parent().append('<i class="fa fa-refresh fa-spin"></i>');
         var token = $('input[name="_token"]').val();
         $.ajax({
-          url: 'postvu/' + this.value,
+          url: 'postseen/' + this.value,
           type: 'PUT',
-          data: "vu=" + this.checked + "&_token=" + token
+          data: "seen=" + this.checked + "&_token=" + token
         })
         .done(function() {
           $('.fa-spin').remove();
-          $('input:checkbox[name="vu"]:hidden').show();
+          $('input:checkbox[name="seen"]:hidden').show();
         })
         .fail(function() {
           $('.fa-spin').remove();
-          chk = $('input:checkbox[name="vu"]:hidden');
+          chk = $('input:checkbox[name="seen"]:hidden');
           chk.show().prop('checked', chk.is(':checked') ? null:'checked').parents('tr').toggleClass('warning');
           alert('{{ trans('back/blog.fail') }}');
         });
       });
 
-      // Traitement du actif
-      $(document).on('change', ':checkbox[name="actif"]', function() {
+      // Processing the 'active' value
+      $(document).on('change', ':checkbox[name="active"]', function() {
         $(this).hide().parent().append('<i class="fa fa-refresh fa-spin"></i>');
         var token = $('input[name="_token"]').val();
         $.ajax({
-          url: 'postactif/' + this.value,
+          url: 'postactive/' + this.value,
           type: 'PUT',
-          data: "actif=" + this.checked + "&_token=" + token
+          data: "active=" + this.checked + "&_token=" + token
         })
         .done(function() {
           $('.fa-spin').remove();
-          $('input:checkbox[name="actif"]:hidden').show();
+          $('input:checkbox[name="active"]:hidden').show();
         })
         .fail(function() {
           $('.fa-spin').remove();
-          chk = $('input:checkbox[name="actif"]:hidden');
+          chk = $('input:checkbox[name="active"]:hidden');
           chk.show().prop('checked', chk.is(':checked') ? null:'checked').parents('tr').toggleClass('warning');
           alert('{{ trans('back/blog.fail') }}');
         });
       });
 
-      // Traitement du tri
+      // Sorting
       $('a.order').click(function(e) {
         e.preventDefault();
-        // Sens actuel du tri
+        // Current sort direction
         var sens;
-        if($('span', this).hasClass('fa-unsorted')) sens = 'aucun';
+        if($('span', this).hasClass('fa-unsorted')) sens = 'unsorted';
         else if ($('span', this).hasClass('fa-sort-desc')) sens = 'desc';
         else if ($('span', this).hasClass('fa-sort-asc')) sens = 'asc';
-        // Remise à zéro de l'ensemble
+        // Reset all css
         $('a.order span').removeClass().addClass('fa fa-fw fa-unsorted');
-        // Ajustement du sélectionné
+        // updating CSS
         $('span', this).removeClass();
         var tri;
         if(sens == 'aucun' || sens == 'asc') {
@@ -111,7 +111,7 @@
         }
         // Icone d'attente
         $('.breadcrumb li').append('<span id="tempo" class="fa fa-refresh fa-spin"></span>');       
-        // Envoi ajax
+        // Sending ajax
         $.ajax({
           url: 'blog/order',
           type: 'GET',
