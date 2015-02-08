@@ -59,6 +59,20 @@ class BlogRepository extends BaseRepository{
 	}
 
 	/**
+	 * Create a query for Post.
+	 *
+	 * @return Illuminate\Database\Eloquent\Builder
+	 */
+  	private function queryActiveWithUserOrderByDate()
+	{	
+		return $this->model
+		->select('id', 'created_at', 'updated_at', 'title', 'slug', 'user_id', 'summary')
+		->whereActive(true)
+		->with('user')
+		->orderBy('created_at', 'desc');
+	}
+
+	/**
 	 * Get post collection.
 	 *
 	 * @param  int  $n
@@ -66,12 +80,9 @@ class BlogRepository extends BaseRepository{
 	 */
 	public function indexFront($n)
 	{
-		return $this->model
-		->select('id', 'created_at', 'updated_at', 'title', 'slug', 'user_id', 'summary')
-		->whereActive(true)
-		->with('user')
-		->orderBy('created_at', 'desc')
-		->paginate($n);
+		$query = $this->queryActiveWithUserOrderByDate();
+
+		return $query->paginate($n);
 	}
 
 	/**
@@ -83,13 +94,10 @@ class BlogRepository extends BaseRepository{
 	 */
 	public function indexTag($n, $id)
 	{
-		return $this->model
-		->select('id', 'created_at', 'updated_at', 'title', 'slug', 'user_id', 'summary')
-		->whereActive(true)
-		->with('user')
-		->orderBy('created_at', 'desc')
-		->whereHas('tags', function($q) use($id) { $q->where('tags.id', $id); })
-		->paginate($n);
+		$query = $this->queryActiveWithUserOrderByDate();
+
+		return $query->whereHas('tags', function($q) use($id) { $q->where('tags.id', $id); })
+					->paginate($n);
 	}
 
 	/**
@@ -101,13 +109,12 @@ class BlogRepository extends BaseRepository{
 	 */
 	public function search($n, $search)
 	{
-		return $this->model
-		->select('id', 'created_at', 'updated_at', 'title', 'slug', 'user_id', 'summary')
-		->where('summary', 'like', "%$search%")
-		->orWhere('content', 'like', "%$search%")
-		->with('user')
-		->orderBy('created_at', 'desc')
-		->paginate($n);
+		$query = $this->queryActiveWithUserOrderByDate();
+
+		return $query->where(function($q) use ($search) {
+			return $q->where('summary', 'like', "%$search%")
+					->orWhere('content', 'like', "%$search%");
+		})->paginate($n);
 	}
 
 	/**
@@ -181,7 +188,7 @@ class BlogRepository extends BaseRepository{
 	 */
 	public function update($inputs, $id)
 	{
-		$post = $this->model->findOrFail($id);
+		$post = $this->getById($id);
 		$post = $this->savePost($post, $inputs);
 
 		// Tag gestion
@@ -213,7 +220,7 @@ class BlogRepository extends BaseRepository{
 	 */
 	public function updateSeen($inputs, $id)
 	{
-		$post = $this->model->findOrFail($id);
+		$post = $this->getById($id);
 
 		$post->seen = $inputs['seen'] == 'true';
 
@@ -229,7 +236,7 @@ class BlogRepository extends BaseRepository{
 	 */
 	public function updateActive($inputs, $id)
 	{
-		$post = $this->model->findOrFail($id);
+		$post = $this->getById($id);
 
 		$post->active = $inputs['active'] == 'true';	
 
@@ -276,7 +283,7 @@ class BlogRepository extends BaseRepository{
 	 */
 	public function destroy($id)
 	{
-		$model = $this->model->findOrFail($id);
+		$model = $this->getById($id);
 
 		$model->tags()->detach();
 		
@@ -298,9 +305,20 @@ class BlogRepository extends BaseRepository{
 	 * Get tag name by id.
 	 *
 	 * @param  int  $tag_id
-	 * @return string
+	 * @return App\Models\Tag
 	 */
 	public function getTagById($tag_id)
+	{
+		return $this->tag->findOrFail($tag_id)->tag;
+	}
+
+	/**
+	 * Get Post by id.
+	 *
+	 * @param  int  $id
+	 * @return App\Models\Post
+	 */
+	public function getById($id)
 	{
 		return $this->tag->findOrFail($tag_id)->tag;
 	}
