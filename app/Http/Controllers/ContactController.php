@@ -69,7 +69,7 @@ class ContactController extends Controller {
 		Request $request, 		 
 		$id)
 	{
-		$contact_gestion->update($request->input('vu'), $id);
+		$contact_gestion->update($request->input('seen'), $id);
 
 		return response()->json(['statut' => 'ok']);
 	}

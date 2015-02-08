@@ -1,7 +1,5 @@
 <?php namespace App\Services\Html;
 
-use App\Services\Html\HtmlBuilder;
-
 class HtmlServiceProvider extends \Illuminate\Html\HtmlServiceProvider {
 
 	/**

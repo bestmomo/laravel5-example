@@ -10,7 +10,7 @@ class ContactRequest extends Request {
 	public function rules()
 	{
 		return [
-			'nom' => 'required|max:100',
+			'name' => 'required|max:100',
 			'email' => 'required|email',
 			'message' => 'required|max:1000'
 		];

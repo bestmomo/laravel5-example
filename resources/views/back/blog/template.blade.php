@@ -9,31 +9,31 @@
 @section('main')
 
  <!-- Entête de page -->
-  @include('back.partials.entete', ['titre' => trans('back/blog.dashboard'), 'icone' => 'pencil', 'fil' => link_to('blog', 'Articles') . ' / ' . trans('back/blog.creation')])
+  @include('back.partials.entete', ['title' => trans('back/blog.dashboard'), 'icone' => 'pencil', 'fil' => link_to('blog', 'Articles') . ' / ' . trans('back/blog.creation')])
 
 	<div class="col-sm-12">
 		@yield('form')
-		  
-		  <div class="form-group checkbox pull-right">
-			  <label>
-			    {!! Form::checkbox('actif') !!}
-			    {{ trans('back/blog.published') }}
-			  </label>
-			</div>
 
-			{!! Form::control('text', 0, 'titre', $errors, trans('back/blog.title')) !!}
+		<div class="form-group checkbox pull-right">
+			<label>
+				{!! Form::checkbox('active') !!}
+				{{ trans('back/blog.published') }}
+			</label>
+		</div>
 
-		  <div class="form-group {!! $errors->has('slug') ? 'has-error' : '' !!}">
-		  	{!! Form::label('slug', trans('back/blog.permalink'), ['class' => 'control-label']) !!}
-		  	{!! url('/') . '/ ' . Form::text('slug', null, ['id' => 'permalien']) !!}
-		  	<small class="text-danger">{!! $errors->first('slug') !!}</small>
-		  </div>
+		{!! Form::control('text', 0, 'title', $errors, trans('back/blog.title')) !!}
 
-		  {!! Form::control('textarea', 0, 'sommaire', $errors, trans('back/blog.summary')) !!}
-		  {!! Form::control('textarea', 0, 'contenu', $errors, trans('back/blog.content')) !!}
-			{!! Form::control('text', 0, 'tags', $errors, trans('back/blog.tags'), isset($tags)? implode(',', $tags) : '') !!}
+		<div class="form-group {!! $errors->has('slug') ? 'has-error' : '' !!}">
+			{!! Form::label('slug', trans('back/blog.permalink'), ['class' => 'control-label']) !!}
+			{!! url('/') . '/ ' . Form::text('slug', null, ['id' => 'permalien']) !!}
+			<small class="text-danger">{!! $errors->first('slug') !!}</small>
+		</div>
 
-		  {!! Form::submit(trans('front/form.send')) !!}
+		{!! Form::control('textarea', 0, 'summary', $errors, trans('back/blog.summary')) !!}
+		{!! Form::control('textarea', 0, 'content', $errors, trans('back/blog.content')) !!}
+		{!! Form::control('text', 0, 'tags', $errors, trans('back/blog.tags'), isset($tags)? implode(',', $tags) : '') !!}
+
+		{!! Form::submit(trans('front/form.send')) !!}
 
 		{!! Form::close() !!}
 	</div>
@@ -68,13 +68,13 @@
 			]
 		};
 
-    CKEDITOR.replace( 'sommaire', config);
+    CKEDITOR.replace( 'summary', config);
 
 		config['height'] = 400;		
 
-		CKEDITOR.replace( 'contenu', config);
+		CKEDITOR.replace( 'content', config);
 
-    $("#titre").keyup(function(){
+    $("#title").keyup(function(){
 			var str = sansAccent($(this).val());
 			str = str.replace(/[^a-zA-Z0-9\s]/g,"");
 			str = str.toLowerCase();

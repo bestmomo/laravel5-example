@@ -6,9 +6,9 @@
 		.table { margin-bottom: 0; }
 		.panel-heading { padding: 0 15px; }
 		.border-red {
- 			border-style: solid;
-    	border-width: 5px;
-    	border-color: red !important;
+			border-style: solid;
+			border-width: 5px;
+			border-color: red !important;
 		}
 	</style>
 
@@ -16,17 +16,16 @@
 
 @section('main')
 
- <!-- Entête de page -->
-  @include('back.partials.entete', ['titre' => trans('back/comments.dashboard'), 'icone' => 'comment', 'fil' => trans('back/comments.comments')])
-
-  <div class="row col-lg-12">
-    <div class="pull-right">{!! $links !!}</div>
-  </div>
+  @include('back.partials.entete', ['title' => trans('back/comments.dashboard'), 'icone' => 'comment', 'fil' => trans('back/comments.comments')])
 
 	<div class="row col-lg-12">
-	  @foreach ($comments as $comment)
-			<div class="panel {!! $comment->vu? 'panel-default' : 'panel-warning' !!}">
-			  <div class="panel-heading {!! $comment->user->valid? '' : 'border-red' !!}">
+		<div class="pull-right">{!! $links !!}</div>
+	</div>
+
+	<div class="row col-lg-12">
+		@foreach ($comments as $comment)
+			<div class="panel {!! $comment->seen? 'panel-default' : 'panel-warning' !!}">
+				<div class="panel-heading {!! $comment->user->valid? '' : 'border-red' !!}">
 					<table class="table">
 						<thead>
 							<tr>
@@ -39,23 +38,23 @@
 							</tr>
 						</thead>
 						<tbody>
-					  	<tr>
-						    <td class="text-primary"><strong>{{ $comment->user->username }}</strong></td>
-						    <td>{{ $comment->created_at }}</td>
-						    <td>{{ $comment->post->titre }}</td>
-						    <td>{!! Form::checkbox('valide', $comment->user->id, $comment->user->valid) !!}</td>
-								<td>{!! Form::checkbox('vu', $comment->id, $comment->vu) !!}</td>
-						    <td>
+						<tr>
+							<td class="text-primary"><strong>{{ $comment->user->username }}</strong></td>
+							<td>{{ $comment->created_at }}</td>
+							<td>{{ $comment->post->title }}</td>
+							<td>{!! Form::checkbox('valide', $comment->user->id, $comment->user->valid) !!}</td>
+							<td>{!! Form::checkbox('seen', $comment->id, $comment->seen) !!}</td>
+							<td>
 									{!! Form::open(['method' => 'DELETE', 'route' => ['comment.destroy', $comment->id]]) !!}
 										{!! Form::destroy(trans('back/comments.destroy'), trans('back/comments.destroy-warning'), 'btn-xs') !!}
 									{!! Form::close() !!}
-						    </td>
-					    </tr>
+							</td>
+						</tr>
 			  		</tbody>
 					</table>	
 				</div>
 				<div class="panel-body">
-					{!! $comment->contenu !!}
+					{!! $comment->content !!}
 				</div> 
 			</div>
 		@endforeach
@@ -72,17 +71,17 @@
 	<script>
 		
 		
-    $(function() {
+		$(function() {
 
-    	// Gestion de vu
-			$(":checkbox[name='vu']").change(function() {     
+			// Seen gestion
+			$(":checkbox[name='seen']").change(function() {     
 				$(this).parents('.panel').toggleClass('panel-warning').toggleClass('panel-default');
 				$(this).hide().parent().append('<i class="fa fa-refresh fa-spin"></i>');
-		  		var token = $('input[name="_token"]').val();
+				var token = $('input[name="_token"]').val();
 				$.ajax({
-				  url: 'commentvu/' + this.value,
-				  type: 'PUT',
-				  data: "vu=" + this.checked + "&_token=" + token
+					url: 'commentseen/' + this.value,
+					type: 'PUT',
+					data: "seen=" + this.checked + "&_token=" + token
 				})
 				.done(function() {
 					$('.fa-spin').remove();
@@ -103,11 +102,11 @@
 				cases.prop('checked', this.checked);
 				cases.parents('.panel-heading').toggleClass('border-red');
 				cases.hide().parent().append('<i class="fa fa-refresh fa-spin"></i>');
-		  		var token = $('input[name="_token"]').val();
+				var token = $('input[name="_token"]').val();
 				$.ajax({
-				  url: '{!! url('uservalid') !!}' + '/' + this.value,
-				  type: 'PUT',
-				  data: "valid=" + this.checked + "&_token=" + token
+					url: '{!! url('uservalid') !!}' + '/' + this.value,
+					type: 'PUT',
+					data: "valid=" + this.checked + "&_token=" + token
 				})
 				.done(function() {
 					$('.fa-spin').remove();

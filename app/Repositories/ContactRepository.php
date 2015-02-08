@@ -23,7 +23,7 @@ class ContactRepository extends BaseRepository {
 	public function index()
 	{
 		return $this->model
-		->orderBy('vu', 'asc')
+		->orderBy('seen', 'asc')
 		->orderBy('created_at', 'desc')
 		->get();
 	}
@@ -38,9 +38,9 @@ class ContactRepository extends BaseRepository {
 	{
 		$contact = new $this->model;
 
-		$contact->nom = $inputs['nom'];
+		$contact->name = $inputs['name'];
 		$contact->email = $inputs['email'];
-		$contact->texte = $inputs['message'];
+		$contact->text = $inputs['message'];
 
 		$contact->save();
 	}
@@ -52,11 +52,11 @@ class ContactRepository extends BaseRepository {
 	 * @param  int   $id
 	 * @return void
 	 */
-	public function update($vu, $id)
+	public function update($seen, $id)
 	{
 		$contact = $this->model->findOrFail($id);
 
-		$contact->vu = $vu == 'true';
+		$contact->seen = $seen == 'true';
 
 		$contact->save();
 	}

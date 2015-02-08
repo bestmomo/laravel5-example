@@ -2,10 +2,8 @@
 
 use App\Http\Requests\CommentRequest;
 use Illuminate\Http\Request;
-use Illuminate\Contracts\Auth\Guard;
 use App\Repositories\CommentRepository;
 use App\Repositories\UserRepository;
-use App\Repositories\BlogRepository;
 
 class CommentController extends Controller {
 
@@ -41,24 +39,21 @@ class CommentController extends Controller {
 		$comments = $this->comment_gestion->index(4);
 		$links = str_replace('/?', '?', $comments->render());
 
-		return view('back.commentaires.index', compact('comments', 'links'));
+		return view('back.comments.index', compact('comments', 'links'));
 	}
 
 	/**
 	 * Store a newly created resource in storage.
 	 *
 	 * @param  App\requests\CommentRequest $request
-	 * @param  Illuminate\Contracts\Auth\Guard $auth
 	 * @return Response
 	 */
 	public function store(
-		CommentRequest $request,
-		Guard $auth)
+		CommentRequest $request)
 	{
-		$inputs = $request->all();
-		$this->comment_gestion->store($inputs, $auth->user()->id);
+		$this->comment_gestion->store($request->all(), $request->user()->id);
 
-		if($auth->user()->valid)
+		if($request->user()->valid)
 		{
 			return redirect()->back();
 		}
@@ -67,17 +62,17 @@ class CommentController extends Controller {
 	}		
 
 	/**
-	 * Update "vu" in the specified resource in storage.
+	 * Update "seen" in the specified resource in storage.
 	 *
 	 * @param  Illuminate\Http\Request $request
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function updateVu(
+	public function updateSeen(
 		Request $request, 
 		$id)
 	{
-		$this->comment_gestion->update($request->input('vu'), $id);
+		$this->comment_gestion->update($request->input('seen'), $id);
 
 		return response()->json(['statut' => 'ok']);		
 	}
@@ -94,10 +89,10 @@ class CommentController extends Controller {
 		$id)
 	{
 		$id = $request->segment(2);
-		$commentaire = $request->get('commentaire' . $id);
-		$this->comment_gestion->updateContenu($commentaire, $id);
+		$content = $request->input('comments' . $id);
+		$this->comment_gestion->updateContent($content, $id);
 
-		return response()->json(['id' => $id, 'contenu' => $commentaire]);	
+		return response()->json(['id' => $id, 'content' => $content]);	
 	}
 
 	/**
@@ -107,7 +102,9 @@ class CommentController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy(Request $request, $id)
+	public function destroy(
+		Request $request, 
+		$id)
 	{
 		$this->comment_gestion->destroy($id);
 
@@ -127,7 +124,7 @@ class CommentController extends Controller {
 	 * @param  int  $id
      * @return Response
 	 */
-	public function valide(
+	public function valid(
 		Request $request, 
 		UserRepository $user_gestion, 
 		$id)

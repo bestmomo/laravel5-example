@@ -11,9 +11,9 @@ class PostRequest extends Request {
 	{
 		$id = $this->segment(2) ? ',' . $this->segment(2) : '';
 		return [
-			'titre' => 'required|max:255',
-			'sommaire' => 'required|max:65000',
-			'contenu' => 'required|max:65000',
+			'title' => 'required|max:255',
+			'summary' => 'required|max:65000',
+			'content' => 'required|max:65000',
 			'slug' => 'required|unique:posts,slug' . $id,
 			'tags' => 'tags'
 		];

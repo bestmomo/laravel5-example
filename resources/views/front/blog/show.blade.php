@@ -11,13 +11,13 @@
 		<div class="box">
 			<div class="col-lg-12">
       	<hr>
-        <h2 class="text-center">{{ $post->titre }}
+        <h2 class="text-center">{{ $post->title }}
         	<br>
           <small>{{ $post->user->username }} {{ trans('front/blog.on') }} {!! $post->created_at . ($post->created_at != $post->updated_at ? trans('front/blog.updated') . $post->updated_at : '') !!}</small>
         </h2>
         <hr>
-        {!! $post->sommaire !!}<br>
-				{!! $post->contenu !!}
+        {!! $post->summary !!}<br>
+				{!! $post->content !!}
 				<hr>
 				@if($post->tags->count())
 					<div class="text-center">
@@ -37,9 +37,9 @@
 		<div class="box">
 			<div class="col-lg-12">
 				<div class="col-lg-12">
-				  <hr>
-          <h3 class="text-center">{{ trans('front/blog.comments') }}</h3>
-          <hr>
+					<hr>
+					<h3 class="text-center">{{ trans('front/blog.comments') }}</h3>
+					<hr>
 
 					@if($comments->count())
 						@foreach($comments as $comment)
@@ -51,7 +51,7 @@
 										<a id="comment{!! $comment->id !!}" href="#" class="editcomment"><span class="fa fa-fw fa-pencil pull-right" data-toggle="tooltip" data-placement="left" title="{{ trans('front/blog.edit') }}"></span></a>
 									@endif
 								</h3>
-								<div id="contenu{!! $comment->id !!}">{!! $comment->contenu !!}</div>
+								<div id="contenu{!! $comment->id !!}">{!! $comment->content !!}</div>
 								<hr>
 							</div>
 						@endforeach
@@ -62,9 +62,9 @@
 							@include('partials/error', ['type' => 'warning', 'message' => session('warning')])
 						@endif	
 						@if(session('statut') != 'visitor')
-							{!! Form::open(['url' => 'comment', 'method' => 'post']) !!}	
+							{!! Form::open(['url' => 'comment']) !!}	
 								{!! Form::hidden('post_id', $post->id) !!}
-								{!! Form::control('textarea', 12, 'commentaire', $errors, trans('front/blog.comment')) !!}
+								{!! Form::control('textarea', 12, 'comments', $errors, trans('front/blog.comment')) !!}
 								{!! Form::submit(trans('front/form.send'), ['col-lg-12']) !!}
 							{!! Form::close() !!}
 						@else
@@ -86,14 +86,14 @@
 	{!! HTML::script('ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js') !!}
 
 	@if(session('statut') != 'visitor')
-  	{!! HTML::script('ckeditor/ckeditor.js') !!}
-  @endif
+		{!! HTML::script('ckeditor/ckeditor.js') !!}
+	@endif
 
 	<script>	  
 
 		@if(session('statut') != 'visitor')
 
-			CKEDITOR.replace('commentaire', {
+			CKEDITOR.replace('comments', {
 				language: '{{ config('app.locale') }}',
 				height: 200,
 				toolbarGroups: [
@@ -109,17 +109,17 @@
 				$('a.editcomment span').tooltip();
 				$('a.deletecomment span').tooltip();
 
-				// Mise en place édition commentaire
+				// Set comment edition
 				$('a.editcomment').click(function(e) {   
 					e.preventDefault();
 					$(this).hide();
 					var i = $(this).attr('id').substring(7);
-					var existant = $('#contenu' + i).html();
+					var existing = $('#contenu' + i).html();
 					var url = $('#formcreate').find('form').attr('action');
-					jQuery.data(document.body, 'comment' + i, existant);
-					var html = "<div class='row'><form id='form" + i + "' method='POST' action='" + url + '/' + i + "' accept-charset='UTF-8' class='formajax'><input name='_token' type='hidden' value='" + $('input[name="_token"]').val() + "'><div class='form-group col-lg-12 '><label for='commentaire' class='control-label'>{{ trans('front/blog.change') }}</label><textarea id='cont" + i +"' class='form-control' name='commentaire" + i + "' cols='50' rows='10' id='commentaire'>" + existant + "</textarea><small class='help-block'></small></div><div class='form-group col-lg-12'><input id='val" + i +"' class='btn btn-default' type='submit' value='{{ trans('front/blog.valid') }}'><input id='btn" + i + "' class='btn btn-default btnannuler' type='button' value='{{ trans('front/blog.undo') }}'></div></div>";
+					jQuery.data(document.body, 'comment' + i, existing);
+					var html = "<div class='row'><form id='form" + i + "' method='POST' action='" + url + '/' + i + "' accept-charset='UTF-8' class='formajax'><input name='_token' type='hidden' value='" + $('input[name="_token"]').val() + "'><div class='form-group col-lg-12 '><label for='comments' class='control-label'>{{ trans('front/blog.change') }}</label><textarea id='cont" + i +"' class='form-control' name='comments" + i + "' cols='50' rows='10' id='comments" + i + "'>" + existing + "</textarea><small class='help-block'></small></div><div class='form-group col-lg-12'><input id='val" + i +"' class='btn btn-default' type='submit' value='{{ trans('front/blog.valid') }}'><input id='btn" + i + "' class='btn btn-default btnannuler' type='button' value='{{ trans('front/blog.undo') }}'></div></div>";
 					$('#contenu' + i).html(html);
-					CKEDITOR.replace( 'commentaire' + i, {
+					CKEDITOR.replace('comments' + i, {
 						language: '{{ config('app.locale') }}',
 						height: 200,
 						toolbarGroups: [
@@ -131,7 +131,7 @@
 					});
 				});
 
-				// Annulation édition
+				// Escape edition
 				$(document).on('click', '.btnannuler', function() {    
 					var i = $(this).attr('id').substring(3);
 					$('#comment' + i).show();
@@ -145,12 +145,12 @@
 					$('#val' + i).parent().html('<i class="fa fa-refresh fa-spin fa-2x"></i>').addClass('text-center');
 					$.ajax({
 						method: 'put',
-					  url: $(this).attr('action'),
-					  data: $(this).serialize()
+						url: $(this).attr('action'),
+						data: $(this).serialize()
 					})
 					.done(function(data) {
 						$('#comment' + data.id).show();
-						$('#contenu' + data.id).html(data.contenu);	
+						$('#contenu' + data.id).html(data.content);	
 					})
 					.fail(function() {
 						$('#comment' + i).show();
@@ -159,10 +159,10 @@
 					});
 				});
 
-				// Destruction commentaire
+				// Delete comment
 				$('a.deletecomment').click(function(e) {   
 					e.preventDefault();		
-					if (!confirm('Vraiment supprimer ce commentaire ?')) return;	
+					if (!confirm('Really delete this comment ?')) return;	
 					var i = $(this).attr('id').substring(13);
 					var token = $('input[name="_token"]').val();
 					$(this).replaceWith('<i class="fa fa-refresh fa-spin pull-right"></i>');

@@ -44,7 +44,7 @@ class RoleRepository {
 		{
 			$role = $this->role->where('slug', $key)->firstOrFail();
 
-			$role->titre = $value;
+			$role->title = $value;
 			
 			$role->save();
 		}

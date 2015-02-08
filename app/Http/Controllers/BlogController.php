@@ -109,6 +109,7 @@ class BlogController extends Controller {
 	public function create()
 	{
 		$url = Medias::getUrl($this->user_gestion);
+		
 		return view('back.blog.create')->with(compact('url'));
 	}
 
@@ -183,27 +184,27 @@ class BlogController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function updateVu(
+	public function updateSeen(
 		Request $request, 
 		$id)
 	{
-		$this->blog_gestion->updateVu($request->all(), $id);
+		$this->blog_gestion->updateSeen($request->all(), $id);
 
 		return response()->json(['statut' => 'ok']);
 	}
 
 	/**
-	 * Update "actif" for the specified resource in storage.
+	 * Update "active" for the specified resource in storage.
 	 *
 	 * @param  Illuminate\Http\Request $request
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function updateActif(
+	public function updateActive(
 		Request $request, 
 		$id)
 	{
-		$this->blog_gestion->updateActif($request->all(), $id);
+		$this->blog_gestion->updateActive($request->all(), $id);
 
 		return response()->json(['statut' => 'ok']);
 	}

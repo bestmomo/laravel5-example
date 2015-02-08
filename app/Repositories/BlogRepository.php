@@ -46,11 +46,11 @@ class BlogRepository extends BaseRepository{
 	 */
   	private function savePost($post, $inputs, $user_id = null)
 	{	
-		$post->titre = $inputs['titre'];
-		$post->sommaire = $inputs['sommaire'];	
-		$post->contenu = $inputs['contenu'];	
+		$post->title = $inputs['title'];
+		$post->summary = $inputs['summary'];	
+		$post->content = $inputs['content'];	
 		$post->slug = $inputs['slug'];
-		$post->actif = isset($inputs['actif']);	
+		$post->active = isset($inputs['active']);	
 		if($user_id) $post->user_id = $user_id;
 
 		$post->save();
@@ -67,8 +67,8 @@ class BlogRepository extends BaseRepository{
 	public function indexFront($n)
 	{
 		return $this->model
-		->select('id', 'created_at', 'updated_at', 'titre', 'slug', 'user_id', 'sommaire')
-		->whereActif(true)
+		->select('id', 'created_at', 'updated_at', 'title', 'slug', 'user_id', 'summary')
+		->whereActive(true)
 		->with('user')
 		->orderBy('created_at', 'desc')
 		->paginate($n);
@@ -84,8 +84,8 @@ class BlogRepository extends BaseRepository{
 	public function indexTag($n, $id)
 	{
 		return $this->model
-		->select('id', 'created_at', 'updated_at', 'titre', 'slug', 'user_id', 'sommaire')
-		->whereActif(true)
+		->select('id', 'created_at', 'updated_at', 'title', 'slug', 'user_id', 'summary')
+		->whereActive(true)
 		->with('user')
 		->orderBy('created_at', 'desc')
 		->whereHas('tags', function($q) use($id) { $q->where('tags.id', $id); })
@@ -102,9 +102,9 @@ class BlogRepository extends BaseRepository{
 	public function search($n, $search)
 	{
 		return $this->model
-		->select('id', 'created_at', 'updated_at', 'titre', 'slug', 'user_id', 'sommaire')
-		->where('sommaire', 'like', "%$search%")
-		->orWhere('contenu', 'like', "%$search%")
+		->select('id', 'created_at', 'updated_at', 'title', 'slug', 'user_id', 'summary')
+		->where('summary', 'like', "%$search%")
+		->orWhere('content', 'like', "%$search%")
 		->with('user')
 		->orderBy('created_at', 'desc')
 		->paginate($n);
@@ -122,7 +122,7 @@ class BlogRepository extends BaseRepository{
 	public function index($n, $user_id = null, $orderby = 'created_at', $direction = 'desc')
 	{
 		$query = $this->model
-		->select('posts.id', 'posts.created_at', 'titre', 'posts.vu', 'actif', 'user_id', 'slug', 'username')
+		->select('posts.id', 'posts.created_at', 'title', 'posts.seen', 'active', 'user_id', 'slug', 'username')
 		->join('users', 'users.id', '=', 'posts.user_id')
 		->orderBy($orderby, $direction);
 
@@ -184,7 +184,7 @@ class BlogRepository extends BaseRepository{
 		$post = $this->model->findOrFail($id);
 		$post = $this->savePost($post, $inputs);
 
-		// Gestion éventuelle des tags
+		// Tag gestion
 		$tags_id = [];
 		if(array_key_exists('tags',  $inputs) && $inputs['tags'] != '') {
 
@@ -205,33 +205,33 @@ class BlogRepository extends BaseRepository{
 	}
 
 	/**
-	 * Update "vu" in post.
+	 * Update "seen" in post.
 	 *
 	 * @param  array  $inputs
 	 * @param  int    $id
 	 * @return void
 	 */
-	public function updateVu($inputs, $id)
+	public function updateSeen($inputs, $id)
 	{
 		$post = $this->model->findOrFail($id);
 
-		$post->vu = $inputs['vu'] == 'true';
+		$post->seen = $inputs['seen'] == 'true';
 
 		$post->save();			
 	}
 
 	/**
-	 * Update "actif" in post.
+	 * Update "active" in post.
 	 *
 	 * @param  array  $inputs
 	 * @param  int    $id
 	 * @return void
 	 */
-	public function updateActif($inputs, $id)
+	public function updateActive($inputs, $id)
 	{
 		$post = $this->model->findOrFail($id);
 
-		$post->actif = $inputs['actif'] == 'true';	
+		$post->active = $inputs['active'] == 'true';	
 
 		$post->save();			
 	}
@@ -248,7 +248,7 @@ class BlogRepository extends BaseRepository{
 		$post = new $this->model;	
 		$post = $this->savePost($post, $inputs, $user_id);
 
-		// Création éventuelle des tags
+		// Tags gestion
 		if(array_key_exists('tags',  $inputs) && $inputs['tags'] != '') {
 
 			$tags = explode(',', $inputs['tags']);
@@ -265,7 +265,7 @@ class BlogRepository extends BaseRepository{
 			}
 		}
 
-		// Envisager purge des tags orphelins
+		// Maybe purge orphan tags...
 	}
 
 	/**

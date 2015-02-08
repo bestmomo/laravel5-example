@@ -18,7 +18,7 @@ abstract class BaseRepository {
 	{
 		$total = $this->model->all()->count();
 
-		$new = $this->model->whereVu(0)->count();
+		$new = $this->model->whereSeen(0)->count();
 
 		return compact('total', 'new');
 	}

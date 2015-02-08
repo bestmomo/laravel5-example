@@ -15,13 +15,12 @@
 
 @section('main')
 
-  <!-- Entête de page -->
-  @include('back.partials.entete', ['titre' => trans('back/users.dashboard') . link_to_route('user.create', trans('back/users.add'), [], ['class' => 'btn btn-info pull-right']), 'icone' => 'user', 'fil' => trans('back/users.users')])
+  @include('back.partials.entete', ['title' => trans('back/users.dashboard') . link_to_route('user.create', trans('back/users.add'), [], ['class' => 'btn btn-info pull-right']), 'icone' => 'user', 'fil' => trans('back/users.users')])
  
   <div id="tri" class="btn-group btn-group-sm">
     <a href="#" type="button" name="total" class="btn btn-default active">{{ trans('back/users.all') }} <span class="badge">{{  $counts['total'] }}</span></a>
     @foreach ($roles as $role)
-      <a href="#" type="button" name="{!! $role->slug !!}" class="btn btn-default">{{ $role->titre . 's' }} <span class="badge">{{ $counts[$role->slug] }}</span></a>
+      <a href="#" type="button" name="{!! $role->slug !!}" class="btn btn-default">{{ $role->title . 's' }} <span class="badge">{{ $counts[$role->slug] }}</span></a>
     @endforeach
   </div>
 
@@ -44,7 +43,7 @@
 			</thead>
 			<tbody>
 			  @include('back.users.table')
-  		</tbody>
+      </tbody>
 		</table>
 	</div>
 
@@ -58,15 +57,15 @@
     
     $(function() {
 
-      // Traitement vu
+      // Seen gestion
       $(document).on('change', ':checkbox', function() {    
         $(this).parents('tr').toggleClass('warning');
         $(this).hide().parent().append('<i class="fa fa-refresh fa-spin"></i>');
         var token = $('input[name="_token"]').val();
         $.ajax({
-          url: 'uservu/' + this.value,
+          url: 'userseen/' + this.value,
           type: 'PUT',
-          data: "vu=" + this.checked + "&_token=" + token
+          data: "seen=" + this.checked + "&_token=" + token
         })
         .done(function() {
           $('.fa-spin').remove();
@@ -80,14 +79,14 @@
         });
       });
 
-      // Traitement tri
+      // Sorting gestion
       $('#tri').find('a').click(function(e) {
         e.preventDefault();
-        // Icone d'attente
+        // Wait icon
         $('.breadcrumb li').append('<span id="tempo" class="fa fa-refresh fa-spin"></span>');  
-        // Aspect boutons
+        // Buttons aspect
         $('#tri').find('a').removeClass('active');
-        // Envoi ajax
+        // Send ajax
         $.ajax({
           url: 'user/sort/' + $(this).attr('name'),
           type: 'GET',

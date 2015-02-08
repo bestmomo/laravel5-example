@@ -35,6 +35,7 @@ class PasswordController extends Controller {
 	{
 		$this->auth = $auth;
 		$this->passwords = $passwords;
+
 		$this->middleware('guest');
 	}
 
@@ -49,7 +50,6 @@ class PasswordController extends Controller {
 		EmailPasswordLinkRequest $request,
 		Factory $view)
 	{
-		// Localisation email
 		$view->composer('emails.auth.password', function($view) {
             $view->with([
                 'title'   => trans('front/password.email-title'),
@@ -81,7 +81,7 @@ class PasswordController extends Controller {
 	 */
 	public function postReset(ResetPasswordRequest $request)
 	{
-    $this->passwords->validator(function($credentials)
+    	$this->passwords->validator(function($credentials)
 		{
 		  return strlen($credentials['password']) >= 8;
 		});

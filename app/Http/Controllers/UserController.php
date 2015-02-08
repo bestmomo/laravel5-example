@@ -103,7 +103,8 @@ class UserController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store(UserCreateRequest $request)
+	public function store(
+		UserCreateRequest $request)
 	{
 		$this->user_gestion->store($request->all());
 
@@ -155,7 +156,7 @@ class UserController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function updateVu(
+	public function updateSeen(
 		Request $request, 
 		$id)
 	{

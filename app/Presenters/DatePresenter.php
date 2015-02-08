@@ -7,7 +7,7 @@ trait DatePresenter {
 	/**
 	 * Format created_at attribute
 	 *
-   * @param Carbon  $date
+	 * @param Carbon  $date
 	 * @return string
 	 */
 	public function getCreatedAtAttribute($date)
@@ -18,7 +18,7 @@ trait DatePresenter {
 	/**
 	 * Format updated_at attribute
 	 *
-   * @param Carbon  $date
+     * @param Carbon  $date
 	 * @return string
 	 */
 	public function getUpdatedAtAttribute($date)

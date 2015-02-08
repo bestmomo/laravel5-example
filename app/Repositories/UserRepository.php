@@ -36,12 +36,14 @@ class UserRepository extends BaseRepository{
 	 */
   	private function save($user, $inputs)
 	{		
-		if(isset($inputs['vu'])) 
+		if(isset($inputs['seen'])) 
 		{
-			$user->vu = $inputs['vu'] == 'true';		
-		} else {	
+			$user->seen = $inputs['seen'] == 'true';		
+		} else {
+
 			$user->username = $inputs['username'];
-			$user->email = $inputs['email'];	
+			$user->email = $inputs['email'];
+
 			if(isset($inputs['role'])) {
 				$user->role_id = $inputs['role'];	
 			} else {
@@ -69,14 +71,14 @@ class UserRepository extends BaseRepository{
 			->whereHas('role', function($q) use($role) {
 				$q->whereSlug($role);
 			})		
-			->orderBy('vu', 'asc')
+			->orderBy('seen', 'asc')
 			->orderBy('created_at', 'desc')
 			->paginate($n);			
 		}
 
 		return $this->model
 		->with('role')		
-		->orderBy('vu', 'asc')
+		->orderBy('seen', 'asc')
 		->orderBy('created_at', 'desc')
 		->paginate($n);
 	}
@@ -126,7 +128,7 @@ class UserRepository extends BaseRepository{
 	 */
 	public function create()
 	{
-		$select = $this->role->all()->lists('titre', 'id');
+		$select = $this->role->all()->lists('title', 'id');
 		$statut = $this->getStatut();
 
 		return compact('select', 'statut');
@@ -175,7 +177,7 @@ class UserRepository extends BaseRepository{
 	{
 		$user = $this->model->findOrFail($id);
 
-		$select = $this->role->all()->lists('titre', 'id');
+		$select = $this->role->all()->lists('title', 'id');
 
 		return compact('user', 'select');
 	}
@@ -227,7 +229,7 @@ class UserRepository extends BaseRepository{
 	}
 
 	/**
-	 * Valide user.
+	 * Valid user.
 	 *
      * @param  bool  $valid
      * @param  int   $id

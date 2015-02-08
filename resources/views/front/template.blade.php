@@ -31,108 +31,108 @@
 
   <body>
 
-		<!--[if lte IE 7]>
-		    <p class="browsehappy">Vous utilisez un navigateur <strong>obsolète</strong>. S'il vous plaît <a href="http://browsehappy.com/">Mettez le à jour</a> pour améliorer votre navigation.</p>
-		<![endif]-->
+	<!--[if lt IE 8]>
+		<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+	<![endif]-->
 
-    <header role="banner">
+	<header role="banner">
 
-     	<div class="brand">{{ trans('front/site.title') }}</div>
-			<div class="address-bar">{{ trans('front/site.sub-title') }}</div>
-			<div id="flags" class="text-center"></div>
-			<nav class="navbar navbar-default" role="navigation">
-				<div class="container">
-					<div class="navbar-header">
-						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-							<span class="sr-only">Toggle navigation</span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-						</button>
-						<a class="navbar-brand" href="index.html">{{ trans('front/site.title') }}</a>
-					</div>
-					<div class="collapse navbar-collapse">
-						<ul class="nav navbar-nav">
-							<li {!! Request::is('/') ? 'class="active"' : '' !!}>
-								{!! link_to('/', trans('front/site.home')) !!}
+		<div class="brand">{{ trans('front/site.title') }}</div>
+		<div class="address-bar">{{ trans('front/site.sub-title') }}</div>
+		<div id="flags" class="text-center"></div>
+		<nav class="navbar navbar-default" role="navigation">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="index.html">{{ trans('front/site.title') }}</a>
+				</div>
+				<div class="collapse navbar-collapse">
+					<ul class="nav navbar-nav">
+						<li {!! Request::is('/') ? 'class="active"' : '' !!}>
+							{!! link_to('/', trans('front/site.home')) !!}
+						</li>
+						@if(session('statut') == 'visitor' || session('statut') == 'user')
+							<li {!! Request::is('contact/create') ? 'class="active"' : '' !!}>
+								{!! link_to('contact/create', trans('front/site.contact')) !!}
 							</li>
-							@if(session('statut') == 'visitor' || session('statut') == 'user')
-								<li {!! Request::is('contact/create') ? 'class="active"' : '' !!}>
-									{!! link_to('contact/create', trans('front/site.contact')) !!}
-								</li>
-							@endif
-							<li {!! Request::segment(1) == ('articles') ? 'class="active"' : '' !!}>
-								{!! link_to('articles', trans('front/site.blog')) !!}
+						@endif
+						<li {!! Request::segment(1) == ('articles') ? 'class="active"' : '' !!}>
+							{!! link_to('articles', trans('front/site.blog')) !!}
+						</li>
+						@if(Request::is('auth/register'))
+							<li class="active">
+								{!! link_to('auth/register', trans('front/site.register')) !!}
 							</li>
-							@if(Request::is('auth/register'))
-								<li class="active">
-									{!! link_to('auth/register', trans('front/site.register')) !!}
-								</li>
-							@elseif(Request::is('password/email'))
-								<li class="active">
-									{!! link_to('password/email', trans('front/site.forget-password')) !!}
+						@elseif(Request::is('password/email'))
+							<li class="active">
+								{!! link_to('password/email', trans('front/site.forget-password')) !!}
+							</li>
+						@else
+							@if(session('statut') == 'visitor')
+								<li {!! Request::is('auth/login') ? 'class="active"' : '' !!}>
+									{!! link_to('auth/login', trans('front/site.connection')) !!}
 								</li>
 							@else
-								@if(session('statut') == 'visitor')
-									<li {!! Request::is('auth/login') ? 'class="active"' : '' !!}>
-										{!! link_to('auth/login', trans('front/site.connection')) !!}
-									</li>
-								@else
-									@if(session('statut') == 'admin')
-										<li>
-											{!! link_to_route('admin', trans('front/site.administration')) !!}
-										</li>
-									@elseif(session('statut') == 'redac') 
-										<li>
-											{!! link_to('blog', trans('front/site.redaction')) !!}
-										</li>
-									@endif
+								@if(session('statut') == 'admin')
 									<li>
-										{!! link_to('auth/logout', trans('front/site.logout')) !!}
+										{!! link_to_route('admin', trans('front/site.administration')) !!}
+									</li>
+								@elseif(session('statut') == 'redac') 
+									<li>
+										{!! link_to('blog', trans('front/site.redaction')) !!}
 									</li>
 								@endif
+								<li>
+									{!! link_to('auth/logout', trans('front/site.logout')) !!}
+								</li>
 							@endif
-							<li class="imgflag">
-								<a href="{!! url('language') !!}"><img width="32" height="32" alt="en" src="{!! asset('img/' . (session('locale') == 'fr' ? 'english' : 'french') . '-flag.png') !!}"></a>
-							</li>
-						</ul>
-					</div>
+						@endif
+						<li class="imgflag">
+							<a href="{!! url('language') !!}"><img width="32" height="32" alt="en" src="{!! asset('img/' . (session('locale') == 'fr' ? 'english' : 'french') . '-flag.png') !!}"></a>
+						</li>
+					</ul>
 				</div>
-			</nav>
-			@yield('header')	
-    </header>
+			</div>
+		</nav>
+		@yield('header')	
+	</header>
 
-    <main role="main" class="container">
-  		@if(session()->has('ok'))
-  			@include('partials/error', ['type' => 'success', 'message' => session('ok')])
-			@endif	
-			@if(isset($info))
-				@include('partials/error', ['type' => 'info', 'message' => $info])
-			@endif
-      @yield('main')
-    </main>
+	<main role="main" class="container">
+		@if(session()->has('ok'))
+			@include('partials/error', ['type' => 'success', 'message' => session('ok')])
+		@endif	
+		@if(isset($info))
+			@include('partials/error', ['type' => 'info', 'message' => $info])
+		@endif
+		@yield('main')
+	</main>
 
-    <footer role="contentinfo">
-   		 @yield('footer')
-			<p class="text-center"><small>Copyright &copy; Momo</small></p>
-		</footer>
+	<footer role="contentinfo">
+		 @yield('footer')
+		<p class="text-center"><small>Copyright &copy; Momo</small></p>
+	</footer>
 		
-		{!! HTML::script('//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js') !!}
-    	<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
-		{!! HTML::script('js/plugins.js') !!}
-		{!! HTML::script('js/main.js') !!}
+	{!! HTML::script('//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js') !!}
+	<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
+	{!! HTML::script('js/plugins.js') !!}
+	{!! HTML::script('js/main.js') !!}
 
-		<!-- Google Analytics: changer UA-XXXXX-X pour correspondre à l'ID de votre site. -->
-		<script>
-			(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-			function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-			e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-			e.src='//www.google-analytics.com/analytics.js';
-			r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-			ga('create','UA-XXXXX-X');ga('send','pageview');
-		</script>
+	<!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+	<script>
+		(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+		function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+		e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+		e.src='//www.google-analytics.com/analytics.js';
+		r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+		ga('create','UA-XXXXX-X');ga('send','pageview');
+	</script>
 
-		@yield('scripts')
+	@yield('scripts')
 
   </body>
 </html>

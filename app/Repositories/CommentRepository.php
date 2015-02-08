@@ -25,7 +25,7 @@ class CommentRepository extends BaseRepository {
 	{
 		return $this->model
 		->with('post', 'user')
-		->orderBy('vu', 'asc')
+		->orderBy('seen', 'asc')
 		->orderBy('created_at', 'desc')
 		->paginate($n);
 	}
@@ -41,7 +41,7 @@ class CommentRepository extends BaseRepository {
 	{
 		$comment = new $this->model;	
 
-		$comment->contenu = $inputs['commentaire'];
+		$comment->content = $inputs['comments'];
 		$comment->post_id = $inputs['post_id'];
 		$comment->user_id = $user_id;
 
@@ -55,11 +55,11 @@ class CommentRepository extends BaseRepository {
 	 * @param  int    $id
 	 * @return void
 	 */
- 	public function updateContenu($commentaire, $id)
+ 	public function updateContent($content, $id)
 	{
 		$comment = $this->model->findOrFail($id);	
 
-		$comment->contenu = $commentaire;
+		$comment->content = $content;
 
 		$comment->save();
 	}
@@ -71,11 +71,11 @@ class CommentRepository extends BaseRepository {
 	 * @param  int   $id
 	 * @return void
 	 */
-	public function update($vu, $id)
+	public function update($seen, $id)
 	{
 		$comment = $this->model->findOrFail($id);
 
-		$comment->vu = $vu == 'true';
+		$comment->seen = $seen == 'true';
 
 		$comment->save();
 	}

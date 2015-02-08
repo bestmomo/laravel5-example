@@ -51,7 +51,7 @@ class AuthController extends Controller {
 
 		$credentials = [$logAccess => $logValue, 'password' => $request->input('password')];
 
-		if ($this->auth->attempt($credentials, $request->has('souvenir')))
+		if ($this->auth->attempt($credentials, $request->has('memory')))
 		{
 			event('user.login', [$this->auth->user()]);
 			

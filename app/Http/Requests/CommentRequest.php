@@ -11,7 +11,7 @@ class CommentRequest extends Request {
 	{
 		$id = $this->segment(2);
 		return [
-			'commentaire' . $id => 'required|max:65000',
+			'comments' . $id => 'required|max:65000',
 		];
 	}
 
