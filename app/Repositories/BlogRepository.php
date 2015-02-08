@@ -305,7 +305,7 @@ class BlogRepository extends BaseRepository{
 	 * Get tag name by id.
 	 *
 	 * @param  int  $tag_id
-	 * @return App\Models\Tag
+	 * @return string
 	 */
 	public function getTagById($tag_id)
 	{
