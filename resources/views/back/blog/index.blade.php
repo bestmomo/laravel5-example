@@ -17,7 +17,7 @@
       <table class="table">
         <thead>
           <tr>
-            <th>{{ trans('back/blog.title') }} <a href="#" name="titre" class="order"><span class="fa fa-fw fa-unsorted"></span></a></th>
+            <th>{{ trans('back/blog.title') }} <a href="#" name="title" class="order"><span class="fa fa-fw fa-unsorted"></lspan></a></th>
             <th>{{ trans('back/blog.date') }} <a href="#" name="created_at" class="order"><span class="fa fa-fw fa-sort-desc"></th>
             <th>{{ trans('back/blog.published') }} <a href="#" name="active" class="order"><span class="fa fa-fw fa-unsorted"></th> 
             @if(session('statut') == 'admin')
