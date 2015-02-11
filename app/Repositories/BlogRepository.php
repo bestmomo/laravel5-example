@@ -112,8 +112,8 @@ class BlogRepository extends BaseRepository{
 		$query = $this->queryActiveWithUserOrderByDate();
 
 		return $query->where(function($q) use ($search) {
-			return $q->where('summary', 'like', "%$search%")
-					->orWhere('content', 'like', "%$search%");
+			$q->where('summary', 'like', "%$search%")
+				->orWhere('content', 'like', "%$search%");
 		})->paginate($n);
 	}
 
@@ -320,7 +320,7 @@ class BlogRepository extends BaseRepository{
 	 */
 	public function getById($id)
 	{
-		return $this->tag->findOrFail($tag_id)->tag;
+		return $this->model->findOrFail($id);
 	}
 
 }
