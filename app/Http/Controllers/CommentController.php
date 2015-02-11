@@ -27,6 +27,7 @@ class CommentController extends Controller {
 
 		$this->middleware('admin', ['except' => ['store', 'edit', 'update', 'destroy']]);
 		$this->middleware('auth', ['only' => ['store', 'update', 'destroy']]);
+		$this->middleware('ajax', ['only' => ['updateSeen', 'update', 'valid']]);
 	}
 
 	/**

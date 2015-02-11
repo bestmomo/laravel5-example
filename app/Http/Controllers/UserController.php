@@ -38,6 +38,7 @@ class UserController extends Controller {
 		$this->role_gestion = $role_gestion;
 
 		$this->middleware('admin');
+		$this->middleware('ajax', ['only' => 'updateSeen']);
 	}
 
 	/**

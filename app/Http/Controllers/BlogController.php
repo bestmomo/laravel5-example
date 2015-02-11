@@ -47,6 +47,7 @@ class BlogController extends Controller {
 		$this->nbrPages = 2;
 
 		$this->middleware('redac', ['except' => ['indexFront', 'show', 'tag', 'search']]);
+		$this->middleware('ajax', ['only' => ['indexOrder', 'updateSeen', 'updateActive']]);
 	}	
 
 	/**
