@@ -54,7 +54,7 @@ class ContactRepository extends BaseRepository {
 	 */
 	public function update($seen, $id)
 	{
-		$contact = $this->model->findOrFail($id);
+		$contact = $this->getById($id);
 
 		$contact->seen = $seen == 'true';
 

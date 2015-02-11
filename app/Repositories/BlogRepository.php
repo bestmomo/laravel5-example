@@ -312,15 +312,4 @@ class BlogRepository extends BaseRepository{
 		return $this->tag->findOrFail($tag_id)->tag;
 	}
 
-	/**
-	 * Get Post by id.
-	 *
-	 * @param  int  $id
-	 * @return App\Models\Post
-	 */
-	public function getById($id)
-	{
-		return $this->model->findOrFail($id);
-	}
-
 }

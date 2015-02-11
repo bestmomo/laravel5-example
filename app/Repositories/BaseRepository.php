@@ -34,4 +34,15 @@ abstract class BaseRepository {
 		$this->model->findOrFail($id)->delete();
 	}
 
+	/**
+	 * Get Model by id.
+	 *
+	 * @param  int  $id
+	 * @return App\Models\Model
+	 */
+	public function getById($id)
+	{
+		return $this->model->findOrFail($id);
+	}
+
 }

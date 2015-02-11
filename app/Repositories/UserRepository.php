@@ -175,7 +175,7 @@ class UserRepository extends BaseRepository{
 	 */
 	public function edit($id)
 	{
-		$user = $this->model->findOrFail($id);
+		$user = $this->getById($id);
 
 		$select = $this->role->all()->lists('title', 'id');
 
@@ -191,7 +191,7 @@ class UserRepository extends BaseRepository{
 	 */
 	public function update($inputs, $id)
 	{
-		$user = $this->model->findOrFail($id);
+		$user = $this->getById($id);
 
 		$this->save($user, $inputs);
 	}
@@ -237,11 +237,26 @@ class UserRepository extends BaseRepository{
 	 */
 	public function valide($valid, $id)
 	{
-		$user = $this->model->findOrFail($id);
+		$user = $this->getById($id);
 
 		$user->valid = $valid == 'true';
 
 		$user->save();
+	}
+
+	/**
+	 * Destroy a user.
+	 *
+	 * @param  int $id
+	 * @return void
+	 */
+	public function destroy($id)
+	{
+		$user = $this->getById($id);
+
+		$user->comments()->delete();
+		
+		$user->delete();
 	}
 
 }

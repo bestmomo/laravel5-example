@@ -57,7 +57,7 @@ class CommentRepository extends BaseRepository {
 	 */
  	public function updateContent($content, $id)
 	{
-		$comment = $this->model->findOrFail($id);	
+		$comment = $this->getById($id);	
 
 		$comment->content = $content;
 
@@ -73,7 +73,7 @@ class CommentRepository extends BaseRepository {
 	 */
 	public function update($seen, $id)
 	{
-		$comment = $this->model->findOrFail($id);
+		$comment = $this->getById($id);
 
 		$comment->seen = $seen == 'true';
 
@@ -88,7 +88,7 @@ class CommentRepository extends BaseRepository {
 	 */
 	public function getComment($id)
 	{
-		return $this->model->findOrFail($id);
+		return $this->getById($id);
 	}
 
 }
