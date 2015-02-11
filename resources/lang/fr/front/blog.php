@@ -18,5 +18,6 @@ return [
 	'warning' => 'Merci de votre participation. Votre commentaire apparaîtra lorsqu\'un administrateur l\'aura validé (Lorsque vous aurez été validé vos autres commentaires apparaitront immédiatement)',
 	'search' => 'Chercher dans le blog',
 	'info-tag' => 'Articles trouvés avec le mot-clé ',
-	'info-search' => 'Articles trouvés avec la recherche ' 
+	'info-search' => 'Articles trouvés avec la recherche ',
+	'confirm' => 'Vraiment supprimer ce commentaire ?' 
 ];

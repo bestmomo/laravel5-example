@@ -162,7 +162,7 @@
 				// Delete comment
 				$('a.deletecomment').click(function(e) {   
 					e.preventDefault();		
-					if (!confirm('Really delete this comment ?')) return;	
+					if (!confirm('{{ trans('front/blog.confirm') }}')) return;	
 					var i = $(this).attr('id').substring(13);
 					var token = $('input[name="_token"]').val();
 					$(this).replaceWith('<i class="fa fa-refresh fa-spin pull-right"></i>');
