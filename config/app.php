@@ -144,7 +144,9 @@ return [
 		'App\Providers\EventServiceProvider',
 		'App\Providers\RouteServiceProvider',
 		'App\Services\Html\HtmlServiceProvider',
-
+		
+		/* Social login as described in docs */
+		'Laravel\Socialite\SocialiteServiceProvider',
 	],
 
 	/*
@@ -194,6 +196,9 @@ return [
 
 		'HTML' 		=> 'Illuminate\Html\HtmlFacade',
     	'Form' 		=> 'Illuminate\Html\FormFacade',
+    	
+    	/* Social login as described in docs */
+    	'Socialize' => 'Laravel\Socialite\Facades\Socialite',
 
 	],
 
