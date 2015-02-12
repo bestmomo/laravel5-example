@@ -69,8 +69,7 @@ class BlogController extends Controller {
 	 * @param  Illuminate\Contracts\Auth\Guard $auth
 	 * @return Response
 	 */
-	public function index(
-		Guard $auth)
+	public function index(Guard $auth)
 	{
 		$statut = $this->user_gestion->getStatut();
 		$posts = $this->blog_gestion->index(10, $statut == 'admin' ? null : $auth->user()->id);
@@ -84,15 +83,12 @@ class BlogController extends Controller {
 	 * Display a listing of the resource.
 	 *
 	 * @param  Illuminate\Http\Request $request
-	 * @param  Illuminate\Contracts\Auth\Guard $auth
 	 * @return Response
 	 */
-	public function indexOrder(
-		Request $request, 
-		Guard $auth)
+	public function indexOrder(Request $request)
 	{
 		$statut = $this->user_gestion->getStatut();
-		$posts = $this->blog_gestion->index(10, $statut == 'admin' ? null : $auth->user()->id, $request->get('name'), $request->get('sens'));
+		$posts = $this->blog_gestion->index(10, $statut == 'admin' ? null : $request->user()->id, $request->input('name'), $request->input('sens'));
 		
 		$links = str_replace('/?', '?', $posts->render());
 
@@ -118,14 +114,11 @@ class BlogController extends Controller {
 	 * Store a newly created resource in storage.
 	 *
 	 * @param  App\Http\Requests\PostCreateRequest $request
-	 * @param  Illuminate\Contracts\Auth\Guard $auth
 	 * @return Response
 	 */
-	public function store(
-		PostRequest $request,
-		Guard $auth)
+	public function store(PostRequest $request)
 	{
-		$this->blog_gestion->store($request->all(), $auth->user()->id);
+		$this->blog_gestion->store($request->all(), $request->user()->id);
 
 		return redirect('blog')->with('ok', trans('back/blog.stored'));
 	}
@@ -213,13 +206,10 @@ class BlogController extends Controller {
 	/**
 	 * Remove the specified resource from storage.
 	 *
-	 * @param  Illuminate\Http\Request $request
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy(
-		Request $request,	
-		$id)
+	public function destroy($id)
 	{
 		$this->blog_gestion->destroy($id);
 
@@ -234,7 +224,7 @@ class BlogController extends Controller {
 	 */
 	public function tag(Request $request)
 	{
-		$tag = $request->get('tag');
+		$tag = $request->input('tag');
 		$posts = $this->blog_gestion->indexTag($this->nbrPages, $tag);
 		$links = str_replace('/?', '?', $posts->appends(compact('tag'))->render());
 		$info = trans('front/blog.info-tag') . '<strong>' . $this->blog_gestion->getTagById($tag) . '</strong>';
@@ -250,7 +240,7 @@ class BlogController extends Controller {
 	 */
 	public function search(SearchRequest $request)
 	{
-		$search = $request->get('search');
+		$search = $request->input('search');
 		$posts = $this->blog_gestion->search($this->nbrPages, $search);
 		$links = str_replace('/?', '?', $posts->appends(compact('search'))->render());
 		$info = trans('front/blog.info-search') . '<strong>' . $search . '</strong>';
