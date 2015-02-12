@@ -69,7 +69,7 @@ class BlogRepository extends BaseRepository{
 		->select('id', 'created_at', 'updated_at', 'title', 'slug', 'user_id', 'summary')
 		->whereActive(true)
 		->with('user')
-		->orderBy('created_at', 'desc');
+		->latest();
 	}
 
 	/**

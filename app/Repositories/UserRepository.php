@@ -71,15 +71,15 @@ class UserRepository extends BaseRepository{
 			->whereHas('role', function($q) use($role) {
 				$q->whereSlug($role);
 			})		
-			->orderBy('seen', 'asc')
-			->orderBy('created_at', 'desc')
+			->oldest('seen')
+			->latest()
 			->paginate($n);			
 		}
 
 		return $this->model
 		->with('role')		
-		->orderBy('seen', 'asc')
-		->orderBy('created_at', 'desc')
+		->oldest('seen')
+		->latest()
 		->paginate($n);
 	}
 

@@ -16,7 +16,7 @@ abstract class BaseRepository {
 	 */
 	public function getNumber()
 	{
-		$total = $this->model->all()->count();
+		$total = $this->model->count();
 
 		$new = $this->model->whereSeen(0)->count();
 
@@ -31,7 +31,7 @@ abstract class BaseRepository {
 	 */
 	public function destroy($id)
 	{
-		$this->model->findOrFail($id)->delete();
+		$this->getById($id)->delete();
 	}
 
 	/**

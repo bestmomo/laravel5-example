@@ -23,8 +23,8 @@ class ContactRepository extends BaseRepository {
 	public function index()
 	{
 		return $this->model
-		->orderBy('seen', 'asc')
-		->orderBy('created_at', 'desc')
+		->oldest('seen')
+		->latest()
 		->get();
 	}
 

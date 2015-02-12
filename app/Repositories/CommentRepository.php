@@ -25,8 +25,8 @@ class CommentRepository extends BaseRepository {
 	{
 		return $this->model
 		->with('post', 'user')
-		->orderBy('seen', 'asc')
-		->orderBy('created_at', 'desc')
+		->oldest('seen')
+		->latest()
 		->paginate($n);
 	}
 
@@ -78,17 +78,6 @@ class CommentRepository extends BaseRepository {
 		$comment->seen = $seen == 'true';
 
 		$comment->save();
-	}
-
-	/**
-	 * Get a comment.
-	 *
-	 * @param  int  $id
-	 * @return Illuminate\Support\Collection
-	 */
-	public function getComment($id)
-	{
-		return $this->getById($id);
 	}
 
 }
