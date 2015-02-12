@@ -127,16 +127,16 @@ class BlogController extends Controller {
 	 * Display the specified resource.
 	 *
 	 * @param  Illuminate\Contracts\Auth\Guard $auth	 
-	 * @param  int  $id
+	 * @param  string  $slug
 	 * @return Response
 	 */
 	public function show(
 		Guard $auth, 
-		$id)
+		$slug)
 	{
 		$user = $auth->user();
 
-		return view('front.blog.show',  array_merge($this->blog_gestion->show($id), compact('user')));
+		return view('front.blog.show',  array_merge($this->blog_gestion->show($slug), compact('user')));
 	}
 
 	/**

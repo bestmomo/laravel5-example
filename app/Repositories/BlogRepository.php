@@ -145,7 +145,7 @@ class BlogRepository extends BaseRepository{
 	 * Get post collection.
 	 *
 	 * @param  string  $slug
-	 * @return Illuminate\Support\Collection
+	 * @return array
 	 */
 	public function show($slug)
 	{
@@ -164,7 +164,7 @@ class BlogRepository extends BaseRepository{
 	 * Get post collection.
 	 *
 	 * @param  int  $id
-	 * @return Illuminate\Support\Collection
+	 * @return array
 	 */
 	public function edit($id)
 	{
