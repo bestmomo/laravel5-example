@@ -1,7 +1,5 @@
 <?php namespace App\Services\Html;
 
-use Illuminate\Html\FormBuilder as IlluminateFormbuilder;
-
 class FormBuilder extends \Collective\Html\Formbuilder {
 
 	public function submit($value = null, $options = [])
