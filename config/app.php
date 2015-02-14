@@ -191,9 +191,8 @@ return [
 		'URL'       => 'Illuminate\Support\Facades\URL',
 		'Validator' => 'Illuminate\Support\Facades\Validator',
 		'View'      => 'Illuminate\Support\Facades\View',
-
-		'HTML' 		=> 'Illuminate\Html\HtmlFacade',
-    	'Form' 		=> 'Illuminate\Html\FormFacade',
+		'Form'		=> 'Collective\Html\FormFacade',
+		'HTML'		=> 'Collective\Html\HtmlFacade',
 
 	],
 
