@@ -131,7 +131,8 @@ return array(
         "date" => "Date",
         "time" => "Heure",
         "available" => "Disponible",
-        "size" => "Taille"
+        "size" => "Taille",
+        "log" => "E-mail ou Pseudo"
     ),
 
 );

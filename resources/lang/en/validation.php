@@ -103,6 +103,8 @@ return [
 	|
 	*/
 
-	'attributes' => [],
+	'attributes' => [
+		"log" => "Email or Password"
+	],
 
 ];
