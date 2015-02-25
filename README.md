@@ -41,7 +41,7 @@
 
 ### Packages included ###
 
-* illuminate/html
+* laravelcollective/html
 
 ### Tricks ###
 
