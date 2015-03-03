@@ -65,7 +65,7 @@ Route::get('user/sort/{role}', 'UserController@indexSort');
 Route::get('user/roles', 'UserController@getRoles');
 Route::post('user/roles', 'UserController@postRoles');
 
-Route::put('uservu/{id}', 'UserController@updateVu');
+Route::put('userseen/{id}', 'UserController@updateSeen');
 
 Route::resource('user', 'UserController');
 
