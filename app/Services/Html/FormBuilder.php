@@ -1,6 +1,6 @@
 <?php namespace App\Services\Html;
 
-class FormBuilder extends \Collective\Html\Formbuilder {
+class FormBuilder extends \Collective\Html\FormBuilder {
 
 	public function submit($value = null, $options = [])
 	{
