@@ -26,14 +26,14 @@ class FormBuilder extends \Collective\Html\FormBuilder {
 			  %s
 			  %s
 				%s
-				<small class="help-block">%s</small>
+				%s
 			</div>',
 			($colonnes == 0)? '': 'col-lg-' . $colonnes,
 			$errors->has($nom) ? 'has-error' : '',
 			$label ? $this->label($nom, $label, ['class' => 'control-label']) : '',
 			$pop? '<a href="#" tabindex="0" class="badge pull-right" data-toggle="popover" data-trigger="focus" title="' . $pop[0] .'" data-content="' . $pop[1] . '"><span>?</span></a>' : '',
 			call_user_func_array(['Form', $type], ($type == 'password')? [$nom, $attributes] : [$nom, $valeur, $attributes]),
-			$errors->first($nom)
+			$errors->first($nom, '<small class="help-block">:message</small>')
 		);
 	}
 
