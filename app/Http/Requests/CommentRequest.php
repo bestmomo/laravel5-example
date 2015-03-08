@@ -9,7 +9,7 @@ class CommentRequest extends Request {
 	 */
 	public function rules()
 	{
-		$id = $this->segment(2);
+		$id = $this->route('comment');
 		return [
 			'comments' . $id => 'required|max:65000',
 		];
