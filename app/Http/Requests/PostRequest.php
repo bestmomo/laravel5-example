@@ -15,7 +15,7 @@ class PostRequest extends Request {
 
 		if($this->user()->isAdmin()) return true;
 
-		return Post::where('id', $this->route('blog'))
+		return Post::where('id', $this->blog)
 	                  ->where('user_id', $this->user()->id)->exists();
 	}
 
@@ -26,7 +26,7 @@ class PostRequest extends Request {
 	 */
 	public function rules()
 	{
-		$id = $this->route('blog') ? ',' . $this->route('blog') : '';
+		$id = $this->blog ? ',' . $this->blog : '';
 		return [
 			'title' => 'required|max:255',
 			'summary' => 'required|max:65000',

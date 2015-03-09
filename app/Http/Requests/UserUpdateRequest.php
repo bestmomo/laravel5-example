@@ -9,7 +9,7 @@ class UserUpdateRequest extends Request {
 	 */
 	public function rules()
 	{
-		$id = $this->route('user');
+		$id = $this->user;
 		return $rules = [
 			'username' => 'required|max:30|alpha|unique:users,username,' . $id, 
 			'email' => 'required|email|unique:users,email,' . $id
