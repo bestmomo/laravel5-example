@@ -30,6 +30,10 @@ UL.jqueryFileTree A:hover {
 	background: url(images/directory.png) left top no-repeat;
 }
 
+.jqueryFileTree LI.directory-locked {
+	background: url(images/directory-lock.png) left top no-repeat;
+}
+
 .jqueryFileTree LI.expanded {
 	background: url(images/folder_open.png) left top no-repeat;
 }
@@ -38,8 +42,12 @@ UL.jqueryFileTree A:hover {
 	background: url(images/file.png) left top no-repeat;
 }
 
+.jqueryFileTree LI.file-locked {
+	background: url(images/file-lock.png) left top no-repeat ! important;
+}
+
 .jqueryFileTree LI.wait {
-	background: url(images/spinner.gif) left top no-repeat;
+	background: url(images/square-loading.gif) left top no-repeat;
 }
 
 /* File Extensions*/

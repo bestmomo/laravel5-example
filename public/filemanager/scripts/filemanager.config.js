@@ -1,8 +1,9 @@
 {
 		"_comment": "IMPORTANT : go to the wiki page to know about options configuration https://github.com/simogeo/Filemanager/wiki/Filemanager-configuration-file",
     "options": {
-        "culture": "fr",
+        "culture": "en",
         "lang": "php",
+        "theme": "flat-dark",
         "defaultViewMode": "grid",
         "autoload": true,
         "showFullPath": false,
@@ -24,6 +25,7 @@
         "plugins": []
     },
     "security": {
+        "allowFolderDownload": false,
         "allowChangeExtensions": false,
         "allowNoExtension": false,
         "uploadPolicy": "DISALLOW_ALL",
@@ -52,10 +54,14 @@
             "m4v",
             "ogg",
             "mp3",
-            "wav"
+            "wav",
+            "zip",
+            "rar"
         ]
     },
     "upload": {
+        "multiple": true,
+        "number": 5,
         "overwrite": false,
         "imagesOnly": false,
         "fileSizeLimit": 16
@@ -117,6 +123,11 @@
             "csv"
         ]
     },
+    "customScrollbar": {
+    	"enabled": true,
+    	"theme": "inset-2-dark",
+    	"button": true
+    },
     "extras": {
         "extra_js": [],
         "extra_js_async": true
@@ -125,5 +136,7 @@
         "path": "images/fileicons/",
         "directory": "_Open.png",
         "default": "default.png"
-    }
+    },
+    "url": "https://github.com/simogeo/Filemanager",
+    "version": "2.0.0-dev"
 }

@@ -25,8 +25,7 @@ require_once('filemanager.class.php');
 $response = '';
 
 if(!auth()) {
-
-    $fm->error($fm->lang('AUTHORIZATION_REQUIRED'));
+  $fm->error($fm->lang('AUTHORIZATION_REQUIRED'));
 }
 
 if(!isset($_GET)) {
@@ -65,7 +64,7 @@ if(!isset($_GET)) {
 
       case 'move':
         // allow "../"
-        if($fm->getvar('old') && $fm->getvar('new', 'parent_dir') && $fm->getvar('root')) {
+        if($fm->getvar('old') && $fm->getvar('new') && $fm->getvar('root')) {
           $response = $fm->move();
         }
         break;

@@ -81,7 +81,7 @@ if(jQuery) (function($){
 				
 				function bindTree(t) {
 					$(t).find('LI A').bind(o.folderEvent, function() {
-						if( $(this).parent().hasClass('directory') ) {
+						if( $(this).parent().hasClass('directory')) {
 							if( $(this).parent().hasClass('collapsed') ) {
 								// Expand
 								if( !o.multiFolder ) {
@@ -91,6 +91,8 @@ if(jQuery) (function($){
 								$(this).parent().find('UL').remove(); // cleanup
 								showTree( $(this).parent(), $(this).attr('data-path').match( /.*\// ) );
 								$(this).parent().removeClass('collapsed').addClass('expanded');
+								// @simo's hack : prevent opening folder and loader when clicking locked folder
+								if($(this).parent().hasClass('directory-locked')) $(this).parent().removeClass('expanded').removeClass('wait');
 							} else {
 								// Collapse
 								$(this).parent().find('UL').slideUp({ duration: o.collapseSpeed, easing: o.collapseEasing });
