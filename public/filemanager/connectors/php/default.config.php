@@ -41,9 +41,7 @@ function auth()
 
   if(!$app['auth']->check()) return false;
 
-  $role = $app['auth']->user()->role->slug;
-
-  return($role == 'admin' || $role == 'redac');
+  return $app['auth']->user()->isNotUser();
 }
 
 
