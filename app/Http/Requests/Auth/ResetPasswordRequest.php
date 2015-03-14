@@ -14,7 +14,7 @@ class ResetPasswordRequest extends Request {
 		return [
 			'token' => 'required',
 			'email' => 'required',
-			'password' => 'required|confirmed',
+			'password' => 'required|min:8|confirmed',
 		];
 	}
 

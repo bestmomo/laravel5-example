@@ -81,11 +81,6 @@ class PasswordController extends Controller {
 	 */
 	public function postReset(ResetPasswordRequest $request)
 	{
-    	$this->passwords->validator(function($credentials)
-		{
-		  return strlen($credentials['password']) >= 8;
-		});
-
 		$credentials = $request->only(
 			'email', 'password', 'password_confirmation', 'token'
 		);
