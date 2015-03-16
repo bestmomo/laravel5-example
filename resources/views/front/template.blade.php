@@ -61,7 +61,7 @@
 								{!! link_to('contact/create', trans('front/site.contact')) !!}
 							</li>
 						@endif
-						<li {!! Request::segment(1) == ('articles') ? 'class="active"' : '' !!}>
+						<li {!! Request::segment(1) == ('articles') || Request::segment(1) == ('blog') ? 'class="active"' : '' !!}>
 							{!! link_to('articles', trans('front/site.blog')) !!}
 						</li>
 						@if(Request::is('auth/register'))
