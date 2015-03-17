@@ -10,13 +10,13 @@
 	<div class="row">
 		<div class="box">
 			<div class="col-lg-12">
-      	<hr>
-        <h2 class="text-center">{{ $post->title }}
-        	<br>
-          <small>{{ $post->user->username }} {{ trans('front/blog.on') }} {!! $post->created_at . ($post->created_at != $post->updated_at ? trans('front/blog.updated') . $post->updated_at : '') !!}</small>
-        </h2>
-        <hr>
-        {!! $post->summary !!}<br>
+				<hr>
+				<h2 class="text-center">{{ $post->title }}
+				<br>
+				<small>{{ $post->user->username }} {{ trans('front/blog.on') }} {!! $post->created_at . ($post->created_at != $post->updated_at ? trans('front/blog.updated') . $post->updated_at : '') !!}</small>
+				</h2>
+				<hr>
+				{!! $post->summary !!}<br>
 				{!! $post->content !!}
 				<hr>
 				@if($post->tags->count())
@@ -104,6 +104,10 @@
 				removeButtons: 'Table,SpecialChar,HorizontalRule,Anchor'
 			});
 
+			function buttons(i) {
+				return "<input id='val" + i +"' class='btn btn-default' type='submit' value='{{ trans('front/blog.valid') }}'><input id='btn" + i + "' class='btn btn-default btnannuler' type='button' value='{{ trans('front/blog.undo') }}'></div>";
+			}
+
 			$(function() {
 
 				$('a.editcomment span').tooltip();
@@ -117,7 +121,7 @@
 					var existing = $('#contenu' + i).html();
 					var url = $('#formcreate').find('form').attr('action');
 					jQuery.data(document.body, 'comment' + i, existing);
-					var html = "<div class='row'><form id='form" + i + "' method='POST' action='" + url + '/' + i + "' accept-charset='UTF-8' class='formajax'><input name='_token' type='hidden' value='" + $('input[name="_token"]').val() + "'><div class='form-group col-lg-12 '><label for='comments' class='control-label'>{{ trans('front/blog.change') }}</label><textarea id='cont" + i +"' class='form-control' name='comments" + i + "' cols='50' rows='10' id='comments" + i + "'>" + existing + "</textarea><small class='help-block'></small></div><div class='form-group col-lg-12'><input id='val" + i +"' class='btn btn-default' type='submit' value='{{ trans('front/blog.valid') }}'><input id='btn" + i + "' class='btn btn-default btnannuler' type='button' value='{{ trans('front/blog.undo') }}'></div></div>";
+					var html = "<div class='row'><form id='form" + i + "' method='POST' action='" + url + '/' + i + "' accept-charset='UTF-8' class='formajax'><input name='_token' type='hidden' value='" + $('input[name="_token"]').val() + "'><div class='form-group col-lg-12 '><label for='comments' class='control-label'>{{ trans('front/blog.change') }}</label><textarea id='cont" + i +"' class='form-control' name='comments" + i + "' cols='50' rows='10' id='comments" + i + "'>" + existing + "</textarea><small class='help-block'></small></div><div class='form-group col-lg-12'>" + buttons(i) + "</div>";
 					$('#contenu' + i).html(html);
 					CKEDITOR.replace('comments' + i, {
 						language: '{{ config('app.locale') }}',
@@ -152,10 +156,13 @@
 						$('#comment' + data.id).show();
 						$('#contenu' + data.id).html(data.content);	
 					})
-					.fail(function() {
-						$('#comment' + i).show();
-						$('#contenu' + i).html(jQuery.data(document.body, 'comment' + i));
-						alert('{{ trans('front/blog.fail-update') }}');
+					.fail(function(data) {
+						var errors = data.responseJSON;
+						$.each(errors, function(index, value) {
+							$('textarea[name="' + index + '"]' + ' ~ small').text(value);
+							$('textarea[name="' + index + '"]').parent().addClass('has-error');
+							$('.fa-spin').parent().html(buttons(index.slice(-1))).removeClass('text-center');
+						});
 					});
 				});
 
@@ -168,8 +175,8 @@
 					$(this).replaceWith('<i class="fa fa-refresh fa-spin pull-right"></i>');
 					$.ajax({
 						method: 'delete',
-					  url: '{!! url('comment') !!}' + '/' + i,
-					  data: '_token=' + token
+						url: '{!! url('comment') !!}' + '/' + i,
+						data: '_token=' + token
 					})
 					.done(function(data) {
 						$('#comment' + data.id).parents('.commentitem').remove();
