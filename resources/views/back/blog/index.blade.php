@@ -123,6 +123,7 @@
           $('#tempo').remove();
         })
         .fail(function() {
+          $('#tempo').remove();
           alert('{{ trans('back/blog.fail') }}');
         });
       })
