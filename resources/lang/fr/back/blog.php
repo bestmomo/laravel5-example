@@ -24,5 +24,5 @@ return [
 	'fail' => 'Echec de la mise à jour. Aucunes données ou texte trop long',
 	'stored' => 'L\'article a bien été créé.',
 	'updated' => 'L\'article a bien été modifié.',
-	'destroyed' => 'L\article a bien été supprimé'
+	'destroyed' => 'L\'article a bien été supprimé'
 ];
