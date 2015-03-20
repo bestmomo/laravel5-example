@@ -13,10 +13,15 @@ class PostRequest extends Request {
 	{
 		if(!parent::authorize()) return false;
 
-		if($this->user()->isAdmin()) return true;
+		if($this->blog)
+		{
+			if($this->user()->isAdmin()) return true;
 
-		return Post::where('id', $this->blog)
-	                  ->where('user_id', $this->user()->id)->exists();
+			return Post::where('id', $this->blog)
+					   ->where('user_id', $this->user()->id)->exists();
+		}
+
+		return true;
 	}
 
 	/**
