@@ -75,7 +75,7 @@ class CommentController extends Controller {
 	{
 		$this->comment_gestion->update($request->input('seen'), $id);
 
-		return response()->json(['statut' => 'ok']);		
+		return response()->json();		
 	}
 
 	/**
@@ -132,7 +132,7 @@ class CommentController extends Controller {
 	{
 		$user_gestion->valide($request->input('valid'), $id);
 		
-		return response()->json(['statut' => 'ok']);		
+		return response()->json();		
 	}
 
 }
