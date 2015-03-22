@@ -129,9 +129,8 @@ class UserRepository extends BaseRepository{
 	public function create()
 	{
 		$select = $this->role->all()->lists('title', 'id');
-		$statut = $this->getStatut();
 
-		return compact('select', 'statut');
+		return compact('select');
 	}
 
 	/**
@@ -162,9 +161,7 @@ class UserRepository extends BaseRepository{
 	{
 		$user = $this->model->with('role')->findOrFail($id);
 
-		$statut = $this->getStatut();
-
-		return compact('user' ,'statut');
+		return compact('user');
 	}
 
 	/**
