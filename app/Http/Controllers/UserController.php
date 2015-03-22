@@ -163,7 +163,7 @@ class UserController extends Controller {
 	{
 		$this->user_gestion->update($request->all(), $id);
 
-		return response()->json(['statut' => 'ok']);
+		return response()->json();
 	}
 
 	/**
