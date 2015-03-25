@@ -200,7 +200,7 @@ class BlogController extends Controller {
 	{
 		$this->blog_gestion->updateActive($request->all(), $id);
 
-		return response()->json(['statut' => 'ok']);
+		return response()->json(['status' => 'ok']);
 	}
 
 	/**
