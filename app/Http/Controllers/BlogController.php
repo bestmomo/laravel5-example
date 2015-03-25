@@ -40,9 +40,9 @@ class BlogController extends Controller {
 	*/
 	public function __construct(
 		BlogRepository $blog_gestion,
-    	UserRepository $user_gestion)
+		UserRepository $user_gestion)
 	{
-    	$this->user_gestion = $user_gestion;
+		$this->user_gestion = $user_gestion;
 		$this->blog_gestion = $blog_gestion;
 		$this->nbrPages = 2;
 
@@ -57,8 +57,8 @@ class BlogController extends Controller {
 	 */
 	public function indexFront()
 	{
-    	$posts = $this->blog_gestion->indexFront($this->nbrPages);
-    	$links = str_replace('/?', '?', $posts->render());
+		$posts = $this->blog_gestion->indexFront($this->nbrPages);
+		$links = str_replace('/?', '?', $posts->render());
 
 		return view('front.blog.index', compact('posts', 'links'));
 	}
@@ -113,7 +113,7 @@ class BlogController extends Controller {
 	/**
 	 * Store a newly created resource in storage.
 	 *
-	 * @param  App\Http\Requests\PostCreateRequest $request
+	 * @param  App\Http\Requests\PostRequest $request
 	 * @return Response
 	 */
 	public function store(PostRequest $request)
@@ -127,7 +127,7 @@ class BlogController extends Controller {
 	 * Display the specified resource.
 	 *
 	 * @param  Illuminate\Contracts\Auth\Guard $auth	 
-	 * @param  string  $slug
+	 * @param  string $slug
 	 * @return Response
 	 */
 	public function show(
@@ -184,7 +184,7 @@ class BlogController extends Controller {
 	{
 		$this->blog_gestion->updateSeen($request->all(), $id);
 
-		return response()->json(['statut' => 'ok']);
+		return response()->json();
 	}
 
 	/**
@@ -200,7 +200,7 @@ class BlogController extends Controller {
 	{
 		$this->blog_gestion->updateActive($request->all(), $id);
 
-		return response()->json(['statut' => 'ok']);
+		return response()->json();
 	}
 
 	/**
