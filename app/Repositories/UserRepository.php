@@ -1,7 +1,7 @@
 <?php namespace App\Repositories;
 
 use App\Models\User, App\Models\Role;
-use File, Auth;
+use File;
 
 class UserRepository extends BaseRepository{
 
@@ -210,7 +210,7 @@ class UserRepository extends BaseRepository{
 	 */
 	public function getName()
 	{
-		$name = strtolower(strtr(utf8_decode(Auth::user()->username), 
+		$name = strtolower(strtr(utf8_decode(auth()->user()->username), 
 			utf8_decode('àáâãäçèéêëìíîïñòóôõöùúûüýÿÀÁÂÃÄÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝ'), 
 			'aaaaaceeeeiiiinooooouuuuyyAAAAACEEEEIIIINOOOOOUUUUY'
 		));

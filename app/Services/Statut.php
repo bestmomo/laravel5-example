@@ -1,7 +1,5 @@
 <?php namespace App\Services;
 
-use Auth;
-
 class Statut  {
 
 	/**
@@ -34,7 +32,7 @@ class Statut  {
 	{
 		if(!session()->has('statut')) 
 		{
-			session()->put('statut', Auth::check() ?  Auth::user()->role->slug : 'visitor');
+			session()->put('statut', auth()->check() ?  auth()->user()->role->slug : 'visitor');
 		}
 	}
 
