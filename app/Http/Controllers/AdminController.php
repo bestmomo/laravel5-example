@@ -26,14 +26,14 @@ class AdminController extends Controller {
 		$this->user_gestion = $user_gestion;
     }
 
-  	/**
-	 * Show the admin panel.
-	 *
-	 * @param  App\Repositories\ContactRepository $contact_gestion
-	 * @param  App\Repositories\BlogRepository $blog_gestion
-	 * @param  App\Repositories\CommentRepository $comment_gestion
-	 * @return Response
-	 */
+	/**
+	* Show the admin panel.
+	*
+	* @param  App\Repositories\ContactRepository $contact_gestion
+	* @param  App\Repositories\BlogRepository $blog_gestion
+	* @param  App\Repositories\CommentRepository $comment_gestion
+	* @return Response
+	*/
 	public function admin(
 		ContactRepository $contact_gestion, 
 		BlogRepository $blog_gestion,
@@ -54,7 +54,7 @@ class AdminController extends Controller {
 	 */
 	public function filemanager()
 	{
-		$url = Medias::getUrl($this->user_gestion);
+		$url = config('medias.url');
 		
 		return view('back.filemanager', compact('url'));
 	}
