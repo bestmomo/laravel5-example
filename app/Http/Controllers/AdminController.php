@@ -54,7 +54,7 @@ class AdminController extends Controller {
 	 */
 	public function filemanager()
 	{
-		$url = config('medias.url');
+		$url = Medias::getUrl($this->user_gestion);
 		
 		return view('back.filemanager', compact('url'));
 	}

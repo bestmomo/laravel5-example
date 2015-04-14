@@ -16,37 +16,7 @@
  *	@copyright	Authors
  */
 
-require getcwd() . '/../../../../bootstrap/autoload.php';
-$app = require_once getcwd() . '/../../../../bootstrap/app.php';
 
-$kernel = $app->make('Illuminate\Contracts\Http\Kernel');
-
-$response = $kernel->handle(
-  $request = Illuminate\Http\Request::capture()
-);
-
-$id = $app['encrypter']->decrypt($_COOKIE[$app['config']['session.cookie']]);
-$app['session']->driver()->setId($id);
-$app['session']->driver()->start();
-
-// Check if user in authentified
-if(!$app['auth']->check()) 
-{
-  $laravelAuth = false;
-} else {
-
-  $laravelAuth = $app['auth']->user()->isNotUser();
-
-  // Check for redactor
-  if($laravelAuth && !$app['auth']->user()->isAdmin()) {
-
-    $redactor = strtolower(strtr(utf8_decode($app['auth']->user()->username), 
-      utf8_decode('àáâãäçèéêëìíîïñòóôõöùúûüýÿÀÁÂÃÄÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝ'), 
-      'aaaaaceeeeiiiinooooouuuuyyAAAAACEEEEIIIINOOOOOUUUUY'
-    ));
-
-  }
-}
 
 /**
  *	Check if user is authorized
@@ -56,22 +26,38 @@ if(!$app['auth']->check())
  */
 function auth() 
 {
-  return $GLOBALS['laravelAuth'];
+  require getcwd() . '/../../../../bootstrap/autoload.php';
+  $app = require_once getcwd() . '/../../../../bootstrap/app.php';
+
+  $kernel = $app->make('Illuminate\Contracts\Http\Kernel');
+
+  $response = $kernel->handle(
+    $request = Illuminate\Http\Request::capture()
+  );
+
+  $id = $app['encrypter']->decrypt($_COOKIE[$app['config']['session.cookie']]);
+  $app['session']->driver()->setId($id);
+  $app['session']->driver()->start();
+
+  if(!$app['auth']->check()) return false;
+
+  return $app['auth']->user()->isNotUser();
 }
+
+
+// @todo Work on plugins registration
+// if (isset($config['plugin']) && !empty($config['plugin'])) {
+// 	$pluginPath = 'plugins' . DIRECTORY_SEPARATOR . $config['plugin'] . DIRECTORY_SEPARATOR;
+// 	require_once($pluginPath . 'filemanager.' . $config['plugin'] . '.config.php');
+// 	require_once($pluginPath . 'filemanager.' . $config['plugin'] . '.class.php');
+// 	$className = 'Filemanager'.strtoupper($config['plugin']);
+// 	$fm = new $className($config);
+// } else {
+// 	$fm = new Filemanager($config);
+// }
+
 
 // we instantiate the Filemanager
-// 
-// 
-
-$folderPath = $app->basePath() . '/public/filemanager/userfiles/';
-
-if(isset($redactor)) 
-{
-  $folderPath .= $redactor;
-}
-
 $fm = new Filemanager();
-
-$fm->setFileRoot($folderPath);
 
 ?>
