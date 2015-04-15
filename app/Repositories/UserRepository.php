@@ -1,7 +1,6 @@
 <?php namespace App\Repositories;
 
 use App\Models\User, App\Models\Role;
-use File;
 
 class UserRepository extends BaseRepository{
 
@@ -201,28 +200,6 @@ class UserRepository extends BaseRepository{
 	public function getStatut()
 	{
 		return session('statut');
-	}
-
-	/**
-	 * Create and return directory name for redactor.
-	 *
-	 * @return string
-	 */
-	public function getName()
-	{
-		$name = strtolower(strtr(utf8_decode(auth()->user()->username), 
-			utf8_decode('àáâãäçèéêëìíîïñòóôõöùúûüýÿÀÁÂÃÄÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝ'), 
-			'aaaaaceeeeiiiinooooouuuuyyAAAAACEEEEIIIINOOOOOUUUUY'
-		));
-
-		$directory = base_path() . config('medias.url-files') . $name;
-
-		if (!File::isDirectory($directory))
-		{
-			File::makeDirectory($directory); 
-		}  
-
-		return $name;  
 	}
 
 	/**

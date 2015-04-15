@@ -1,3 +1,19 @@
+From version 2.0.0 to 2.1.0
+---------------------------
+- Detect syntax error in config file  | #294
+- "Upload" button localized  | #295
+- Adding loading screen | #298
+- Adding version number | #292
+- Adding navigation to Parent Directory | #315 
+- Better handling of non readable / non writable files and folders, depending on system permissions | #307, #308, #309
+- Fixing bug with custom scrollbar on Google Chrome | #299
+- Fixing bug when renaming file/folder with dynamic fileroot, using setFileRoot() | #297
+- Fixing bug on 'upload' button when multiple-uploads option is enabled, on chrome. Should also work better with IE | #304 
+- Fixing bug is_valid_path() on WAMP | #306
+- Fixing bug on filetree scrollbar | #302 
+- Fixing bug on clicking Home button | #320
+- Fixing bug on allowed files test | #331
+
 From version 1.8.0 to 2.0.0
 ---------------------------
 - Adding multiple files upload, based on dropzone.js | #177, #185, #41

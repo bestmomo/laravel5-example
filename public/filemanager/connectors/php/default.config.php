@@ -16,7 +16,48 @@
  *	@copyright	Authors
  */
 
+// Laravel init
+require getcwd() . '/../../../../bootstrap/autoload.php';
+$app = require_once getcwd() . '/../../../../bootstrap/app.php';
 
+$kernel = $app->make('Illuminate\Contracts\Http\Kernel');
+
+$response = $kernel->handle(
+  $request = Illuminate\Http\Request::capture()
+);
+
+$id = $app['encrypter']->decrypt($_COOKIE[$app['config']['session.cookie']]);
+$app['session']->driver()->setId($id);
+$app['session']->driver()->start();
+
+// Folder path
+$folderPath = $app->basePath() . $app['config']->get('medias.url-files');     
+
+// Check if user in authentified
+if(!$app['auth']->check()) 
+{
+  $laravelAuth = false;
+} else {
+
+  $laravelAuth = $app['auth']->user()->isNotUser();
+
+  // Check for redactor
+  if($laravelAuth && !$app['auth']->user()->isAdmin()) {
+
+    // Redactor folder name
+    $folderPath .= strtolower(strtr(utf8_decode($app['auth']->user()->username), 
+      utf8_decode('àáâãäçèéêëìíîïñòóôõöùúûüýÿÀÁÂÃÄÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝ'), 
+      'aaaaaceeeeiiiinooooouuuuyyAAAAACEEEEIIIINOOOOOUUUUY'
+    ));
+
+    // Create redactor folder if not exists 
+    if (!is_dir($folderPath))
+    {
+      mkdir($folderPath); 
+    } 
+
+  }
+}
 
 /**
  *	Check if user is authorized
@@ -26,38 +67,11 @@
  */
 function auth() 
 {
-  require getcwd() . '/../../../../bootstrap/autoload.php';
-  $app = require_once getcwd() . '/../../../../bootstrap/app.php';
-
-  $kernel = $app->make('Illuminate\Contracts\Http\Kernel');
-
-  $response = $kernel->handle(
-    $request = Illuminate\Http\Request::capture()
-  );
-
-  $id = $app['encrypter']->decrypt($_COOKIE[$app['config']['session.cookie']]);
-  $app['session']->driver()->setId($id);
-  $app['session']->driver()->start();
-
-  if(!$app['auth']->check()) return false;
-
-  return $app['auth']->user()->isNotUser();
+  return $GLOBALS['laravelAuth'];
 }
 
-
-// @todo Work on plugins registration
-// if (isset($config['plugin']) && !empty($config['plugin'])) {
-// 	$pluginPath = 'plugins' . DIRECTORY_SEPARATOR . $config['plugin'] . DIRECTORY_SEPARATOR;
-// 	require_once($pluginPath . 'filemanager.' . $config['plugin'] . '.config.php');
-// 	require_once($pluginPath . 'filemanager.' . $config['plugin'] . '.class.php');
-// 	$className = 'Filemanager'.strtoupper($config['plugin']);
-// 	$fm = new $className($config);
-// } else {
-// 	$fm = new Filemanager($config);
-// }
-
-
-// we instantiate the Filemanager
 $fm = new Filemanager();
+
+$fm->setFileRoot($folderPath);
 
 ?>

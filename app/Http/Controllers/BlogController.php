@@ -6,7 +6,6 @@ use App\Http\Requests\PostRequest;
 use App\Http\Requests\SearchRequest;
 use App\Repositories\BlogRepository;
 use App\Repositories\UserRepository;
-use App\Services\Medias;
 
 class BlogController extends Controller {
 
@@ -105,7 +104,7 @@ class BlogController extends Controller {
 	 */
 	public function create()
 	{
-		$url = Medias::getUrl($this->user_gestion);
+		$url = config('medias.url');
 		
 		return view('back.blog.create')->with(compact('url'));
 	}
@@ -150,7 +149,7 @@ class BlogController extends Controller {
 		UserRepository $user_gestion, 
 		$id)
 	{
-		$url = Medias::getUrl($user_gestion);
+		$url = config('medias.url');
 
 		return view('back.blog.edit',  array_merge($this->blog_gestion->edit($id), compact('url')));
 	}

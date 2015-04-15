@@ -1,5 +1,5 @@
 {
-		"_comment": "IMPORTANT : go to the wiki page to know about options configuration https://github.com/simogeo/Filemanager/wiki/Filemanager-configuration-file",
+        "_comment": "IMPORTANT : go to the wiki page to know about options configuration https://github.com/simogeo/Filemanager/wiki/Filemanager-configuration-file",
     "options": {
         "culture": "en",
         "lang": "php",
@@ -17,9 +17,9 @@
         "fileSorting": "default",
         "chars_only_latin": true,
         "dateFormat": "d M Y H:i",
-        "serverRoot": true,
-        "fileRoot": false,
-        "relPath": false,
+        "serverRoot": false,
+        "fileRoot": "/",
+        "baseUrl": "/filemanager/",
         "logger": false,
         "capabilities": ["select", "download", "rename", "delete", "replace"],
         "plugins": []
@@ -88,8 +88,8 @@
             "svg"
         ],
         "resize": {
-        	"enabled":true,
-        	"maxWidth": 1280,
+            "enabled":true,
+            "maxWidth": 1280,
             "maxHeight": 1024
         }
     },
@@ -124,9 +124,9 @@
         ]
     },
     "customScrollbar": {
-    	"enabled": true,
-    	"theme": "inset-2-dark",
-    	"button": true
+        "enabled": true,
+        "theme": "inset-2-dark",
+        "button": true
     },
     "extras": {
         "extra_js": [],

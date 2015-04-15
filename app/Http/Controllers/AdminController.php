@@ -4,7 +4,6 @@ use App\Repositories\ContactRepository;
 use App\Repositories\UserRepository;
 use App\Repositories\BlogRepository;
 use App\Repositories\CommentRepository;
-use App\Services\Medias;
 
 class AdminController extends Controller {
 
@@ -54,7 +53,7 @@ class AdminController extends Controller {
 	 */
 	public function filemanager()
 	{
-		$url = Medias::getUrl($this->user_gestion);
+		$url = config('medias.url');
 		
 		return view('back.filemanager', compact('url'));
 	}
