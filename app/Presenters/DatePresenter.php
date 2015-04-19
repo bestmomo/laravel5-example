@@ -33,7 +33,7 @@ trait DatePresenter {
 	 */
 	private function getFormat()
 	{
-	  return config('app.locale') == 'fr' ? 'd-m-Y' : 'm-d-Y';
+	  return config('app.locale') == 'fr' ? 'd/m/Y' : 'm/d/Y';
 	}
 
 }
