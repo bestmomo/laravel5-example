@@ -1,16 +1,5 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Authentication & Password Reset Controllers
-|--------------------------------------------------------------------------
-|
-| These two controllers handle the authentication of the users of your
-| application, as well as the functions necessary for resetting the
-| passwords for your users. You may modify or remove these files.
-|
-*/
-
 // Home
 Route::get('/', [
 	'uses' => 'HomeController@index', 
@@ -65,7 +54,7 @@ Route::get('user/sort/{role}', 'UserController@indexSort');
 Route::get('user/roles', 'UserController@getRoles');
 Route::post('user/roles', 'UserController@postRoles');
 
-Route::put('userseen/{id}', 'UserController@updateSeen');
+Route::put('userseen/{user}', 'UserController@updateSeen');
 
 Route::resource('user', 'UserController');
 

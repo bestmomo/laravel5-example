@@ -130,7 +130,7 @@ class CommentController extends Controller {
 		UserRepository $user_gestion, 
 		$id)
 	{
-		$user_gestion->valide($request->input('valid'), $id);
+		$user_gestion->valid($request->input('valid'), $id);
 		
 		return response()->json();		
 	}

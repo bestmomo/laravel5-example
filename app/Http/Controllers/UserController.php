@@ -5,6 +5,7 @@ use App\Repositories\RoleRepository;
 use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Http\Requests\RoleRequest;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller {
@@ -94,7 +95,7 @@ class UserController extends Controller {
 	 */
 	public function create()
 	{
-		return view('back.users.create', $this->user_gestion->create());
+		return view('back.users.create', $this->role_gestion->getAllSelect());
 	}
 
 	/**
@@ -115,37 +116,37 @@ class UserController extends Controller {
 	/**
 	 * Display the specified resource.
 	 *
-	 * @param  int  $id
+	 * @param  App\Models\User
 	 * @return Response
 	 */
-	public function show($id)
+	public function show(User $user)
 	{
-		return view('back.users.show',  $this->user_gestion->show($id));
+		return view('back.users.show',  compact('user'));
 	}
 
 	/**
 	 * Show the form for editing the specified resource.
 	 *
-	 * @param  int  $id
+	 * @param  App\Models\User
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit(User $user)
 	{
-		return view('back.users.edit',  $this->user_gestion->edit($id));
+		return view('back.users.edit', array_merge(compact('user'), $this->role_gestion->getAllSelect()));
 	}
 
 	/**
 	 * Update the specified resource in storage.
 	 *
 	 * @param  App\requests\UserUpdateRequest $request
-	 * @param  int  $id
+	 * @param  App\Models\User
 	 * @return Response
 	 */
 	public function update(
 		UserUpdateRequest $request,
-		$id)
+		$user)
 	{
-		$this->user_gestion->update($request->all(), $id);
+		$this->user_gestion->update($request->all(), $user);
 
 		return redirect('user')->with('ok', trans('back/users.updated'));
 	}
@@ -154,14 +155,14 @@ class UserController extends Controller {
 	 * Update the specified resource in storage.
 	 *
 	 * @param  Illuminate\Http\Request $request
-	 * @param  int  $id
+	 * @param  App\Models\User $user
 	 * @return Response
 	 */
 	public function updateSeen(
 		Request $request, 
-		$id)
+		$user)
 	{
-		$this->user_gestion->update($request->all(), $id);
+		$this->user_gestion->update($request->all(), $user);
 
 		return response()->json();
 	}
@@ -169,12 +170,12 @@ class UserController extends Controller {
 	/**
 	 * Remove the specified resource from storage.
 	 *
-	 * @param  int  $id
+	 * @param  App\Models\user $user
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy(User $user)
 	{
-		$this->user_gestion->destroy($id);
+		$this->user_gestion->destroyUser($user);
 
 		return redirect('user')->with('ok', trans('back/users.destroyed'));
 	}

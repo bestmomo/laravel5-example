@@ -121,18 +121,6 @@ class UserRepository extends BaseRepository{
 	}
 
 	/**
-	 * Get a user collection.
-	 *
-	 * @return Illuminate\Support\Collection
-	 */
-	public function create()
-	{
-		$select = $this->role->all()->lists('title', 'id');
-
-		return compact('select');
-	}
-
-	/**
 	 * Create a user.
 	 *
 	 * @param  array  $inputs
@@ -151,44 +139,14 @@ class UserRepository extends BaseRepository{
 	}
 
 	/**
-	 * Get user collection.
-	 *
-	 * @param  string  $slug
-	 * @return Illuminate\Support\Collection
-	 */
-	public function show($id)
-	{
-		$user = $this->model->with('role')->findOrFail($id);
-
-		return compact('user');
-	}
-
-	/**
-	 * Get user collection.
-	 *
-	 * @param  int  $id
-	 * @return Illuminate\Support\Collection
-	 */
-	public function edit($id)
-	{
-		$user = $this->getById($id);
-
-		$select = $this->role->all()->lists('title', 'id');
-
-		return compact('user', 'select');
-	}
-
-	/**
 	 * Update a user.
 	 *
 	 * @param  array  $inputs
-	 * @param  int    $id
+	 * @param  App\Models\User $user
 	 * @return void
 	 */
-	public function update($inputs, $id)
+	public function update($inputs, $user)
 	{
-		$user = $this->getById($id);
-
 		$this->save($user, $inputs);
 	}
 
@@ -209,7 +167,7 @@ class UserRepository extends BaseRepository{
      * @param  int   $id
 	 * @return void
 	 */
-	public function valide($valid, $id)
+	public function valid($valid, $id)
 	{
 		$user = $this->getById($id);
 
@@ -221,13 +179,11 @@ class UserRepository extends BaseRepository{
 	/**
 	 * Destroy a user.
 	 *
-	 * @param  int $id
+	 * @param  App\Models\User $user
 	 * @return void
 	 */
-	public function destroy($id)
+	public function destroyUser(User $user)
 	{
-		$user = $this->getById($id);
-
 		$user->comments()->delete();
 		
 		$user->delete();

@@ -50,4 +50,17 @@ class RoleRepository {
 		}
 	}
 
+	/**
+	 * Get roles collection.
+	 *
+	 * @param  App\Models\User
+	 * @return Array
+	 */
+	public function getAllSelect()
+	{
+		$select = $this->all()->lists('title', 'id');
+
+		return compact('select');
+	}
+
 }
