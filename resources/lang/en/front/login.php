@@ -11,5 +11,6 @@ return [
 	'register-info' => 'To register quickly just click on the button !',
 	'registering' => 'I subscribe',
 	'credentials' => 'These credentials do not match our records.',
-	'log' => 'Your email or your user name'
+	'log' => 'Your email or your user name',
+	'maxattempt' => 'You have reached the maximum number of login attempts. Try again in a few minutes.'
 ];

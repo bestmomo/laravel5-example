@@ -11,5 +11,6 @@ return [
 	'register-info' => 'Vous pouvez vous inscrire rapidement et gratuitement et pouvoir ainsi laisser des commentaires en cliquant sur le bouton ci-dessous.',
 	'registering' => 'Je m\'inscris',
 	'credentials' => 'Ces informations ne correspondent pas à celles que nous avons dans notre base de données.',
-	'log' => 'Votre email ou votre nom d\'utilisateur'
+	'log' => 'Votre email ou votre nom d\'utilisateur',
+	'maxattempt' => 'Vous avez atteint le nombre maximum de tentatives de connexion. Réessayez dans quelques minutes.'
 ];

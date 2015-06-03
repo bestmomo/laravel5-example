@@ -8,6 +8,7 @@ use Illuminate\Events\Dispatcher;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Repositories\UserRepository;
+use App\Services\MaxValueDelay;
 
 class AuthController extends Controller {
 
@@ -43,18 +44,26 @@ class AuthController extends Controller {
 	 * @param  App\Http\Requests\LoginRequest  $request
 	 * @return Response
 	 */
-	public function postLogin(LoginRequest $request)
+	public function postLogin(LoginRequest $request, MaxValueDelay $maxValueDelay)
 	{
 		$logValue = $request->input('log');
 
-		$logAccess = filter_var($logValue, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+		if($maxValueDelay->check($logValue))
+		{
+			return redirect('/auth/login')
+			->with('error', trans('front/login.maxattempt'));
+		}
 
+		$logAccess = filter_var($logValue, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+		
 		$credentials = [$logAccess => $logValue, 'password' => $request->input('password')];
 
 		if ($this->auth->attempt($credentials, $request->has('memory')))
 		{
 			return redirect('/');
 		}
+
+		$maxValueDelay->increment($logValue);
 
 		return redirect('/auth/login')
 		->with('error', trans('front/login.credentials'))
