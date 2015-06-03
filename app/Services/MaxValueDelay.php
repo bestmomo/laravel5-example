@@ -16,7 +16,7 @@ class MaxValueDelay {
 	 *
 	 * @var int
 	 */	
-	protected $max = 2;
+	protected $max = 3;
 
 	/**
 	 * Add or increment a key in cache.
@@ -25,7 +25,7 @@ class MaxValueDelay {
 	 */
 	public function increment($key)
 	{
-		if(!Cache::add($key, 0, $this->timeRepeat))
+		if(!Cache::add($key, 1, $this->timeRepeat))
 		{
 			Cache::increment($key);
 		}
