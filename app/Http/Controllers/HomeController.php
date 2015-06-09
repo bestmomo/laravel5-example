@@ -1,6 +1,6 @@
 <?php namespace App\Http\Controllers;
 
-use App\Commands\ChangeLocaleCommand;
+use App\Jobs\ChangeLocaleCommand;
 
 class HomeController extends Controller {
 
@@ -17,7 +17,7 @@ class HomeController extends Controller {
 	/**
 	 * Change language.
 	 *
-	 * @param  Illuminate\Session\SessionManager  $session
+	 * @param  App\Jobs\ChangeLocaleCommand $changeLocaleCommand
 	 * @return Response
 	 */
 	public function language(

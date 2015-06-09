@@ -2,7 +2,7 @@
 
 use Closure;
 
-use App\Commands\SetLocaleCommand;
+use App\Jobs\SetLocaleCommand;
 
 use Illuminate\Bus\Dispatcher as BusDispatcher;
 
@@ -26,7 +26,7 @@ class App {
 	 * Create a new App instance.
 	 *
 	 * @param  Illuminate\Bus\Dispatcher $bus
-	 * @param  App\Commands\SetLocaleCommand $setLocaleCommand
+	 * @param  App\Jobs\SetLocaleCommand $setLocaleCommand
 	 * @return void
 	*/
 	public function __construct(
