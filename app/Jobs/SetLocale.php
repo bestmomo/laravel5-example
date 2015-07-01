@@ -1,10 +1,12 @@
-<?php namespace App\Jobs;
+<?php
+
+namespace App\Jobs;
 
 use App\Jobs\Job;
 use Request;
 use Illuminate\Contracts\Bus\SelfHandling;
 
-class SetLocaleCommand extends Job implements SelfHandling
+class SetLocale extends Job implements SelfHandling
 {
     /**
      * The availables languages.

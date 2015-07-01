@@ -1,9 +1,11 @@
-<?php namespace App\Jobs;
+<?php
+
+namespace App\Jobs;
 
 use App\Jobs\Job;
 use Illuminate\Contracts\Bus\SelfHandling;
 
-class ChangeLocaleCommand extends Job implements SelfHandling
+class ChangeLocale extends Job implements SelfHandling
 {
     /**
      * Execute the job.

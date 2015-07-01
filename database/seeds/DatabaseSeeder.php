@@ -36,32 +36,36 @@ class DatabaseSeeder extends Seeder {
 		User::create([
 			'username' => 'GreatAdmin',
 			'email' => 'admin@la.fr',
-			'password' => Hash::make('admin'),
+			'password' => bcrypt('admin'),
 			'seen' => true,
-			'role_id' => 1
+			'role_id' => 1,
+			'confirmed' => true
 		]);
 
 		User::create([
 			'username' => 'GreatRedactor',
 			'email' => 'redac@la.fr',
-			'password' => Hash::make('redac'),
+			'password' => bcrypt('redac'),
 			'seen' => true,
 			'role_id' => 2,
-			'valid' => true
+			'valid' => true,
+			'confirmed' => true
 		]);
 
 		User::create([
 			'username' => 'Walker',
 			'email' => 'walker@la.fr',
-			'password' => Hash::make('walker'),
-			'role_id' => 3
+			'password' => bcrypt('walker'),
+			'role_id' => 3,
+			'confirmed' => true
 		]);
 
 		User::create([
 			'username' => 'Slacker',
 			'email' => 'slacker@la.fr',
-			'password' => Hash::make('slacker'),
-			'role_id' => 3
+			'password' => bcrypt('slacker'),
+			'role_id' => 3,
+			'confirmed' => true
 		]);
 
 		Contact::create([

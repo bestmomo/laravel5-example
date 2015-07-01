@@ -1,8 +1,11 @@
-<?php namespace App\Http\Controllers;
+<?php
 
-use App\Jobs\ChangeLocaleCommand;
+namespace App\Http\Controllers;
 
-class HomeController extends Controller {
+use App\Jobs\ChangeLocale;
+
+class HomeController extends Controller
+{
 
 	/**
 	 * Display the home page.
@@ -21,9 +24,9 @@ class HomeController extends Controller {
 	 * @return Response
 	 */
 	public function language(
-		ChangeLocaleCommand $changeLocaleCommand)
+		ChangeLocale $changeLocale)
 	{
-		$this->dispatch($changeLocaleCommand);
+		$this->dispatch($changeLocale);
 
 		return redirect()->back();
 	}

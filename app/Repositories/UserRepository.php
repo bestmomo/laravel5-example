@@ -1,8 +1,11 @@
-<?php namespace App\Repositories;
+<?php
+
+namespace App\Repositories;
 
 use App\Models\User, App\Models\Role;
 
-class UserRepository extends BaseRepository{
+class UserRepository extends BaseRepository
+{
 
 	/**
 	 * The Role instance.
@@ -43,6 +46,10 @@ class UserRepository extends BaseRepository{
 			$user->username = $inputs['username'];
 			$user->email = $inputs['email'];
 
+			if(isset($inputs['confirmation_code'])) {
+				$user->confirmation_code = $inputs['confirmation_code'];
+			};
+
 			if(isset($inputs['role'])) {
 				$user->role_id = $inputs['role'];	
 			} else {
@@ -55,7 +62,7 @@ class UserRepository extends BaseRepository{
 	}
 
 	/**
-	 * Get users collection.
+	 * Get users collection paginate.
 	 *
 	 * @param  int  $n
 	 * @param  string  $role
@@ -127,11 +134,13 @@ class UserRepository extends BaseRepository{
 	 * @param  int    $user_id
 	 * @return App\Models\User 
 	 */
-	public function store($inputs)
+	public function store($inputs, $confirmation_code)
 	{
 		$user = new $this->model;
 
 		$user->password = bcrypt($inputs['password']);
+
+		$inputs['confirmation_code'] = $confirmation_code;
 
 		$this->save($user, $inputs);
 
@@ -187,6 +196,21 @@ class UserRepository extends BaseRepository{
 		$user->comments()->delete();
 		
 		$user->delete();
+	}
+
+	/**
+	 * Confirm a user.
+	 *
+	 * @param  string  $confirmation_code
+	 * @return App\Models\User
+	 */
+	public function confirm($confirmation_code)
+	{
+		$user = $this->model->whereConfirmationCode($confirmation_code)->firstOrFail();
+
+		$user->confirmed = true;
+		$user->confirmation_code = null;
+		$user->save();
 	}
 
 }

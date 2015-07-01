@@ -1,12 +1,15 @@
-<?php namespace App\Http\Middleware;
+<?php
+
+namespace App\Http\Middleware;
 
 use Closure;
 
-use App\Jobs\SetLocaleCommand;
+use App\Jobs\SetLocale;
 
 use Illuminate\Bus\Dispatcher as BusDispatcher;
 
-class App {
+class App
+{
 
 	/**
 	 * The command bus.
@@ -20,7 +23,7 @@ class App {
 	 *
 	 * @array $bus
 	 */
-	protected $setLocaleCommand;
+	protected $setLocale;
 
 	/**
 	 * Create a new App instance.
@@ -31,10 +34,10 @@ class App {
 	*/
 	public function __construct(
 		BusDispatcher $bus,
-		SetLocaleCommand $setLocaleCommand)
+		SetLocale $setLocale)
 	{
 		$this->bus = $bus;
-		$this->setLocaleCommand = $setLocaleCommand;
+		$this->setLocale = $setLocale;
 	}
 
 	/**
@@ -46,7 +49,7 @@ class App {
 	 */
 	public function handle($request, Closure $next)
 	{
-		$this->bus->dispatch($this->setLocaleCommand);
+		$this->bus->dispatch($this->setLocale);
 
 		event('user.access');
 
