@@ -27,7 +27,7 @@
 
 * Home page
 * Custom Error Page 404
-* Authentication (registration, login, logout, password reset)
+* Authentication (registration, login, logout, password reset, mail confirmation, throttle)
 * Users roles : administrator (all access), redactor (create and edit post, upload and use medias in personnal directory), and user (create comment in blog)
 * Blog with comments
 * Search in posts
