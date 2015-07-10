@@ -131,16 +131,18 @@ class UserRepository extends BaseRepository
 	 * Create a user.
 	 *
 	 * @param  array  $inputs
-	 * @param  int    $user_id
+	 * @param  int    $confirmation_code
 	 * @return App\Models\User 
 	 */
-	public function store($inputs, $confirmation_code)
+	public function store($inputs, $confirmation_code = null)
 	{
 		$user = new $this->model;
 
 		$user->password = bcrypt($inputs['password']);
 
-		$inputs['confirmation_code'] = $confirmation_code;
+		if($confirmation_code) {
+			$inputs['confirmation_code'] = $confirmation_code;
+		}
 
 		$this->save($user, $inputs);
 
