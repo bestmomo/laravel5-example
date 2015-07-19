@@ -46,10 +46,6 @@ class UserRepository extends BaseRepository
 			$user->username = $inputs['username'];
 			$user->email = $inputs['email'];
 
-			if(isset($inputs['confirmation_code'])) {
-				$user->confirmation_code = $inputs['confirmation_code'];
-			};
-
 			if(isset($inputs['role'])) {
 				$user->role_id = $inputs['role'];	
 			} else {
@@ -141,7 +137,9 @@ class UserRepository extends BaseRepository
 		$user->password = bcrypt($inputs['password']);
 
 		if($confirmation_code) {
-			$inputs['confirmation_code'] = $confirmation_code;
+			$user->confirmation_code = $confirmation_code;
+		} else {
+			$user->confirmed = true;
 		}
 
 		$this->save($user, $inputs);
