@@ -23,8 +23,8 @@ class FormBuilder extends \Collective\Html\FormBuilder {
 		$attributes = ['class' => 'form-control', 'placeholder' => $placeholder];
 		return sprintf('
 			<div class="form-group %s %s">
-			  %s
-			  %s
+				%s
+				%s
 				%s
 				%s
 			</div>',
@@ -42,10 +42,25 @@ class FormBuilder extends \Collective\Html\FormBuilder {
 		return sprintf('
 			<div class="checkbox col-lg-12">
 				<label>
-			  	%s%s
-			  </label>
+					%s%s
+				</label>
 			</div>',
 			parent::checkbox($name),
+			$label
+		);		
+	}
+
+	public function checkHorizontal($name, $label, $value)
+	{
+		return sprintf('
+			<div class="form-group">
+				<div class="checkbox">
+					<label>
+						%s%s
+					</label>
+				</div>
+			</div>',
+			parent::checkbox($name, $value),
 			$label
 		);		
 	}
@@ -55,7 +70,7 @@ class FormBuilder extends \Collective\Html\FormBuilder {
 		return sprintf('
 			<div class="form-group" style="width:200px;">
 				%s
-			  %s
+				%s
 			</div>',
 			$label ? $this->label($nom, $label, ['class' => 'control-label']) : '',
 			parent::select($nom, $list, $selected, ['class' => 'form-control'])

@@ -22,5 +22,7 @@ return [
 	'card' => 'Fiche',
 	'created' => 'L\'utilisateur a bien été créé.',
 	'updated' => 'L\'utilisateur a bien été modifié.',
-	'destroyed' => 'L\'utilisateur a bien été supprimé.'
+	'destroyed' => 'L\'utilisateur a bien été supprimé.',
+	'confirmed' => 'Confirmé',
+	'not-confirmed' => 'Non confirmé'
 ];

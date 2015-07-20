@@ -155,7 +155,9 @@ class UserRepository extends BaseRepository
 	 * @return void
 	 */
 	public function update($inputs, $user)
-	{
+	{		
+		$user->confirmed = isset($inputs['confirmed']);
+
 		$this->save($user, $inputs);
 	}
 

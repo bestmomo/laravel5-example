@@ -22,5 +22,7 @@ return [
 	'card' => 'Card',
 	'created' => 'User created.',
 	'updated' => 'User updated.',
-	'destroyed' => 'User destroyed.'
+	'destroyed' => 'User destroyed.',
+	'confirmed' => 'Confirmed',
+	'not-confirmed' => 'Not confirmed'
 ];
