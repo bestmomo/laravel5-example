@@ -12,5 +12,5 @@ return [
 	'registering' => 'Je m\'inscris',
 	'credentials' => 'Ces informations ne correspondent pas à celles que nous avons dans notre base de données.',
 	'log' => 'Votre email ou votre nom d\'utilisateur',
-	'maxattempt' => 'Vous avez atteint le nombre maximum de tentatives de connexion. Réessayez dans quelques minutes.'
+	'maxattempt' => 'Vous avez atteint le nombre maximum de tentatives de connexion. Réessayez dans une minute.'
 ];

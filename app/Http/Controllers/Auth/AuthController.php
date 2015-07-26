@@ -5,18 +5,18 @@ namespace App\Http\Controllers\Auth;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Foundation\Auth\ThrottlesLogins;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Repositories\UserRepository;
-use App\Services\MaxValueDelay;
 use App\Jobs\SendMail;
 
 class AuthController extends Controller
 {
 
-	use AuthenticatesAndRegistersUsers;
+	use AuthenticatesAndRegistersUsers, ThrottlesLogins;
 
 	/**
 	 * Create a new authentication controller instance.
@@ -37,19 +37,22 @@ class AuthController extends Controller
 	 * @return Response
 	 */
 	public function postLogin(
-		LoginRequest $request, 
-		MaxValueDelay $maxValueDelay,
+		LoginRequest $request,
 		Guard $auth)
 	{
 		$logValue = $request->input('log');
 
-		if($maxValueDelay->check($logValue))
-		{
-			return redirect('/auth/login')
-			->with('error', trans('front/login.maxattempt'));
-		}
-
 		$logAccess = filter_var($logValue, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+
+        $throttles = in_array(
+            ThrottlesLogins::class, class_uses_recursive(get_class($this))
+        );
+
+        if ($throttles && $this->hasTooManyLoginAttempts($request)) {
+			return redirect('/auth/login')
+				->with('error', trans('front/login.maxattempt'))
+				->withInput($request->only('log'));
+        }
 
 		$credentials = [
 			$logAccess  => $logValue, 
@@ -57,7 +60,9 @@ class AuthController extends Controller
 		];
 
 		if(!$auth->validate($credentials)) {
-			$maxValueDelay->increment($logValue);	
+			if ($throttles) {
+	            $this->incrementLoginAttempts($request);
+	        }
 
 			return redirect('/auth/login')
 				->with('error', trans('front/login.credentials'))
@@ -67,6 +72,10 @@ class AuthController extends Controller
 		$user = $auth->getLastAttempted();
 
 		if($user->confirmed) {
+			if ($throttles) {
+                $this->clearLoginAttempts($request);
+            }
+
 			$auth->login($user, $request->has('memory'));
 
 			if($request->session()->has('user_id'))	{

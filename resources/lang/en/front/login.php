@@ -12,5 +12,5 @@ return [
 	'registering' => 'I subscribe',
 	'credentials' => 'These credentials do not match our records.',
 	'log' => 'Your email or your user name',
-	'maxattempt' => 'You have reached the maximum number of login attempts. Try again in a few minutes.'
+	'maxattempt' => 'You have reached the maximum number of login attempts. Try again in one minute.'
 ];
