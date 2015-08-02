@@ -68,10 +68,10 @@
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
                     @if(session('statut') == 'admin')
-                        <li {!! Request::is('admin') ? 'class="active"' : '' !!}>
+                        <li {!! classActivePath('admin') !!}>
                              <a href="{!! route('admin') !!}"><span class="fa fa-fw fa-dashboard"></span> {{ trans('back/admin.dashboard') }}</a>
                         </li>
-                        <li {!! Request::is('user') ? 'class="active"' : '' !!}>
+                        <li {!! classActiveSegment(1, 'user') !!}>
                             <a href="#" data-toggle="collapse" data-target="#usermenu"><span class="fa fa-fw fa-user"></span> {{ trans('back/admin.users') }} <span class="fa fa-fw fa-caret-down"></span></a>
                             <ul id="usermenu" class="collapse">
                                 <li><a href="{!! url('user') !!}">{{ trans('back/admin.see-all') }}</a></li>
@@ -79,17 +79,17 @@
                                 <li><a href="{!! url('user/roles') !!}">{{ trans('back/roles.roles') }}</a></li>
                             </ul>
                         </li>
-                        <li {!! Request::is('contact') ? 'class="active"' : '' !!}>
+                        <li {!! classActivePath('contact') !!}>
                             <a href="{!! url('contact') !!}"><span class="fa fa-fw fa-envelope"></span> {{ trans('back/admin.messages') }}</a>
                         </li>  
-                        <li {!! Request::is('comment') ? 'class="active"' : '' !!}>
+                        <li {!! classActivePath('comment') !!}>
                             <a href="{!! url('comment') !!}"><span class="fa fa-fw fa-comments"></span> {{ trans('back/admin.comments') }}</a>
                         </li> 
                     @endif                  
-                    <li {!! Request::is('medias') ? 'class="active"' : '' !!}>
+                    <li {!! classActivePath('medias') !!}>
                         <a href="{!! route('medias') !!}"><span class="fa fa-fw fa-file-image-o"></span> {{ trans('back/admin.medias') }}</a>
                     </li>
-                    <li {!! Request::segment(1) == ('blog') ? 'class="active"' : '' !!}>
+                    <li {!! classActiveSegment(1, 'blog') !!}>
                         <a href="#" data-toggle="collapse" data-target="#articlemenu"><span class="fa fa-fw fa-pencil"></span> {{ trans('back/admin.posts') }} <span class="fa fa-fw fa-caret-down"></a>
                         <ul id="articlemenu" class="collapse">
                             <li><a href="{!! url('blog') !!}">{{ trans('back/admin.see-all') }}</a></li>

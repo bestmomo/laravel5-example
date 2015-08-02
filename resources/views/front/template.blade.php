@@ -53,15 +53,15 @@
 				</div>
 				<div class="collapse navbar-collapse">
 					<ul class="nav navbar-nav">
-						<li {!! Request::is('/') ? 'class="active"' : '' !!}>
+						<li {!! classActivePath('/') !!}>
 							{!! link_to('/', trans('front/site.home')) !!}
 						</li>
 						@if(session('statut') == 'visitor' || session('statut') == 'user')
-							<li {!! Request::is('contact/create') ? 'class="active"' : '' !!}>
+							<li {!! classActivePath('contact/create') !!}>
 								{!! link_to('contact/create', trans('front/site.contact')) !!}
 							</li>
 						@endif
-						<li {!! Request::segment(1) == ('articles') || Request::segment(1) == ('blog') ? 'class="active"' : '' !!}>
+						<li {!! classActiveSegment(1, ['articles', 'blog']) !!}>
 							{!! link_to('articles', trans('front/site.blog')) !!}
 						</li>
 						@if(Request::is('auth/register'))
@@ -74,7 +74,7 @@
 							</li>
 						@else
 							@if(session('statut') == 'visitor')
-								<li {!! Request::is('auth/login') ? 'class="active"' : '' !!}>
+								<li {!! classActivePath('auth/login') !!}>
 									{!! link_to('auth/login', trans('front/site.connection')) !!}
 								</li>
 							@else
