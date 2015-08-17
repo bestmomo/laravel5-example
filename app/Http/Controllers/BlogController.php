@@ -105,7 +105,12 @@ class BlogController extends Controller {
 
 		$links->setPath('')->render();
 
-		return view('back.blog.index', compact('posts', 'links'));
+		$order = collect([
+			'name' => $request->name, 
+			'sens' => 'sort-' . $request->sens			
+		]);
+
+		return view('back.blog.index', compact('posts', 'links', 'order'));
 	}
 
 	/**
