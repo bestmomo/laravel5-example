@@ -23,7 +23,7 @@ Route::get('medias', [
 
 
 // Blog
-Route::get('blog/order', 'BlogController@indexOrder');
+Route::get('blog/order', ['uses' => 'BlogController@indexOrder', 'as' => 'blog.order']);
 Route::get('articles', 'BlogController@indexFront');
 Route::get('blog/tag', 'BlogController@tag');
 Route::get('blog/search', 'BlogController@search');

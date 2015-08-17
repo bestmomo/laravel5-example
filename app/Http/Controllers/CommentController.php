@@ -38,7 +38,7 @@ class CommentController extends Controller {
 	public function index()
 	{
 		$comments = $this->comment_gestion->index(4);
-		$links = str_replace('/?', '?', $comments->render());
+		$links = $comments->setPath('')->render();
 
 		return view('back.comments.index', compact('comments', 'links'));
 	}

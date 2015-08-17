@@ -17,12 +17,37 @@
       <table class="table">
         <thead>
           <tr>
-            <th>{{ trans('back/blog.title') }} <a href="#" name="title" class="order"><span class="fa fa-fw fa-unsorted"></lspan></a></th>
-            <th>{{ trans('back/blog.date') }} <a href="#" name="created_at" class="order"><span class="fa fa-fw fa-sort-desc"></th>
-            <th>{{ trans('back/blog.published') }} <a href="#" name="active" class="order"><span class="fa fa-fw fa-unsorted"></th> 
+            <th>
+              {{ trans('back/blog.title') }} 
+              <a href="#" name="title" class="order">
+                <span class="fa fa-fw fa-{{ Request::get('name') == 'title' ? Request::get('sens') : 'unsorted'}}"></span>
+              </a>
+            </th>
+            <th>
+              {{ trans('back/blog.date') }}
+              <a href="#" name="created_at" class="order">
+                <span class="fa fa-fw fa-{{ Request::get('name') == 'created_at' ? Request::get('sens') : 'unsorted'}}"></span>
+              </a>
+            </th>
+            <th>
+              {{ trans('back/blog.published') }}
+              <a href="#" name="active" class="order">
+                <span class="fa fa-fw fa-{{ Request::get('name') == 'active' ? Request::get('sens') : 'unsorted'}}"></span>
+              </a>
+            </th> 
             @if(session('statut') == 'admin')
-              <th>{{ trans('back/blog.author') }} <a href="#" name="username" class="order"><span class="fa fa-fw fa-unsorted"></th>            
-              <th>{{ trans('back/blog.seen') }} <a href="#" name="posts.seen" class="order"><span class="fa fa-fw fa-unsorted"></th>
+              <th>
+                {{ trans('back/blog.author') }}
+                <a href="#" name="username" class="order">
+                  <span class="fa fa-fw fa-{{ Request::get('name') == 'username' ? Request::get('sens') : 'unsorted'}}"></span>
+                </a>
+              </th>            
+              <th>
+                {{ trans('back/blog.seen') }}
+                <a href="#" name="posts.seen" class="order">
+                  <span class="fa fa-fw fa-{{ Request::get('name') == 'posts.seen' ? Request::get('sens') : 'unsorted'}}"></span>
+                </a>
+              </th>
             @endif
           </tr>
         </thead>
@@ -51,7 +76,7 @@
         $(this).hide().parent().append('<i class="fa fa-refresh fa-spin"></i>');
         var token = $('input[name="_token"]').val();
         $.ajax({
-          url: 'postseen/' + this.value,
+          url: '{{ url('postseen') }}' + '/' + this.value,
           type: 'PUT',
           data: "seen=" + this.checked + "&_token=" + token
         })
@@ -72,7 +97,7 @@
         $(this).hide().parent().append('<i class="fa fa-refresh fa-spin"></i>');
         var token = $('input[name="_token"]').val();
         $.ajax({
-          url: 'postactive/' + this.value,
+          url: '{{ url('postactive') }}' + '/' + this.value,
           type: 'PUT',
           data: "active=" + this.checked + "&_token=" + token
         })
@@ -112,7 +137,7 @@
         $('.breadcrumb li').append('<span id="tempo" class="fa fa-refresh fa-spin"></span>');       
         // Send ajax
         $.ajax({
-          url: 'blog/order',
+          url: '{{ url('blog/order') }}',
           type: 'GET',
           dataType: 'json',
           data: "name=" + $(this).attr('name') + "&sens=" + tri

@@ -46,7 +46,7 @@ class BlogController extends Controller {
 		$this->nbrPages = 2;
 
 		$this->middleware('redac', ['except' => ['indexFront', 'show', 'tag', 'search']]);
-		$this->middleware('ajax', ['only' => ['indexOrder', 'updateSeen', 'updateActive']]);
+		$this->middleware('ajax', ['only' => ['updateSeen', 'updateActive']]);
 	}	
 
 	/**
@@ -57,7 +57,7 @@ class BlogController extends Controller {
 	public function indexFront()
 	{
 		$posts = $this->blog_gestion->indexFront($this->nbrPages);
-		$links = str_replace('/?', '?', $posts->render());
+		$links = $posts->setPath('')->render();
 
 		return view('front.blog.index', compact('posts', 'links'));
 	}
@@ -65,17 +65,14 @@ class BlogController extends Controller {
 	/**
 	 * Display a listing of the resource.
 	 *
-	 * @param  Illuminate\Contracts\Auth\Guard $auth
-	 * @return Response
+	 * @return Redirection
 	 */
-	public function index(Guard $auth)
+	public function index()
 	{
-		$statut = $this->user_gestion->getStatut();
-		$posts = $this->blog_gestion->index(10, $statut == 'admin' ? null : $auth->user()->id);
-
-		$links = str_replace('/?', '?', $posts->render());
-
-		return view('back.blog.index', compact('posts', 'links'));
+		return redirect(route('blog.order', [
+			'name' => 'created_at',
+			'sens' => 'asc'
+		]));
 	}
 
 	/**
@@ -87,14 +84,28 @@ class BlogController extends Controller {
 	public function indexOrder(Request $request)
 	{
 		$statut = $this->user_gestion->getStatut();
-		$posts = $this->blog_gestion->index(10, $statut == 'admin' ? null : $request->user()->id, $request->input('name'), $request->input('sens'));
+		$posts = $this->blog_gestion->index(
+			10, 
+			$statut == 'admin' ? null : $request->user()->id,
+			$request->name,
+			$request->sens
+		);
 		
-		$links = str_replace('/?', '?', $posts->render());
+		$links = $posts->appends([
+				'name' => $request->name, 
+				'sens' => $request->sens
+			]);
 
-		return response()->json([
-			'view' => view('back.blog.table', compact('statut', 'posts'))->render(), 
-			'links' => $links
-		]);		
+		if($request->ajax()) {
+			return response()->json([
+				'view' => view('back.blog.table', compact('statut', 'posts'))->render(), 
+				'links' => $links->setPath('order')->render()
+			]);		
+		}
+
+		$links->setPath('')->render();
+
+		return view('back.blog.index', compact('posts', 'links'));
 	}
 
 	/**
@@ -225,7 +236,7 @@ class BlogController extends Controller {
 	{
 		$tag = $request->input('tag');
 		$posts = $this->blog_gestion->indexTag($this->nbrPages, $tag);
-		$links = str_replace('/?', '?', $posts->appends(compact('tag'))->render());
+		$links = $posts->setPath('')->appends(compact('tag'))->render();
 		$info = trans('front/blog.info-tag') . '<strong>' . $this->blog_gestion->getTagById($tag) . '</strong>';
 		
 		return view('front.blog.index', compact('posts', 'links', 'info'));
@@ -241,7 +252,7 @@ class BlogController extends Controller {
 	{
 		$search = $request->input('search');
 		$posts = $this->blog_gestion->search($this->nbrPages, $search);
-		$links = str_replace('/?', '?', $posts->appends(compact('search'))->render());
+		$links = $posts->setPath('')->appends(compact('search'))->render();
 		$info = trans('front/blog.info-search') . '<strong>' . $search . '</strong>';
 		
 		return view('front.blog.index', compact('posts', 'links', 'info'));

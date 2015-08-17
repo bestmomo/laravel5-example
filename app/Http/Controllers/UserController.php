@@ -74,7 +74,7 @@ class UserController extends Controller {
 	{
 		$counts = $this->user_gestion->counts();
 		$users = $this->user_gestion->index(4, $role); 
-		$links = str_replace('/?', '?', $users->render());
+		$links = $users->setPath('')->render();
 		$roles = $this->role_gestion->all();
 
 		if($ajax)
