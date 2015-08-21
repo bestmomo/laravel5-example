@@ -20,32 +20,32 @@
             <th>
               {{ trans('back/blog.title') }} 
               <a href="#" name="title" class="order">
-                <span class="fa fa-fw fa-{{ $order->get('name') == 'title' ? $order->get('sens') : 'unsorted'}}"></span>
+                <span class="fa fa-fw fa-{{ $order->name == 'title' ? $order->sens : 'unsorted'}}"></span>
               </a>
             </th>
             <th>
               {{ trans('back/blog.date') }}
               <a href="#" name="created_at" class="order">
-                <span class="fa fa-fw fa-{{ $order->get('name') == 'created_at' ? $order->get('sens') : 'unsorted'}}"></span>
+                <span class="fa fa-fw fa-{{ $order->name == 'created_at' ? $order->sens : 'unsorted'}}"></span>
               </a>
             </th>
             <th>
               {{ trans('back/blog.published') }}
               <a href="#" name="active" class="order">
-                <span class="fa fa-fw fa-{{ $order->get('name') == 'active' ? $order->get('sens') : 'unsorted'}}"></span>
+                <span class="fa fa-fw fa-{{ $order->name == 'active' ? $order->sens : 'unsorted'}}"></span>
               </a>
             </th> 
             @if(session('statut') == 'admin')
               <th>
                 {{ trans('back/blog.author') }}
                 <a href="#" name="username" class="order">
-                  <span class="fa fa-fw fa-{{ $order->get('name') == 'username' ? $order->get('sens') : 'unsorted'}}"></span>
+                  <span class="fa fa-fw fa-{{ $order->name == 'username' ? $order->sens : 'unsorted'}}"></span>
                 </a>
               </th>            
               <th>
                 {{ trans('back/blog.seen') }}
                 <a href="#" name="posts.seen" class="order">
-                  <span class="fa fa-fw fa-{{ $order->get('name') == 'posts.seen' ? $order->get('sens') : 'unsorted'}}"></span>
+                  <span class="fa fa-fw fa-{{ $order->name == 'posts.seen' ? $order->sens : 'unsorted'}}"></span>
                 </a>
               </th>
             @endif

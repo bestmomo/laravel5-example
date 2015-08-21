@@ -105,10 +105,10 @@ class BlogController extends Controller {
 
 		$links->setPath('')->render();
 
-		$order = collect([
+		$order = (object)[
 			'name' => $request->name, 
 			'sens' => 'sort-' . $request->sens			
-		]);
+		];
 
 		return view('back.blog.index', compact('posts', 'links', 'order'));
 	}
