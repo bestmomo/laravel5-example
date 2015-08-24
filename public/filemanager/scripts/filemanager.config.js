@@ -1,5 +1,5 @@
 {
-		"_comment": "IMPORTANT : go to the wiki page to know about options configuration https://github.com/simogeo/Filemanager/wiki/Filemanager-configuration-file",
+        "_comment": "IMPORTANT : go to the wiki page to know about options configuration https://github.com/simogeo/Filemanager/wiki/Filemanager-configuration-file",
     "options": {
         "culture": "en",
         "lang": "php",
@@ -17,9 +17,9 @@
         "fileSorting": "default",
         "chars_only_latin": true,
         "dateFormat": "d M Y H:i",
-        "serverRoot": true,
-        "fileRoot": false,
-        "baseUrl": false,
+        "serverRoot": false,
+        "fileRoot": "/",
+        "baseUrl": "/filemanager/",
         "logger": false,
         "capabilities": ["select", "download", "rename", "delete", "replace"],
         "plugins": []
@@ -31,7 +31,6 @@
         "uploadPolicy": "DISALLOW_ALL",
         "uploadRestrictions": [
             "jpg",
-            "jpe",
             "jpeg",
             "gif",
             "png",
@@ -83,15 +82,14 @@
     "images": {
         "imagesExt": [
             "jpg",
-            "jpe",
             "jpeg",
             "gif",
             "png",
             "svg"
         ],
         "resize": {
-        	"enabled":true,
-        	"maxWidth": 1280,
+            "enabled":true,
+            "maxWidth": 1280,
             "maxHeight": 1024
         }
     },
@@ -114,15 +112,6 @@
             "wav"
         ]
     },
-    "pdfs": {
-        "showPdfReader": true,
-        "pdfsExt": [
-            "pdf",
-            "odp"
-        ],
-	    "pdfsReaderWidth": "640",
-        "pdfsReaderHeight": "480"	
-    },
     "edit": {
         "enabled": true,
         "lineNumbers": true,
@@ -135,9 +124,9 @@
         ]
     },
     "customScrollbar": {
-    	"enabled": true,
-    	"theme": "inset-2-dark",
-    	"button": true
+        "enabled": true,
+        "theme": "inset-2-dark",
+        "button": true
     },
     "extras": {
         "extra_js": [],

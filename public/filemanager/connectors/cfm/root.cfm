@@ -1,1 +1,0 @@
-<cfinvoke attributeCollection="#arguments#">
