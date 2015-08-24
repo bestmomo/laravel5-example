@@ -106,10 +106,6 @@ if(!isset($_GET)) {
           $fm->preview($thumbnail);
         }
         break;
-			
-      case 'maxuploadfilesize':
-        $fm->getMaxUploadFileSize();
-        break;
     }
 
   } else if(isset($_POST['mode']) && $_POST['mode']!='') {

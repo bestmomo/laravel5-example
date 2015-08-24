@@ -31,6 +31,7 @@
         "uploadPolicy": "DISALLOW_ALL",
         "uploadRestrictions": [
             "jpg",
+            "jpe",
             "jpeg",
             "gif",
             "png",
@@ -82,6 +83,7 @@
     "images": {
         "imagesExt": [
             "jpg",
+            "jpe",
             "jpeg",
             "gif",
             "png",
@@ -111,6 +113,15 @@
             "mp3",
             "wav"
         ]
+    },
+    "pdfs": {
+        "showPdfReader": true,
+        "pdfsExt": [
+            "pdf",
+            "odp"
+        ],
+	    "pdfsReaderWidth": "640",
+        "pdfsReaderHeight": "480"	
     },
     "edit": {
         "enabled": true,

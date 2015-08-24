@@ -1,3 +1,16 @@
+From version 2.1.0 to 2.2.0
+---------------------------
+- handle symlinks | #332
+- bug fix : prevent "flickering" on image resize with custom-scrollbar | #334
+- make relPath and connector setFileRoot() work together | #339
+- relPath renamed baseUrl | #340
+- adding .jpe extension support | #341
+- update jquery | #345
+- remove unused option maxuploadfilesize | #346 
+- set logfile path according to system if not set into config file | #353
+- fix bug when using baseUrl without calling setFileRoot() | #354
+- fix important security issue | #356
+
 From version 2.0.0 to 2.1.0
 ---------------------------
 - Detect syntax error in config file  | #294

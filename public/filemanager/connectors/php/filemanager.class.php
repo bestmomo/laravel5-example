@@ -26,7 +26,7 @@ class Filemanager {
 	protected $dynamic_fileroot = ''; // Only set if setFileRoot() is called. Second part of the path : '/Filemanager/assets/' ( doc_root - $_SERVER['DOCUMENT_ROOT'])
 	protected $path_to_files = ''; // path to FM userfiles folder - automatically computed by the PHP class, something like '/var/www/Filemanager/userfiles'
 	protected $logger = false;
-	protected $logfile = '/tmp/filemanager.log';
+	protected $logfile = '';
 	protected $cachefolder = '_thumbs/';
 	protected $thumbnail_width = 64;
 	protected $thumbnail_height = 64;
@@ -51,6 +51,10 @@ class Filemanager {
 		if(!empty($extraConfig)) {
 			$this->setup($extraConfig);
 		}
+		
+		// set logfile path according to system if not set into config file
+		if(!isset($this->config['options']['logfile']))
+			$this->config['options']['logfile'] = sys_get_temp_dir(). '/filemanager.log';
 
 		$this->root = dirname(dirname(dirname(__FILE__))).DIRECTORY_SEPARATOR;
 		$this->properties = array(
@@ -106,7 +110,7 @@ class Filemanager {
 	}
 
 	// allow Filemanager to be used with dynamic folders
-	public function setFileRoot($path) {
+	public function setFileRoot($path, $mkdir = false) {
 
 		// Paths are bit complex to handle - kind of nightmare actually ....
 		// 3 parts are availables
@@ -114,16 +118,23 @@ class Filemanager {
 		// [2] $this->dynamic_fileroot. The second part of the path : '/Filemanager/assets/' ( doc_root - $_SERVER['DOCUMENT_ROOT'])
 		// [3] $this->path_to_files or $this->doc_root. The full path : '/var/www/Filemanager/assets/'
 		
+		$path = rtrim($path, '/') . '/';
 		if($this->config['options']['serverRoot'] === true) {
-			$this->doc_root = $_SERVER['DOCUMENT_ROOT']. '/'.  $path; // i.e  '/var/www'
+			$this->doc_root = $_SERVER['DOCUMENT_ROOT']. '/'.  $path; // i.e  '/var/www/'
 		} else {
-			$this->doc_root =  $path; // i.e  '/var/www'
+			$this->doc_root =  $path; // i.e  '/var/www/'
 		}
 		
 		// necessary for retrieving path when set dynamically with $fm->setFileRoot() method
 		$this->dynamic_fileroot = str_replace($_SERVER['DOCUMENT_ROOT'], '', $this->doc_root);
 		$this->path_to_files = $this->doc_root;
 		$this->separator = basename($this->doc_root);
+		
+		// do we create folder ?
+		if($mkdir && !file_exists($this->doc_root)) {
+			mkdir($this->doc_root, 0755, true);
+			$this->__log(__METHOD__ . ' creating  ' . $this->doc_root. ' folder through mkdir()');
+		}
 		
 		$this->__log(__METHOD__ . ' $this->doc_root value overwritten : ' . $this->doc_root);
 		$this->__log(__METHOD__ . ' $this->dynamic_fileroot value ' . $this->dynamic_fileroot);
@@ -1140,31 +1151,32 @@ private function sortFiles($array) {
 
 }
 
-private function startsWith($haystack, $needle) {
-    // search backwards starting from haystack length characters from the end
-    return $needle === "" || strrpos($haystack, $needle, -strlen($haystack)) !== FALSE;
-}
+// @todo to remove
+// private function startsWith($haystack, $needle) {
+//     // search backwards starting from haystack length characters from the end
+//     return $needle === "" || strrpos($haystack, $needle, -strlen($haystack)) !== FALSE;
+// }
 
 private function is_valid_path($path) {
-		
-
-  // $this->__log('[startsWith] path : ' .$path. ' - this->path_to_files : ' . $this->path_to_files . '');
-  // if($this->startsWith($path, $this->path_to_files)) $var = 'success'; else $var ='failed';
-  // $this->__log('[startsWith] returned value  : ' . $var );
 	
-	// $this->__log('compare : ' .$this->getFullPath(). '($this->getFullPath())  and ' . $path . '(path)');
-	// $this->__log('strncmp() returned value : ' .strncmp($path, $this->getFullPath(), strlen($this->getFullPath())));
-	
-	// return !strncmp($path, $this->getFullPath(), strlen($this->getFullPath()));
-	
+	//  @todo to remove
   // if(!$this->startsWith(realpath($path), realpath($this->path_to_files))) return false;
   // @see https://github.com/simogeo/Filemanager/issues/332
   // @see http://stackoverflow.com/questions/5642785/php-a-good-way-to-universalize-paths-across-oss-slash-directions
   
-	$givenpath = str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $path);
-	$rootpath = str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $this->path_to_files);
+	// $givenpath = str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $path);
+	// $rootpath = str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $this->path_to_files);
+	// $this->__log('substr doc_root : ' . substr(realpath($path) . DIRECTORY_SEPARATOR, 0, strlen($this->doc_root)));
+	// $this->__log('doc_root : ' . realpath($this->doc_root) . DIRECTORY_SEPARATOR);
 	
-	return $this->startsWith($givenpath, $rootpath);
+	// return $this->startsWith($givenpath, $rootpath);
+	
+	$this->__log('substr path_to_files : ' . substr(realpath($path) . DIRECTORY_SEPARATOR, 0, strlen($this->path_to_files)));
+	$this->__log('path_to_files : ' . realpath($this->path_to_files) . DIRECTORY_SEPARATOR);
+	
+	return substr(realpath($path) . DIRECTORY_SEPARATOR, 0, strlen($this->path_to_files)) == (realpath($this->path_to_files) . DIRECTORY_SEPARATOR);
+	
+	
 }
 
 private function unlinkRecursive($dir,$deleteRootToo=true) {

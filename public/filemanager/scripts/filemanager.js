@@ -97,7 +97,16 @@ smartPath = function(url, path) {
 	var a = url.split('/');
 	var separator = '/' + a[a.length-2] + '/';
 	var pos = path.indexOf(separator); 
-	return url + path.substring(pos + separator.length);
+	// separator is not found
+	// this can happen when not set dynamically with setFileRoot function - see  : https://github.com/simogeo/Filemanager/issues/354
+	if(pos == -1) {
+		 rvalue = url + path;
+	} else {
+		rvalue = url + path.substring(pos + separator.length);
+	}
+	if(config.options.logger) console.log("url : " + url + " - path : " + path +  " - separator : " + separator + " -  pos : " + pos + " - returned value : " +rvalue);
+
+	return rvalue;
 };
 
 // Sets paths to connectors based on language selection.
@@ -380,6 +389,15 @@ var isAudioFile = function(filename) {
 	}
 };
 
+// Test if file is pdf file
+var isPdfFile = function(filename) {
+	if($.inArray(getExtension(filename), config.pdfs.pdfsExt) != -1) {
+		return true;
+	} else {
+		return false;
+	}
+};
+
 // Return HTML video player 
 var getVideoPlayer = function(data) {
 	var code  = '<video width=' + config.videos.videosPlayerWidth + ' height=' + config.videos.videosPlayerHeight + ' src="' + data['Path'] + '" controls="controls">';
@@ -402,6 +420,13 @@ var getAudioPlayer = function(data) {
 	 
 };
 
+//Return PDF Reader 
+var getPdfReader = function(data) {
+	var code  = '<iframe id="fm-pdf-viewer" src = "scripts/ViewerJS/index.html#' + data['Path'] + '" width="' + config.pdfs.pdfsReaderWidth + '" height="' + config.pdfs.pdfsReaderHeight + '" allowfullscreen webkitallowfullscreen></iframe>';
+	
+	$("#fileinfo img").remove();
+	$('#fileinfo #preview #main-title').before(code);
+};
 
 // Display icons on list view 
 // retrieving them from filetree
@@ -586,7 +611,7 @@ var selectItem = function(data) {
 	if(config.options.baseUrl !== false ) {
 		var url = smartPath(baseUrl, data['Path'].replace(fileRoot,""));
 	} else {
-		var url = baseUrl + data['Path'];
+		var url = data['Path'];
 	}
     
 	if(window.opener || window.tinyMCEPopup || $.urlParam('field_name') || $.urlParam('CKEditorCleanUpFuncNum') || $.urlParam('CKEditor')) {
@@ -1220,6 +1245,10 @@ var setMenus = function(action, path) {
 // enable specific actions. Called whenever an item is
 // clicked in the file tree or list views.
 var getFileInfo = function(file) {
+	
+	//Hide context menu
+	$('.contextMenu').hide();	
+	
 	// Update location for status, upload, & new folder functions.
 	var currentpath = file.substr(0, file.lastIndexOf('/') + 1);
 	setUploader(currentpath);
@@ -1263,7 +1292,10 @@ var getFileInfo = function(file) {
 			if(isAudioFile(data['Filename']) && config.audios.showAudioPlayer == true) {
 				getAudioPlayer(data);
 			}
-			
+			//Pdf
+			if(isPdfFile(data['Filename']) && config.pdfs.showPdfReader == true) {
+				getPdfReader(data);
+			}
 			if(isEditableFile(data['Filename']) && config.edit.enabled == true && data['Protected']==0) {
 				editItem(data);
 			}
@@ -1274,7 +1306,7 @@ var getFileInfo = function(file) {
 			if(config.options.baseUrl !== false ) {
 				var url = smartPath(baseUrl, data['Path'].replace(fileRoot,""));
 			} else {
-				var url = baseUrl + data['Path'];
+				var url = data['Path'];
 			}
 			if(data['Protected']==0) {
 				$('#fileinfo').find('div#tools').append(' <a id="copy-button" data-clipboard-text="'+ url + '" title="' + lg.copy_to_clipboard + '" href="#"><span>' + lg.copy_to_clipboard + '</span></a>');
@@ -1931,8 +1963,11 @@ $(function(){
         
         // Provides support for adjustible columns.
 	$('#splitter').splitter({
-		sizeLeft: 200
+		sizeLeft: 200,
+		minLeft: 200,
+		minRight: 200
 	});
+
     getDetailView(fileRoot + expandedFolder);
 });
 
@@ -1951,3 +1986,7 @@ $(window).load(function() {
 });
 
 })(jQuery);
+
+$(window).load(function() {
+    $('#fileinfo').css({'left':$('#splitter .vsplitbar').width()+$('#filetree').width()});
+    });

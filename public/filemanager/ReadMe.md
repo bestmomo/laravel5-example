@@ -27,6 +27,7 @@ Main features
 * Handle system permissions
 * Multiple uploads support - based on [dropzonejs](http://www.dropzonejs.com)
 * Online text / code edition - based on [codeMirror](http://codemirror.net/)
+* Online documents viewer - based on [viewerJS](http://viewerjs.org/)
 * [Opening a given folder](https://github.com/simogeo/Filemanager/wiki/How-to-open-a-given-folder-different-from-root-folder-when-opening-the-filemanager%3F)
 * [Opening exclusively a given folder](https://github.com/simogeo/Filemanager/wiki/How-to-open-%28exclusively%29-a-given-subfolder-%3F)
 * [Passing parameters to the FM](https://github.com/simogeo/Filemanager/wiki/Passing-parameters-to-the-FM)
