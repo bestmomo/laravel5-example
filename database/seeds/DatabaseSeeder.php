@@ -106,7 +106,7 @@ class DatabaseSeeder extends Seeder {
 		Post::create([
 			'title' => 'Post 1',
 			'slug' => 'post-1', 
-			'summary' => '<img alt="" src="/filemanager/userfiles/greatredactor/mega-champignon-icone-8453-128.png" style="float:left; height:128px; width:128px" />' . $lipsum->getContent(50),
+			'summary' => '<img alt="" src="/filemanager/userfiles/user2/mega-champignon.png" style="float:left; height:128px; width:128px" />' . $lipsum->getContent(50),
 			'content' => $lipsum->getContent(500), 
 			'active' => true,
 			'user_id' => 1
@@ -115,7 +115,7 @@ class DatabaseSeeder extends Seeder {
 		Post::create([
 			'title' => 'Post 2',
 			'slug' => 'post-2', 
-			'summary' => '<img alt="" src="/filemanager/userfiles/greatredactor/goomba-icone-7704-128.png" style="float:left; height:128px; width:128px" />' . $lipsum->getContent(50),
+			'summary' => '<img alt="" src="/filemanager/userfiles/user2/goomba.png" style="float:left; height:128px; width:128px" />' . $lipsum->getContent(50),
 			'content' => '<p>Lorem ipsum convallis ac curae non elit ultrices placerat netus metus feugiat, non conubia fusce porttitor sociosqu diam commodo metus in himenaeos, vitae aptent consequat luctus purus eleifend enim sollicitudin eleifend porta. Malesuada ac class conubia condimentum mauris facilisis conubia quis scelerisque lacinia, tempus nullam felis fusce ac potenti netus ornare semper. Molestie iaculis fermentum ornare curabitur tincidunt imperdiet scelerisque, imperdiet euismod scelerisque torquent curae rhoncus, sollicitudin tortor placerat aptent hac nec. Posuere suscipit sed tortor neque urna hendrerit vehicula duis litora tristique congue nec auctor felis libero, ornare habitasse nec elit felis inceptos tellus inceptos cubilia quis mattis faucibus sem non.</p>
 
 <p>Odio fringilla class aliquam metus ipsum lorem luctus pharetra dictum, vehicula tempus in venenatis gravida ut gravida proin orci, quis sed platea mi quisque hendrerit semper hendrerit. Facilisis ante sapien faucibus ligula commodo vestibulum rutrum pretium, varius sem aliquet himenaeos dolor cursus nunc habitasse, aliquam ut curabitur ipsum luctus ut rutrum. Odio condimentum donec suscipit molestie est etiam sit rutrum dui nostra, sem aliquet conubia nullam sollicitudin rhoncus venenatis vivamus rhoncus netus, risus tortor non mauris turpis eget integer nibh dolor. Commodo venenatis ut molestie semper adipiscing amet cras, class donec sapien malesuada auctor sapien arcu inceptos, aenean consequat metus litora mattis vivamus.</p>
@@ -148,7 +148,7 @@ class DatabaseSeeder extends Seeder {
 		Post::create([
 			'title' => 'Post 3',
 			'slug' => 'post-3', 
-			'summary' => '<img alt="" src="/filemanager/userfiles/greatredactor/rouge-shell--icone-5599-128.png" style="float:left; height:128px; width:128px" />' . $lipsum->getContent(50),
+			'summary' => '<img alt="" src="/filemanager/userfiles/user2/rouge-shell.png" style="float:left; height:128px; width:128px" />' . $lipsum->getContent(50),
 			'content' => $lipsum->getContent(500), 
 			'active' => true,
 			'user_id' => 2
@@ -157,7 +157,7 @@ class DatabaseSeeder extends Seeder {
 		Post::create([
 			'title' => 'Post 4',
 			'slug' => 'post-4', 
-			'summary' => '<img alt="" src="/filemanager/userfiles/greatredactor/rouge-shyguy-icone-6870-128.png" style="float:left; height:128px; width:128px" />' . $lipsum->getContent(50),
+			'summary' => '<img alt="" src="/filemanager/userfiles/user2/rouge-shyguy.png" style="float:left; height:128px; width:128px" />' . $lipsum->getContent(50),
 			'content' => $lipsum->getContent(500), 
 			'active' => true,
 			'user_id' => 2

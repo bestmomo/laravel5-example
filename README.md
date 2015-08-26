@@ -9,9 +9,9 @@
 * `composer install`
 * `php artisan key:generate`
 * Create a database and inform *.env*
-* `php artisan migrate` to create tables
-* `php artisan db:seed` to populate tables
+* `php artisan migrate --seed` to create and populate tables
 * Inform *config/mail.php* for email sends
+* `php artisan vendor:publish` to publish filemanager
 
 ### Include ###
 
