@@ -46,6 +46,7 @@ class BlogController extends Controller {
 		$this->nbrPages = 2;
 
 		$this->middleware('redac', ['except' => ['indexFront', 'show', 'tag', 'search']]);
+		$this->middleware('admin', ['only' => ['updateSeen', 'updateActive']]);
 		$this->middleware('ajax', ['only' => ['updateSeen', 'updateActive']]);
 	}	
 
@@ -165,9 +166,13 @@ class BlogController extends Controller {
 		UserRepository $user_gestion, 
 		$id)
 	{
+		$post = $this->blog_gestion->getByIdWithTags($id);
+
+		$this->authorize('change', $post);
+
 		$url = config('medias.url');
 
-		return view('back.blog.edit',  array_merge($this->blog_gestion->edit($id), compact('url')));
+		return view('back.blog.edit',  array_merge($this->blog_gestion->edit($post), compact('url')));
 	}
 
 	/**
@@ -181,7 +186,11 @@ class BlogController extends Controller {
 		PostRequest $request,
 		$id)
 	{
-		$this->blog_gestion->update($request->all(), $id);
+		$post = $this->blog_gestion->getById($id);
+
+		$this->authorize('change', $post);
+
+		$this->blog_gestion->update($request->all(), $post);
 
 		return redirect('blog')->with('ok', trans('back/blog.updated'));		
 	}
@@ -226,7 +235,11 @@ class BlogController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		$this->blog_gestion->destroy($id);
+		$post = $this->blog_gestion->getById($id);
+
+		$this->authorize('change', $post);
+
+		$this->blog_gestion->destroy($post);
 
 		return redirect('blog')->with('ok', trans('back/blog.destroyed'));		
 	}

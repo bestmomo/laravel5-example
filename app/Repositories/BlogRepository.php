@@ -44,7 +44,7 @@ class BlogRepository extends BaseRepository{
 	 * @param  bool   $user_id
 	 * @return App\Models\Post
 	 */
-  	private function savePost($post, $inputs, $user_id = null)
+	private function savePost($post, $inputs, $user_id = null)
 	{	
 		$post->title = $inputs['title'];
 		$post->summary = $inputs['summary'];	
@@ -59,11 +59,11 @@ class BlogRepository extends BaseRepository{
 	}
 
 	/**
-	 * Create a query for Post.
-	 *
-	 * @return Illuminate\Database\Eloquent\Builder
-	 */
-  	private function queryActiveWithUserOrderByDate()
+	* Create a query for Post.
+	*
+	* @return Illuminate\Database\Eloquent\Builder
+	*/
+	private function queryActiveWithUserOrderByDate()
 	{	
 		return $this->model
 		->select('id', 'created_at', 'updated_at', 'title', 'slug', 'user_id', 'summary')
@@ -163,13 +163,11 @@ class BlogRepository extends BaseRepository{
 	/**
 	 * Get post collection.
 	 *
-	 * @param  int  $id
+	 * @param  App\Models\Post $post
 	 * @return array
 	 */
-	public function edit($id)
+	public function edit($post)
 	{
-		$post = $this->model->with('tags')->findOrFail($id);
-
 		$tags = [];
 
 		foreach($post->tags as $tag) {
@@ -180,15 +178,25 @@ class BlogRepository extends BaseRepository{
 	}
 
 	/**
+	 * Get post collection.
+	 *
+	 * @param  int  $id
+	 * @return array
+	 */
+	public function GetByIdWithTags($id)
+	{
+		return $this->model->with('tags')->findOrFail($id);
+	}
+
+	/**
 	 * Update a post.
 	 *
 	 * @param  array  $inputs
-	 * @param  int    $id
+	 * @param  App\Models\Post $post
 	 * @return void
 	 */
-	public function update($inputs, $id)
+	public function update($inputs, $post)
 	{
-		$post = $this->getById($id);
 		$post = $this->savePost($post, $inputs);
 
 		// Tag gestion
@@ -278,16 +286,14 @@ class BlogRepository extends BaseRepository{
 	/**
 	 * Destroy a post.
 	 *
-	 * @param  int $id
+	 * @param  App\Models\Post $post
 	 * @return void
 	 */
-	public function destroy($id)
+	public function destroy($post)
 	{
-		$model = $this->getById($id);
-
-		$model->tags()->detach();
+		$post->tags()->detach();
 		
-		$model->delete();
+		$post->delete();
 	}	
 
 	/**
