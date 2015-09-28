@@ -19,19 +19,19 @@
           <tr>
             <th>
               {{ trans('back/blog.title') }} 
-              <a href="#" name="title" class="order">
+              <a href="#" name="posts.title" class="order">
                 <span class="fa fa-fw fa-{{ $order->name == 'title' ? $order->sens : 'unsorted'}}"></span>
               </a>
             </th>
             <th>
               {{ trans('back/blog.date') }}
-              <a href="#" name="created_at" class="order">
+              <a href="#" name="posts.created_at" class="order">
                 <span class="fa fa-fw fa-{{ $order->name == 'created_at' ? $order->sens : 'unsorted'}}"></span>
               </a>
             </th>
             <th>
               {{ trans('back/blog.published') }}
-              <a href="#" name="active" class="order">
+              <a href="#" name="posts.active" class="order">
                 <span class="fa fa-fw fa-{{ $order->name == 'active' ? $order->sens : 'unsorted'}}"></span>
               </a>
             </th> 
