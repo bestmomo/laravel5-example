@@ -71,7 +71,7 @@ class BlogController extends Controller {
 	public function index()
 	{
 		return redirect(route('blog.order', [
-			'name' => 'created_at',
+			'name' => 'posts.created_at',
 			'sens' => 'asc'
 		]));
 	}
