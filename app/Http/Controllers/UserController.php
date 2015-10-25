@@ -49,7 +49,7 @@ class UserController extends Controller {
 	 */
 	public function index()
 	{
-		return $this->indexGo('total');
+		return $this->indexSort('total');
 	}
 
 	/**
@@ -60,30 +60,10 @@ class UserController extends Controller {
 	 */
 	public function indexSort($role)
 	{
-		return $this->indexGo($role, true);
-	}
-
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @param  string  $role
-	 * @param  bool    $ajax
-	 * @return Response
-	 */
-	private function indexGo($role, $ajax = false)
-	{
 		$counts = $this->user_gestion->counts();
 		$users = $this->user_gestion->index(4, $role); 
 		$links = $users->setPath('')->render();
 		$roles = $this->role_gestion->all();
-
-		if($ajax)
-		{
-			return response()->json([
-				'view' => view('back.users.table', compact('users', 'links', 'counts', 'roles'))->render(), 
-				'links' => str_replace('/sort/total', '', $links)
-			]);			
-		}
 
 		return view('back.users.index', compact('users', 'links', 'counts', 'roles'));		
 	}
