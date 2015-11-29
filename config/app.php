@@ -59,13 +59,13 @@ return [
 	| Application avaiable Languages
 	|--------------------------------------------------------------------------
 	|
-	| A list off avaiable languages defined from their ISO codes, see more: https://en.wikipedia.org/wiki/ISO_3166-1.
+	| A list off avaiable languages defined from their ISO Language Codes codes, see more: http://www.w3schools.com/tags/ref_language_codes.asp.
 	| If the code isn't on the list, HomeController@language will set from fallback_locale value.
 	! To set new languages, pelase create an folder in /resources/lang/{ISO-CODE}, create a flag image in public/img/{ISO-CODE}-flang.png
 	! and at least, add the ISO code in languages array.
 	*/
 
-	'languages' => ['en', 'fr', 'br'],	
+	'languages' => ['en', 'fr', 'pt-BR'],	
 
 	/*
 	|--------------------------------------------------------------------------
