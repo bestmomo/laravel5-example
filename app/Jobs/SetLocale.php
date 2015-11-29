@@ -13,7 +13,11 @@ class SetLocale extends Job implements SelfHandling
      *
      * @array $languages
      */
-    protected $languages = ['en','fr'];
+    protected $languages;
+	
+	public function __construct(){
+		$this->languages = config('app.languages');	
+	}
 
     /**
      * Execute the command.
@@ -22,6 +26,8 @@ class SetLocale extends Job implements SelfHandling
      */
     public function handle()
     {
+		
+		
         if(!session()->has('locale'))
         {
             session()->put('locale', Request::getPreferredLanguage($this->languages));
