@@ -13,7 +13,7 @@ class SetLocale extends Job implements SelfHandling
      *
      * @array $languages
      */
-    protected $languages = ['en','fr', 'br'];
+    protected $languages = ['en','fr'];
 
     /**
      * Execute the command.
