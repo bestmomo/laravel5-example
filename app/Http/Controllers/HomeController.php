@@ -20,18 +20,17 @@ class HomeController extends Controller
 	/**
 	 * Change language.
 	 *
-	 * @param  App\Jobs\ChangeLocaleCommand $changeLocaleCommand
+	 * @param  App\Jobs\ChangeLocaleCommand $changeLocale
+	 * @param  String $lang
 	 * @return Response
 	 */
-	public function language( $lang = false,
-		ChangeLocale $changeLocale)
+	public function language(
+		ChangeLocale $changeLocale,
+		$lang)
 	{
-		
-		$lang = in_array($lang, config('app.languages')) ? $lang : config('app.fallback_locale');
-		$changeLocale->lang = $lang;
+		$changeLocale->lang = in_array($lang, config('app.languages')) ? $lang : config('app.fallback_locale');
+
 		$this->dispatch($changeLocale);
 
 		return redirect()->back();
 	}
-
-}

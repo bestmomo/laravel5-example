@@ -9,17 +9,6 @@ use Illuminate\Contracts\Bus\SelfHandling;
 class SetLocale extends Job implements SelfHandling
 {
     /**
-     * The availables languages.
-     *
-     * @array $languages
-     */
-    protected $languages;
-	
-	public function __construct(){
-		$this->languages = config('app.languages');	
-	}
-
-    /**
      * Execute the command.
      *
      * @return void
@@ -30,7 +19,7 @@ class SetLocale extends Job implements SelfHandling
 		
         if(!session()->has('locale'))
         {
-            session()->put('locale', Request::getPreferredLanguage($this->languages));
+            session()->put('locale', Request::getPreferredLanguage( config('app.languages') );
         }
 
         app()->setLocale(session('locale'));
