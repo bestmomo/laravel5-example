@@ -92,8 +92,15 @@
 								</li>
 							@endif
 						@endif
-						<li class="imgflag">
-							<a href="{!! url('language') !!}"><img width="32" height="32" alt="en" src="{!! asset('img/' . (session('locale') == 'fr' ? 'english' : 'french') . '-flag.png') !!}"></a>
+						<li class="dropdown">
+							<a data-toggle="dropdown" class="dropdown-toggle" href="#"><img width="32" height="32" alt="{{ session('locale') }}"  src="{!! asset('img/' . session('locale') . '-flag.png') !!}" />&nbsp; <b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li>
+									<a href="{!! url('language') !!}/fr"><img width="32" height="32" alt="en" src="{!! asset('img/fr-flag.png') !!}"></a>
+									<a href="{!! url('language') !!}/en"><img width="32" height="32" alt="en" src="{!! asset('img/en-flag.png') !!}"></a>
+									<a href="{!! url('language') !!}/br"><img width="32" height="32" alt="br" src="{!! asset('img/br-flag.png') !!}"></a>
+								</li>
+							</ul>
 						</li>
 					</ul>
 				</div>
