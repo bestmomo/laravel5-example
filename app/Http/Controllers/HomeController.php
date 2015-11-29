@@ -26,7 +26,8 @@ class HomeController extends Controller
 	public function language( $lang = false,
 		ChangeLocale $changeLocale)
 	{
-		$lang = $lang ?: config('app.fallback_locale');
+		
+		$lang = in_array($lang, config('app.languages')) ? $lang : config('app.fallback_locale');
 		$changeLocale->lang = $lang;
 		$this->dispatch($changeLocale);
 
