@@ -16,10 +16,9 @@ class SetLocale extends Job implements SelfHandling
     public function handle()
     {
 		
-		
         if(!session()->has('locale'))
         {
-            session()->put('locale', Request::getPreferredLanguage( config('app.languages') );
+            session()->put('locale', Request::getPreferredLanguage( config('app.languages') ));
         }
 
         app()->setLocale(session('locale'));
