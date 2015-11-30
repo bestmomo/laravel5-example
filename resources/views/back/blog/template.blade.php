@@ -9,7 +9,7 @@
 @section('main')
 
 	<!-- Entête de page -->
-	@include('back.partials.entete', ['title' => trans('back/blog.dashboard'), 'icone' => 'pencil', 'fil' => link_to('blog', 'Articles') . ' / ' . trans('back/blog.creation')])
+	@include('back.partials.entete', ['title' => trans('back/blog.dashboard'), 'icone' => 'pencil', 'fil' => link_to('blog', trans('back/blog.posts')) . ' / ' . trans('back/blog.creation')])
 
 	<div class="col-sm-12">
 		@yield('form')
