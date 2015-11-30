@@ -53,9 +53,10 @@ class AdminController extends Controller {
 	 */
 	public function filemanager()
 	{
-		$url = config('medias.url');
+		$url = config('medias.url') . '?langCode=' . config('app.locale');
 		
 		return view('back.filemanager', compact('url'));
+
 	}
 
 }
