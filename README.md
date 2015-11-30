@@ -38,10 +38,12 @@
 * Messages admin
 * Posts admin (list with dynamic order, show, edit, delete, create)
 * Medias gestion
+* Localisation
 
 ### Packages included ###
 
 * laravelcollective/html
+* bestmomo/filemanager
 
 ### Tricks ###
 
