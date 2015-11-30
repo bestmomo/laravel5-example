@@ -7,6 +7,8 @@ use Illuminate\Contracts\Bus\SelfHandling;
 
 class ChangeLocale extends Job implements SelfHandling
 {
+	public $lang;
+	
     /**
      * Execute the job.
      *
@@ -14,6 +16,6 @@ class ChangeLocale extends Job implements SelfHandling
      */
     public function handle()
     {
-        session()->set('locale', session('locale') == 'fr' ? 'en' : 'fr');
+        session()->set('locale', $this->lang);
     }
 }

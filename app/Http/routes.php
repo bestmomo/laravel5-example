@@ -5,7 +5,7 @@ Route::get('/', [
 	'uses' => 'HomeController@index', 
 	'as' => 'home'
 ]);
-Route::get('language', 'HomeController@language');
+Route::get('language/{lang}', 'HomeController@language')->where('lang', '[A-Za-z_-]+');
 
 
 // Admin
