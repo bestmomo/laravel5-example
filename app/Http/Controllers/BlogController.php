@@ -58,7 +58,7 @@ class BlogController extends Controller {
 	public function indexFront()
 	{
 		$posts = $this->blog_gestion->indexFront($this->nbrPages);
-		$links = $posts->setPath('')->render();
+		$links = $posts->render();
 
 		return view('front.blog.index', compact('posts', 'links'));
 	}
@@ -254,7 +254,7 @@ class BlogController extends Controller {
 	{
 		$tag = $request->input('tag');
 		$posts = $this->blog_gestion->indexTag($this->nbrPages, $tag);
-		$links = $posts->setPath('')->appends(compact('tag'))->render();
+		$links = $posts->appends(compact('tag'))->render();
 		$info = trans('front/blog.info-tag') . '<strong>' . $this->blog_gestion->getTagById($tag) . '</strong>';
 		
 		return view('front.blog.index', compact('posts', 'links', 'info'));
@@ -270,7 +270,7 @@ class BlogController extends Controller {
 	{
 		$search = $request->input('search');
 		$posts = $this->blog_gestion->search($this->nbrPages, $search);
-		$links = $posts->setPath('')->appends(compact('search'))->render();
+		$links = $posts->appends(compact('search'))->render();
 		$info = trans('front/blog.info-search') . '<strong>' . $search . '</strong>';
 		
 		return view('front.blog.index', compact('posts', 'links', 'info'));

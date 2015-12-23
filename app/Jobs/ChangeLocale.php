@@ -3,9 +3,8 @@
 namespace App\Jobs;
 
 use App\Jobs\Job;
-use Illuminate\Contracts\Bus\SelfHandling;
 
-class ChangeLocale extends Job implements SelfHandling
+class ChangeLocale extends Job
 {
 	public $lang;
 	

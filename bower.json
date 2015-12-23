@@ -1,6 +1,0 @@
-{
-  "name": "Laravel Application",
-  "dependencies": {
-    "bootstrap-sass-official": "~3.3.1"
-  }
-}

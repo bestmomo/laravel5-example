@@ -4,9 +4,8 @@ namespace App\Jobs;
 
 use App\Jobs\Job;
 use Request;
-use Illuminate\Contracts\Bus\SelfHandling;
 
-class SetLocale extends Job implements SelfHandling
+class SetLocale extends Job
 {
     /**
      * Execute the command.

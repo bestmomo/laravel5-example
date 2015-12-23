@@ -5,10 +5,9 @@ namespace App\Jobs;
 use App\Jobs\Job;
 use App\Models\User;
 use Request;
-use Illuminate\Contracts\Bus\SelfHandling;
 use Illuminate\Contracts\Mail\Mailer;
 
-class SendMail extends Job implements SelfHandling
+class SendMail extends Job
 {
 
     /**

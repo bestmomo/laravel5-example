@@ -58,7 +58,7 @@ class RoleRepository {
 	 */
 	public function getAllSelect()
 	{
-		$select = $this->all()->lists('title', 'id');
+		$select = $this->all()->pluck('title', 'id');
 
 		return compact('select');
 	}

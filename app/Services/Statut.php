@@ -5,12 +5,12 @@ class Statut  {
 	/**
 	 * Set the login user statut
 	 * 
-	 * @param  App\Models\User $user
+	 * @param  Illuminate\Auth\Events\Login $login
 	 * @return void
 	 */
-	public function setLoginStatut($user)
+	public function setLoginStatut($login)
 	{
-		session()->put('statut', $user->role->slug);
+		session()->put('statut', $login->user->role->slug);
 	}
 
 	/**

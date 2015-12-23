@@ -62,7 +62,7 @@ class UserController extends Controller {
 	{
 		$counts = $this->user_gestion->counts();
 		$users = $this->user_gestion->index(4, $role); 
-		$links = $users->setPath('')->render();
+		$links = $users->render();
 		$roles = $this->role_gestion->all();
 
 		return view('back.users.index', compact('users', 'links', 'counts', 'roles'));		
@@ -124,7 +124,7 @@ class UserController extends Controller {
 	 */
 	public function update(
 		UserUpdateRequest $request,
-		$user)
+		User $user)
 	{
 		$this->user_gestion->update($request->all(), $user);
 
@@ -140,7 +140,7 @@ class UserController extends Controller {
 	 */
 	public function updateSeen(
 		Request $request, 
-		$user)
+		User $user)
 	{
 		$this->user_gestion->update($request->all(), $user);
 
