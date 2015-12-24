@@ -7,7 +7,7 @@
     "require": {
         "php": ">=5.5.9",
         "laravel/framework": "5.2.*",
-        "laravelcollective/html": "5.2.*-dev",
+        "laravelcollective/html": "5.2.*",
         "bestmomo/filemanager": "1.1.2"
     },
     "require-dev": {
