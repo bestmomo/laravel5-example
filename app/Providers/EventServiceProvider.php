@@ -12,10 +12,7 @@ class EventServiceProvider extends ServiceProvider {
 	 */
 	protected $listen = [
 		'Illuminate\Auth\Events\Login' => ['App\Listeners\LoginSuccess'],
-		//'Illuminate\Auth\Events\Login' => ['App\Services\Statut@setLoginStatut'],
 		'Illuminate\Auth\Events\Logout' => ['App\Listeners\LogoutSuccess'],
-		//'Illuminate\Auth\Events\Logout' => ['App\Services\Statut@setVisitorStatut'],
-		//'user.access' => ['App\Services\Statut@setStatut']
 		'App\Event\UserAccess' => ['App\Listeners\UserAccess']
 	];
 
