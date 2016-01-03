@@ -7,6 +7,7 @@ use Closure;
 use App\Jobs\SetLocale;
 
 use Illuminate\Bus\Dispatcher as BusDispatcher;
+use App\Events\UserAccess;
 
 class App
 {
@@ -51,7 +52,7 @@ class App
 	{
 		$this->bus->dispatch($this->setLocale);
 
-		event('user.access');
+		event(new UserAccess);
 
 		return $next($request);
 	}
