@@ -55,33 +55,13 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	}
 
 	/**
-	 * Check admin role
-	 *
-	 * @return bool
-	 */
-	public function isAdmin()
-	{
-		return $this->role->slug == 'admin';
-	}
-
-	/**
-	 * Check not user role
-	 *
-	 * @return bool
-	 */
-	public function isNotUser()
-	{
-		return $this->role->slug != 'user';
-	}
-
-	/**
 	 * Check media all access
 	 *
 	 * @return bool
 	 */
 	public function accessMediasAll()
 	{
-	    return $this->isAdmin();
+	    return $this->role->slug == 'admin';
 	}
 
 	/**
@@ -91,7 +71,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 */
 	public function accessMediasFolder()
 	{
-	    return $this->isNotUser();
+	    return $this->role->slug != 'user';
 	}
 
 }

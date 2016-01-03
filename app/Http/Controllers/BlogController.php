@@ -46,7 +46,7 @@ class BlogController extends Controller {
 		$this->nbrPages = 2;
 
 		$this->middleware('redac', ['except' => ['indexFront', 'show', 'tag', 'search']]);
-		$this->middleware('admin', ['only' => ['updateSeen', 'updateActive']]);
+		$this->middleware('admin', ['only' => 'updateSeen']);
 		$this->middleware('ajax', ['only' => ['updateSeen', 'updateActive']]);
 	}	
 
@@ -222,6 +222,10 @@ class BlogController extends Controller {
 		Request $request, 
 		$id)
 	{
+		$post = $this->blog_gestion->getById($id);
+
+		$this->authorize('change', $post);
+		
 		$this->blog_gestion->updateActive($request->all(), $id);
 
 		return response()->json();

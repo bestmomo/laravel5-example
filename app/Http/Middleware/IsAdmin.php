@@ -14,9 +14,7 @@ class IsAdmin {
 	 */
 	public function handle($request, Closure $next)
 	{
-		$user = $request->user();
-
-		if ($user && $user->isAdmin())
+		if (session('statut') === 'admin')
 		{
 			return $next($request);
 		}

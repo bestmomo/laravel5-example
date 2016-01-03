@@ -16,7 +16,7 @@ class PostPolicy
      */
 	public function before(User $user, $ability)
 	{
-	    if ($user->isAdmin()) {
+	    if (session('statut') === 'admin') {
 	        return true;
 	    }
 	}

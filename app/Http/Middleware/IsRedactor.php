@@ -14,9 +14,7 @@ class IsRedactor {
 	 */
 	public function handle($request, Closure $next)
 	{
-		$user = $request->user();
-
-		if ($user && $user->isNotUser())
+		if (session('statut') === 'admin' || session('statut') === 'redac')
 		{
 			return $next($request);
 		}
