@@ -32,7 +32,6 @@ class AuthController extends Controller
 	 * Handle a login request to the application.
 	 *
 	 * @param  App\Http\Requests\LoginRequest  $request
-	 * @param  App\Services\MaxValueDelay  $maxValueDelay
 	 * @param  Guard  $auth
 	 * @return Response
 	 */
