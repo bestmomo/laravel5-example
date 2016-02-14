@@ -14,6 +14,8 @@
 * `php artisan vendor:publish` to publish filemanager
 * `php artisan serve` to start the app on http://localhost:8000/
 
+Another cool way to install it is to upload [this package](http://laravel.sillo.org/tuto/installable.zip), unpack it in your server folder, and just launch it and follow the installation windows. It has been created with my [laravel installer package](https://github.com/bestmomo/laravel-installer). Anyway you'll have to set the email configuration.
+
 ### Include ###
 
 * [HTML5 Boilerplate](http://html5boilerplate.com) for front architecture
