@@ -2,7 +2,7 @@
 
 namespace App\Listeners;
 
-use App\Events\UserAccess;
+use App\Events\UserAccess as UserAccessEvent;
 
 class UserAccess extends ListenerBase
 {
@@ -12,7 +12,7 @@ class UserAccess extends ListenerBase
      * @param  UserAccess  $event
      * @return void
      */
-    public function handle(UserAccess $event)
+    public function handle(UserAccessEvent $event)
     {
         $this->statut->setStatut();
     }
