@@ -66,6 +66,9 @@ Route::group(['middleware' => ['web']], function () {
 	Route::get('auth/logout', 'Auth\AuthController@getLogout');
 	Route::get('auth/confirm/{token}', 'Auth\AuthController@getConfirm');
 
+	// Resend routes...
+	Route::get('auth/resend', 'Auth\AuthController@getResend');
+
 	// Registration routes...
 	Route::get('auth/register', 'Auth\AuthController@getRegister');
 	Route::post('auth/register', 'Auth\AuthController@postRegister');
