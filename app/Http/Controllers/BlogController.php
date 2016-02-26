@@ -100,7 +100,7 @@ class BlogController extends Controller {
 		if($request->ajax()) {
 			return response()->json([
 				'view' => view('back.blog.table', compact('statut', 'posts'))->render(), 
-				'links' => $links->setPath('order')->render()
+				'links' => e($links->setPath('order')->render())
 			]);		
 		}
 

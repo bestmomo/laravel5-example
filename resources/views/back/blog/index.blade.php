@@ -20,19 +20,19 @@
             <th>
               {{ trans('back/blog.title') }} 
               <a href="#" name="posts.title" class="order">
-                <span class="fa fa-fw fa-{{ $order->name == 'title' ? $order->sens : 'unsorted'}}"></span>
+                <span class="fa fa-fw fa-{{ $order->name == 'posts.title' ? $order->sens : 'unsorted'}}"></span>
               </a>
             </th>
             <th>
               {{ trans('back/blog.date') }}
               <a href="#" name="posts.created_at" class="order">
-                <span class="fa fa-fw fa-{{ $order->name == 'created_at' ? $order->sens : 'unsorted'}}"></span>
+                <span class="fa fa-fw fa-{{ $order->name == 'posts.created_at' ? $order->sens : 'unsorted'}}"></span>
               </a>
             </th>
             <th>
               {{ trans('back/blog.published') }}
               <a href="#" name="posts.active" class="order">
-                <span class="fa fa-fw fa-{{ $order->name == 'active' ? $order->sens : 'unsorted'}}"></span>
+                <span class="fa fa-fw fa-{{ $order->name == 'posts.active' ? $order->sens : 'unsorted'}}"></span>
               </a>
             </th> 
             @if(session('statut') == 'admin')
@@ -133,6 +133,7 @@
           $('span', this).addClass('fa fa-fw fa-sort-asc');
           tri = 'asc';
         }
+        var name = $(this).attr('name');
         // Wait icon
         $('.breadcrumb li').append('<span id="tempo" class="fa fa-refresh fa-spin"></span>');       
         // Send ajax
@@ -140,11 +141,11 @@
           url: '{{ url('blog/order') }}',
           type: 'GET',
           dataType: 'json',
-          data: "name=" + $(this).attr('name') + "&sens=" + tri
+          data: "name=" + name + "&sens=" + tri
         })
         .done(function(data) {
           $('tbody').html(data.view);
-          $('.link').html(data.links);
+          $('.link').html(data.links.replace('posts.(.+)&sens', name));
           $('#tempo').remove();
         })
         .fail(function() {
