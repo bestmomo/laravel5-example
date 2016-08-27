@@ -1,6 +1,8 @@
 ## Laravel 5 example ##
 
-**Laravel 5 example** is a tutorial application (in french [there](http://laravel.sl-creation.org/)).
+For Laravel 5.3 improved version look at [this repository](https://github.com/bestmomo/laravel5-3-example).
+
+**Laravel 5 example** is a tutorial application for Laravel 5.2 (in french [there](http://laravel.sillo.org/laravel-5/)).
 
 ### Installation ###
 
