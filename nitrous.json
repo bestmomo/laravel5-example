@@ -1,0 +1,10 @@
+{
+  "template": "php-apache",
+  "ports": [8000],
+  "name": "Laravel 5 example",
+  "description": "Simple laravel5 example for tutorial",
+  "scripts": {
+    "post-create": "cd ~/code/laravel5-example && composer install && php artisan key:generate && mysql -u root -e 'create database laravel_base' && php artisan migrate --seed && php artisan vendor:publish",
+    "Start Laravel 5 Example": "cd ~/code/laravel5-example/ && php artisan serve --host 0.0.0.0"
+  }
+}
