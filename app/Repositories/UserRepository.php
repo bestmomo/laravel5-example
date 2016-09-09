@@ -155,7 +155,7 @@ class UserRepository extends BaseRepository
 	 * @return void
 	 */
 	public function update($inputs, $user)
-	{		
+	{
 		$user->confirmed = isset($inputs['confirmed']);
 
 		$this->save($user, $inputs);
@@ -193,12 +193,19 @@ class UserRepository extends BaseRepository
 	 * @param  App\Models\User $user
 	 * @return void
 	 */
-	public function destroyUser(User $user)
-	{
-		$user->comments()->delete();
-		
-		$user->delete();
-	}
+    public function destroyUser(User $user)
+    {
+        $user->comments()->delete();
+
+        $posts = $user->posts()->get();
+
+        foreach ($posts as $post) {
+            $post->tags()->detach();
+            $post->delete();
+        }
+        
+        $user->delete();
+    }
 
 	/**
 	 * Confirm a user.
