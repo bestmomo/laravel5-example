@@ -1,0 +1,2 @@
+sudo chown -R :nginx bootstrap/cache storage
+sudo chmod -R ug+rwX bootstrap/cache storage
