@@ -40,7 +40,7 @@
 							</td>
 						</tr>
 					</tbody>
-				</table>	
+				</table>
 			</div>
 			<div class="panel-body">
 				{{ $message->text }}
@@ -53,16 +53,16 @@
 @section('scripts')
 
 	<script>
-		
+
     $(function() {
-			$(':checkbox').change(function() {     
+			$(':checkbox').change(function() {
 				$(this).parents('.panel').toggleClass('panel-warning').toggleClass('panel-default');
 				$(this).hide().parent().append('<i class="fa fa-refresh fa-spin"></i>');
 				var token = $('input[name="_token"]').val();
 				$.ajax({
 					url: 'contact/' + this.value,
-					type: 'PUT',
-					data: "seen=" + this.checked + "&_token=" + token
+					type: 'POST',
+					data: "_method=PUT&seen=" + this.checked + "&_token=" + token
 				})
 				.done(function() {
 					$('.fa-spin').remove();

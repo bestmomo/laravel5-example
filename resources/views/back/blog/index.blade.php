@@ -18,7 +18,7 @@
         <thead>
           <tr>
             <th>
-              {{ trans('back/blog.title') }} 
+              {{ trans('back/blog.title') }}
               <a href="#" name="posts.title" class="order">
                 <span class="fa fa-fw fa-{{ $order->name == 'posts.title' ? $order->sens : 'unsorted'}}"></span>
               </a>
@@ -34,14 +34,14 @@
               <a href="#" name="posts.active" class="order">
                 <span class="fa fa-fw fa-{{ $order->name == 'posts.active' ? $order->sens : 'unsorted'}}"></span>
               </a>
-            </th> 
+            </th>
             @if(session('statut') == 'admin')
               <th>
                 {{ trans('back/blog.author') }}
                 <a href="#" name="username" class="order">
                   <span class="fa fa-fw fa-{{ $order->name == 'username' ? $order->sens : 'unsorted'}}"></span>
                 </a>
-              </th>            
+              </th>
               <th>
                 {{ trans('back/blog.seen') }}
                 <a href="#" name="posts.seen" class="order">
@@ -67,7 +67,7 @@
 @section('scripts')
 
   <script>
-    
+
     $(function() {
 
       // Seen gestion
@@ -77,8 +77,8 @@
         var token = $('input[name="_token"]').val();
         $.ajax({
           url: '{{ url('postseen') }}' + '/' + this.value,
-          type: 'PUT',
-          data: "seen=" + this.checked + "&_token=" + token
+          type: 'POST',
+          data: "_method=PUT&seen=" + this.checked + "&_token=" + token
         })
         .done(function() {
           $('.fa-spin').remove();
@@ -98,8 +98,8 @@
         var token = $('input[name="_token"]').val();
         $.ajax({
           url: '{{ url('postactive') }}' + '/' + this.value,
-          type: 'PUT',
-          data: "active=" + this.checked + "&_token=" + token
+          type: 'POST',
+          data: "_method=PUT&active=" + this.checked + "&_token=" + token
         })
         .done(function() {
           $('.fa-spin').remove();
@@ -135,7 +135,7 @@
         }
         var name = $(this).attr('name');
         // Wait icon
-        $('.breadcrumb li').append('<span id="tempo" class="fa fa-refresh fa-spin"></span>');       
+        $('.breadcrumb li').append('<span id="tempo" class="fa fa-refresh fa-spin"></span>');
         // Send ajax
         $.ajax({
           url: '{{ url('blog/order') }}',
