@@ -12,7 +12,7 @@ return [
     | services your application utilizes. Set this in your ".env" file.
     |
     */
-   
+
     'env' => env('APP_ENV', 'production'),
 
 	/*
@@ -66,7 +66,7 @@ return [
 	*/
 
 	'locale' => 'en',
-	
+
 	/*
 	|--------------------------------------------------------------------------
 	| Application available Languages
@@ -78,7 +78,7 @@ return [
 	! and at least, add the ISO code in languages array.
 	*/
 
-	'languages' => ['en', 'fr', 'pt-BR'],	
+	'languages' => ['en', 'fr', 'pt-BR', 'ja'],
 
 	/*
 	|--------------------------------------------------------------------------
