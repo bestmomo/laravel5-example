@@ -1,3 +1,4 @@
 nbproject
 vendor
 composer.lock
+.env
