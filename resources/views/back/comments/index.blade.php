@@ -51,11 +51,11 @@
 							</td>
 						</tr>
 			  		</tbody>
-					</table>	
+					</table>
 				</div>
 				<div class="panel-body">
 					{!! $comment->content !!}
-				</div> 
+				</div>
 			</div>
 		@endforeach
 	</div>
@@ -69,19 +69,19 @@
 @section('scripts')
 
 	<script>
-		
-		
+
+
 		$(function() {
 
 			// Seen gestion
-			$(":checkbox[name='seen']").change(function() {     
+			$(":checkbox[name='seen']").change(function() {
 				$(this).parents('.panel').toggleClass('panel-warning').toggleClass('panel-default');
 				$(this).hide().parent().append('<i class="fa fa-refresh fa-spin"></i>');
 				var token = $('input[name="_token"]').val();
 				$.ajax({
 					url: 'commentseen/' + this.value,
-					type: 'PUT',
-					data: "seen=" + this.checked + "&_token=" + token
+					type: 'POST',
+					data: "_method=PUT&seen=" + this.checked + "&_token=" + token
 				})
 				.done(function() {
 					$('.fa-spin').remove();
@@ -97,7 +97,7 @@
 			});
 
 			// Gestion de valide
-			$(":checkbox[name='valide']").change(function() { 
+			$(":checkbox[name='valide']").change(function() {
 				var cases = $(":checkbox[name='valide'][value='" + this.value + "']");
 				cases.prop('checked', this.checked);
 				cases.parents('.panel-heading').toggleClass('border-red');
@@ -105,8 +105,8 @@
 				var token = $('input[name="_token"]').val();
 				$.ajax({
 					url: '{!! url('uservalid') !!}' + '/' + this.value,
-					type: 'PUT',
-					data: "valid=" + this.checked + "&_token=" + token
+					type: 'POST',
+					data: "_method=PUT&valid=" + this.checked + "&_token=" + token
 				})
 				.done(function() {
 					$('.fa-spin').remove();
@@ -115,7 +115,7 @@
 				.fail(function() {
 					$('.fa-spin').remove();
 					var cases = $('input[type="checkbox"]:hidden');
-					cases.parents('.panel-heading').toggleClass('border-red'); 
+					cases.parents('.panel-heading').toggleClass('border-red');
 					cases.show().prop('checked', cases.is(':checked') ? null:'checked');
 					alert('{{ trans('back/comments.fail') }}');
 				});
