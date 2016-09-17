@@ -2,3 +2,4 @@ nbproject
 vendor
 composer.lock
 .env
+.idea
